@@ -1,4 +1,4 @@
-package com.example.aquawalkers;
+package com.example.aquawalkers.modelos;
 
 public class Zapatilla {
     private int id;
