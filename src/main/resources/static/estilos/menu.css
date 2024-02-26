@@ -1,0 +1,28 @@
+.menu {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+
+.left-categories a,
+.right-categories a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+}
+
+.left-categories a:hover,
+.right-categories a:hover {
+    background-color: #ddd;
+}
+
+.left-categories,
+.right-categories {
+    display: flex;
+}
+
+.left-categories,
+.right-categories a {
+    margin-left: 10px;
+}
