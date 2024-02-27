@@ -18,5 +18,9 @@ public class EnlacesController {
     public String zapatilla(Model model){
         return "zapatilla";
     }
-}
 
+    @GetMapping("/register")
+    public String register(Model model){
+        return "index";
+    }
+}
