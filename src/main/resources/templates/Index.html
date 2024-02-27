@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/estilos/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div  class="container">
+        <div class="form-content">
+            <h1 id="title">Registro</h1>
+            <form>
+            <div class="input-group">
+                    <div class="input-field" id="nameInput">
+                        <i class="fa-solid fa-user"></i>
+                        <label>
+                            <input type="text" placeholder="Nombre">
+                        </label>
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <label>
+                            <input type="email" placeholder="Correo">
+                        </label>
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <label>
+                            <input type="password" placeholder="Contraseña">
+                        </label>
+                    </div>
+                    <p>Olvidé mi contraseña <a href="#">click aquí</a></p>
+                </div>
+                <div class="btn-field">
+                    <button id="signUp" type="button">Registro</button>
+                    <button id="singIn" type="button" class="disbale">Login</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts/scipt.js"></script>
+</body>
+</html>
