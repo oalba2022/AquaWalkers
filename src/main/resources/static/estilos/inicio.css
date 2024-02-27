@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #c0faf8;
+}
+
+.col-md-4{
+    display: inline-flex;
+    border: solid 1px;
+}
+
+.col-md-4 img{
+    margin: auto;
+}
