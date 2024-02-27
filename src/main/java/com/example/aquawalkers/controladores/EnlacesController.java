@@ -10,7 +10,7 @@ public class EnlacesController {
 
     @GetMapping("/inicio")
     public String inicio(Model model){
-        return "index";
+        return "inicio";
     }
 
 
