@@ -19,9 +19,21 @@
 .col-md-4{
     display: inline-flex;
     border: solid 1px;
+    margin: auto;
 
 }
 
 .col-md-4 img{
     margin: auto;
+}
+
+h2{
+    width:75%;
+    margin:auto;
+}
+
+.btn{
+    width: 50%;
+    margin: auto;
+    border-radius: 100px;
 }
