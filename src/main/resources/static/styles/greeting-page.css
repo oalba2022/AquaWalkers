@@ -4,10 +4,10 @@
     padding-bottom: 30%;
 }
 
-/*#banner1 {
-    background-image: url("../imagenes/inicio/banner1.jpg");
+#banner1 {
+    background-image: url("../images/greeting-page/banner1.jpg");
 }
-
+/*
 #banner2 {
     background-image: url("../imagenes/inicio/banner2.jpg");
 }

@@ -24,5 +24,5 @@ public class LinksController {
         return "greeting-page";
     }
     @GetMapping("/Sobre-Nosotros")
-    public String sobreNosotros(Model model){return "Sobre Nosotros";}
+    public String sobreNosotros(Model model){return "about-us";}
 }
