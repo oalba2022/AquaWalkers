@@ -23,4 +23,6 @@ public class EnlacesController {
     public String register(Model model){
         return "inicio";
     }
+    @GetMapping("/Sobre-Nosotros")
+    public String sobreNosotros(Model model){return "Sobre Nosotros";}
 }
