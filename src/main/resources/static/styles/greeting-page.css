@@ -1,8 +1,9 @@
 #banner, #banner2, #banner3 {
     width: 100%;
     background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
+
 }
 
 #banner1 {
@@ -14,10 +15,12 @@
 
 #banner2 {
     background-image: url("../images/greeting-page/banner2.jpg");
+    height: 900px;
 }
 
 #banner3 {
     background-image: url("../images/greeting-page/banner3.jpg");
+    height: 900px;
 }
 
 .col-md-4{
