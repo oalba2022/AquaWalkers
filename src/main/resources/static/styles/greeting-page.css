@@ -1,4 +1,4 @@
-#banner, #banner2, #banner3 {
+#banner1, #banner2, #banner3 {
     width: 100%;
     background-position: center;
     background-size: cover;
@@ -9,7 +9,6 @@
 #banner1 {
     background-image: url("../images/greeting-page/banner1.jpg");
     height: 500px;
-    padding-bottom: 30%;
 }
 
 

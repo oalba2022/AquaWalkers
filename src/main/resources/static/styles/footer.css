@@ -62,3 +62,12 @@ footer {
 .copyright p{
     color:white;
 }
+
+#siguenos {
+    text-align: center;
+    color: white;
+}
+
+#footer-menu {
+    list-style-type: none;
+}
