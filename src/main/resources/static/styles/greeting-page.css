@@ -1,24 +1,24 @@
 #banner, #banner2, #banner3 {
     width: 100%;
-    padding-bottom: 30%;
-}
-
-#banner1 {
-    background-image: url("../images/greeting-page/banner1.jpg");
-    height: 500px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-/*
+#banner1 {
+    background-image: url("../images/greeting-page/banner1.jpg");
+    height: 500px;
+    padding-bottom: 30%;
+}
+
+
 #banner2 {
-    background-image: url("../imagenes/inicio/banner2.jpg");
+    background-image: url("../images/greeting-page/banner2.jpg");
 }
 
 #banner3 {
-    background-image: url("../imagenes/inicio/banner3.jpg");
-}*/
+    background-image: url("../images/greeting-page/banner3.jpg");
+}
 
 .col-md-4{
     display: inline-flex;
