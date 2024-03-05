@@ -1,29 +1,31 @@
 package com.example.aquawalkers.models;
 
 public class Shoe {
-    private int id;
+    private Long id;
     private String nombre;
     private String marca;
-    private String descripción;
+    private String descripcion;
+    private String image;
     private int stock;
     private int talla;
     private float precio;
 
-    public Shoe(int id, String nombre, String marca, String descripción, int stock, int talla, float precio) {
+    public Shoe(Long id, String nombre, String marca, String descripcion, String image, int stock, int talla, float precio) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;
-        this.descripción = descripción;
+        this.descripcion = descripcion;
+        this.image = image;
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,12 +45,20 @@ public class Shoe {
         this.marca = marca;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getStock() {
@@ -77,11 +87,12 @@ public class Shoe {
 
     @Override
     public String toString() {
-        return "Zapatilla{" +
+        return "Shoe{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", marca='" + marca + '\'' +
-                ", descripción='" + descripción + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", image='" + image + '\'' +
                 ", stock=" + stock +
                 ", talla=" + talla +
                 ", precio=" + precio +
