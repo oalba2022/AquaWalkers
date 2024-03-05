@@ -26,4 +26,8 @@ public class LinksController {
     @GetMapping("/Sobre-Nosotros")
     public String sobreNosotros(Model model){return "about-us";}
     //No esta la pagina
+    @GetMapping("/allShoes")
+    public String allShoes(Model model){
+        return "allShoes";
+    }
 }

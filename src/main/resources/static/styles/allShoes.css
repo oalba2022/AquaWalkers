@@ -1,0 +1,25 @@
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    align-items: stretch;
+    justify-items: center;
+}
+.grid image {
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+    max-width: 100%;
+}
+
+.image{
+    width: 100% !important;
+    height: 240px !important;
+    text-align: center;
+    border: solid 1px black;
+}
+
+.image img{
+    width: 100%;
+    height: 90%;
+}
