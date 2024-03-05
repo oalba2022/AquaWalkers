@@ -1,6 +1,6 @@
-package com.example.aquawalkers.modelos;
+package com.example.aquawalkers.models;
 
-public class Zapatilla {
+public class Shoe {
     private int id;
     private String nombre;
     private String marca;
@@ -9,7 +9,7 @@ public class Zapatilla {
     private int talla;
     private float precio;
 
-    public Zapatilla(int id, String nombre, String marca, String descripción, int stock, int talla, float precio) {
+    public Shoe(int id, String nombre, String marca, String descripción, int stock, int talla, float precio) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;
