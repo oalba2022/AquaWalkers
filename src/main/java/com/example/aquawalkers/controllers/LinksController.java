@@ -30,7 +30,7 @@ public class LinksController {
 
     @GetMapping("/allShoes")
     public String allShoes(Model model){
-        return "allShoes";
+        return "allshoes";
     }
 
 }

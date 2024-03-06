@@ -1,5 +1,7 @@
 package com.example.aquawalkers.models;
 
+import java.util.ArrayList;
+
 public class Shoe {
     private Long id;
     private String nombre;
@@ -10,6 +12,8 @@ public class Shoe {
     private int talla;
     private float precio;
 
+    private ArrayList<Comment> comentarios;
+
     public Shoe(Long id, String nombre, String marca, String descripcion, String image, int stock, int talla, float precio) {
         this.id = id;
         this.nombre = nombre;
@@ -19,6 +23,7 @@ public class Shoe {
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
+        this.comentarios = new ArrayList<Comment>();
     }
 
     public Long getId() {
@@ -83,6 +88,10 @@ public class Shoe {
 
     public void setPrecio(float precio) {
         this.precio = precio;
+    }
+
+    public void addComment(Comment c){
+        this.comentarios.add(c);
     }
 
     @Override
