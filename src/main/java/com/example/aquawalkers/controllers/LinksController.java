@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LinksController {
 
     @GetMapping("/inicio")
+
     public String inicio(Model model){
         return "greeting-page";
     }
@@ -23,11 +24,13 @@ public class LinksController {
     public String register(Model model){
         return "greeting-page";
     }
-    @GetMapping("/about")
-    public String about(Model model){return "about-us";}
-    //No esta la pagina
+
+    @GetMapping("/Sobre-Nosotros")
+    public String sobreNosotros(Model model){return "about-us";}
+
     @GetMapping("/allShoes")
     public String allShoes(Model model){
         return "allShoes";
     }
+
 }
