@@ -1,6 +1,7 @@
 package com.example.aquawalkers.service;
 
 import com.example.aquawalkers.models.Shoe;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@Component
 public class ShoeService {
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
@@ -35,5 +37,13 @@ public class ShoeService {
         shoe.setId(id);
         shoes.put(id, shoe);
         return shoe;
+    }
+
+    public boolean delete(long id){
+        if (this.exist(id)){
+            this.shoes.remove(id);
+            return true;
+        }
+        return false;
     }
 }
