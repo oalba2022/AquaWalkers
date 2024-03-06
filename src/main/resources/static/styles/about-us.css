@@ -1,19 +1,12 @@
-*{
-    margin: 0px;
-    padding:0px;
-    box-sizing: border-box;
-    font-family: 'Poppins',sans-serif;
 
-}
 .section{
     width: 100%;
     min-height: 100vh;
-    background-image: url("../images/About/about-us.jpg");
-    background-size: cover;
-    background-position: center;
+    background-image: linear-gradient(#8FD1FF,  #111);
 }
+
 .title{
-    color:orange;
+    color:whitesmoke;
     text-align:center ;
     font-weight: bold;
     font-size:3em;
@@ -25,7 +18,9 @@
     margin: auto;
 }
 .content{
-    text-align: justify;
+    text-align: center;
     color: white;
-    margin:auto;
+    margin-bottom: 250px;
+    font-family: "Poppins";
+
 }
