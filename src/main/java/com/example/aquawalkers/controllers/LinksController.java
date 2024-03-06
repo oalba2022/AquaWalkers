@@ -24,6 +24,13 @@ public class LinksController {
     public String register(Model model){
         return "greeting-page";
     }
+
     @GetMapping("/Sobre-Nosotros")
     public String sobreNosotros(Model model){return "about-us";}
+
+    @GetMapping("/allShoes")
+    public String allShoes(Model model){
+        return "allShoes";
+    }
+
 }
