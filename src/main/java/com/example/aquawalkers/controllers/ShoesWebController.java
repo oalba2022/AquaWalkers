@@ -29,7 +29,7 @@ public class ShoesWebController {
         return "allshoes";
     }
 
-    @GetMapping("/zapatillas/{id}")
+    @GetMapping("/zapatilla/{id}")
     public String showShoe(Model model, @PathVariable long id){
         Optional<Shoe> zapatilla = shoeService.findById(id);
         if(zapatilla.isPresent()){
@@ -48,10 +48,18 @@ public class ShoesWebController {
     @PostMapping("/newshoe")
     public String newShoeProcess(Model model, Shoe shoe){
         Shoe newShoe = shoeService.save(shoe);
-       // model.addAttribute("shoeId", newShoe);
-        return "redirect:/zapatillas/"+newShoe.getId();
+        model.addAttribute("shoeId", newShoe);
+        return "redirect:/zapatilla/"+newShoe.getId();
     }
 
-
+    @GetMapping("/deleteshoe/{id}")
+    public String deleteShoe(Model model, @PathVariable long id){
+        Optional<Shoe> zapatilla = shoeService.findById(id);
+        if(zapatilla.isPresent()){
+            shoeService.delete(id);
+            return "deleteshoe";
+        }
+        return "allshoes";
+    }
 
 }
