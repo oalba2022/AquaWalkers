@@ -1,15 +1,16 @@
 
 {{>menu}}
+{{#zapatilla}}
 <div class="container">
-    <div class="marca">"Marca"</div>
+    <div class="marca">{{marca}}</div>
     <div class="detail">
         <div class="image">
             <img src="/images/tn.png" id="shoe"/> <!-- Importar imagenes diamico-->
         </div>
         <div class="shoecontent">
-            <h1 class="name">"ZAPATILLA"</h1>
-            <div class="price">"precio"</div>
-            <div class="description">"descripcion de la zapatilla"</div>
+            <h1 class="name">{{nombre}}</h1>
+            <div class="price">{{precio}}</div>
+            <div class="description">{{descripcion}}</div>
             <br>
             <div class="tallas">
                 <div class="dropdown">
@@ -34,6 +35,7 @@
                         </span>
                 </button>
             </div>
+{{/zapatilla}}
 
             <div class="comments">
                 <form>
