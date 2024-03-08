@@ -3,6 +3,8 @@ package com.example.aquawalkers.service;
 import com.example.aquawalkers.models.Shoe;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
