@@ -1,7 +1,7 @@
 
 {{>menu}}
 {{#zapatilla}}
-<div class="container">
+<div class="container" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="marca">{{marca}}</div>
     <div class="detail">
         <div class="image">
@@ -36,14 +36,19 @@
                 </button>
             </div>
 {{/zapatilla}}
-
             <div class="comments">
-                <form>
+                <form action="/zapatilla/{{id}}/escribirComentario" method="post" >
                     <div class="form-group">
-                        <textarea class="form-control" rows="5">¿Que te parece esta zapatilla?</textarea>
+                        <label>
+                            Cuéntanos qué te parece esta zapatilla: <input type="text" name="comment"/>
+                        </label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar comentario</button>
                 </form>
+                <div >
+                </div>
+                <div>
+                    {{zapatilla.comentarios}}
+                </div>
             </div>
         </div>
     </div>

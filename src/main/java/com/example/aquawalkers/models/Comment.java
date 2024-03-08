@@ -1,35 +1,27 @@
 package com.example.aquawalkers.models;
 
 public class Comment {
-    private Long id;
-    private User user;
+    //private Long idComment;
     private String comment;
 
-    public Comment(Long id, User user, String comment) {
-        this.id = id;
-        this.user = user;
+    public Comment(/*Long id*/ String comment) {
+        //this.idComment = id;
+
         this.comment = comment;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /*public void setIdComment(Long idComment) {
+        this.idComment = idComment;
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+*/
 
     public void setComment(String comment) {
         this.comment = comment;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
+    /*public Long getIdComment() {
+        return idComment;
+    }*/
 
     public String getComment() {
         return comment;
@@ -37,10 +29,6 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", user=" + user +
-                ", comment='" + comment + '\'' +
-                '}';
+        return " " + comment;
     }
 }
