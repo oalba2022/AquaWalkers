@@ -33,4 +33,11 @@ public class LinksController {
         return "allshoes";
     }
 
+    @GetMapping("/userCard")
+    public String userCard(Model model){
+        return "userCard";
+    }
+
+
+
 }
