@@ -18,4 +18,12 @@ public class User {
         this.carrito = new ArrayList<Shoe>();
         this.comentariosEscritos = new ArrayList<Comment>();
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
