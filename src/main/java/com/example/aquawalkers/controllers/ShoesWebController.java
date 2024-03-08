@@ -1,5 +1,6 @@
 package com.example.aquawalkers.controllers;
 
+import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.service.ShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,17 @@ public class ShoesWebController {
         }
         return "allshoes";
     }
+
+    /*@GetMapping("/zapatilla/{id}/escribirComentario")
+    public String escribirComentario(Model model){
+        return"escribirComentario";
+    }*/
+  @PostMapping("/zapatilla/{id}/escribirComentario")
+  public String newComment(Model model, Comment comment, @PathVariable long id){
+      Optional<Shoe> zapatilla = shoeService.findById(id);
+
+       shoeService.anadirComentario(zapatilla.get(), comment);
+      return "redirect:/zapatilla/"+id;
+   }
 
 }

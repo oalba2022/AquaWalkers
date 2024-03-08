@@ -1,17 +1,14 @@
 package com.example.aquawalkers.service;
 
+import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Component
@@ -47,5 +44,10 @@ public class ShoeService {
             return true;
         }
         return false;
+    }
+
+    public void anadirComentario(Shoe shoe, Comment comment){
+        shoe.addComment(comment);
+
     }
 }

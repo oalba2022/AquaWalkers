@@ -1,4 +1,4 @@
-package com.example.aquawalkers.controllers;
+/*package com.example.aquawalkers.controllers;
 
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.service.UserService;
@@ -22,7 +22,7 @@ public class UsersController {
     private UserService usercontr;
 
 
-
+/*
 
 
     public UsersController(UserService userService) {
@@ -48,3 +48,4 @@ public class UsersController {
 
 
 }
+*/
