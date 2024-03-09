@@ -87,7 +87,5 @@ public class ShoesWebController {
         Shoe newShoe = shoeService.modify(shoe, id);
         model.addAttribute("shoeId", newShoe);
         return "redirect:/zapatilla/"+newShoe.getId();
-
-
     }
 }
