@@ -20,6 +20,12 @@ public class User {
     }
 
     public User() {
+        this.id = 1L;
+        this.nombre = "Invitado";
+        this.correo = "invitado@aquawalkers.es";
+        this.contrasena = "";
+        this.carrito = new ArrayList<Shoe>();
+        this.comentariosEscritos = new ArrayList<Comment>();
     }
 
     public String getNombre() {
