@@ -23,7 +23,7 @@ public class UsersController {
     private UserService userService;
     @GetMapping("/usercard")
     public String usercard (Model model){
-        User invitado = new User();
+        User invitado = this.userService.inv;
         model.addAttribute("invitado", invitado);
         return "usercard";
     }

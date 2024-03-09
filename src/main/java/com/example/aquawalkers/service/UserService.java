@@ -19,7 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class UserService {
 
-    private AtomicLong nextId = new AtomicLong(1L);
+    public User inv = new User();
+    /*private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, User> users = new ConcurrentHashMap<>();
 
     public Optional<User> findById(long id) {
@@ -57,5 +58,15 @@ public class UserService {
         user.setId(newId);
         users.put(newId, user);
         return user;
+    }*/
+
+    public float precio(){
+        float suma = 0;
+        List<Shoe> carrito = this.inv.getCarrito();
+        for(int i = 0; i < carrito.size(); i++){
+            suma += carrito.get(i).getPrecio();
+        }
+        return suma;
     }
+
 }
