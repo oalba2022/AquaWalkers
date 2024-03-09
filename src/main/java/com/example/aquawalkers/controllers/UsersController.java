@@ -1,4 +1,4 @@
-/*package com.example.aquawalkers.controllers;
+package com.example.aquawalkers.controllers;
 
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.service.UserService;
@@ -17,35 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 @Controller
 public class UsersController {
-    @Autowired
 
-    private UserService usercontr;
-
-
-/*
-
-
-    public UsersController(UserService userService) {
-        this.usercontr = userService;
-    }
-
-    public void manejarRegistroUsuario(Long id, String nombre, String correo, String contrasena) {
-        usercontr.
-
-    }
-
-    public void manejarObtenerUsuarioPorID(int id) {
-        User usuario = userService.;
-        if (usuario != null) {
-            System.out.println("Usuario encontrado por ID: " + usuario.getNombre());
-        } else {
-            System.out.println("Usuario no encontrado");
-        }
-    }
-
-
-
+    //@Autowired
 
 
 }
-*/
