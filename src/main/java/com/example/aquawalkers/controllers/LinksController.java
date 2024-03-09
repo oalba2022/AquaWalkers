@@ -1,6 +1,5 @@
 package com.example.aquawalkers.controllers;
 
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +32,6 @@ public class LinksController {
     public String allShoes(Model model){
         return "allshoes";
     }
-
-    @GetMapping("/userCard")
-    public String userCard(Model model){
-        return "userCard";
-    }
-
 
 
 }
