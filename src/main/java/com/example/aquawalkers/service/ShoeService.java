@@ -50,4 +50,12 @@ public class ShoeService {
         shoe.addComment(comment);
 
     }
+
+    public Shoe modify(Shoe shoe, long id){
+        long newId = id;
+        this.delete(id);
+        shoe.setId(newId);
+        shoes.put(newId, shoe);
+        return shoe;
+    }
 }

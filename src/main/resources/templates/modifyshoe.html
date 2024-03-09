@@ -1,0 +1,17 @@
+{{#zapatilla}}
+<form action="/modifyshoe/{{id}}" method="post">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{nombre}}"/>
+    <label>Marca:</label>
+    <input type="text" name="marca" value="{{marca}}"/>
+    <label>Descripción:</label>
+    <input type="text" name="descripcion" value="{{descripcion}}"/>
+    <label>Stock:</label>
+    <input type="text" name="stock" value="{{stock}}"/>
+    <label>Talla:</label>
+    <input type="text" name="talla" value="{{talla}}"/>
+    <label>Precio</label>
+    <input type="text" name="precio" value="{{precio}}"/>
+    <input type="submit" value="Modificar" />
+</form>
+{{/zapatilla}}

@@ -75,4 +75,19 @@ public class ShoesWebController {
       return "redirect:/zapatilla/"+id;
    }
 
+    @GetMapping("/modifyshoe/{id}")
+    public String modifyShoe(Model model, @PathVariable long id){
+        Optional<Shoe> zapatilla = shoeService.findById(id);
+        model.addAttribute("zapatilla", zapatilla.get());
+        return "modifyshoe";
+    }
+
+    @PostMapping("/modifyshoe/{id}")
+    public String modifyShoePost(Model model, Shoe shoe, @PathVariable long id){
+        Shoe newShoe = shoeService.modify(shoe, id);
+        model.addAttribute("shoeId", newShoe);
+        return "redirect:/zapatilla/"+newShoe.getId();
+
+
+    }
 }
