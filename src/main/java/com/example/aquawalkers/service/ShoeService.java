@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class ShoeService {
 
+    @Autowired
     private ImageService imageService;
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
@@ -42,6 +43,7 @@ public class ShoeService {
             String path = imageService.createImage(imageField);
             shoe.setImage(path);
         }
+
         long id = nextId.getAndIncrement();
         shoe.setId(id);
         shoes.put(id, shoe);

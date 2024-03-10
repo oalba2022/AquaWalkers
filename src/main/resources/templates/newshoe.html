@@ -1,12 +1,12 @@
-<form action="/newshoe" method="post">
-    <label>Imagen:</label>
-    <input type="file" name="image" accept="image/png, image/jpe" />
+<form action="/newshoe" method="post"  enctype="multipart/form-data">
     <label>Nombre:</label>
     <input type="text" name="nombre" />
     <label>Marca:</label>
     <input type="text" name="marca" />
     <label>Descripción:</label>
     <input type="text" name="descripcion"/>
+    <label>Imagen:</label>
+    <input type='file' name='imageField' accept=".jpg, .jpeg" />
     <label>Stock:</label>
     <input type="text" name="stock" />
     <label>Talla:</label>

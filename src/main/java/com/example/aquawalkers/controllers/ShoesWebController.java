@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 @Controller
@@ -46,10 +47,9 @@ public class ShoesWebController {
             model.addAttribute("zapatilla", zapa);
             model.addAttribute("comentario", comentarios);
             return "shoe";
-        }/*else{
+        }else{
             return "allshoes";
-        }*/
-        return "shoe";
+        }
     }
 
     @GetMapping("/newshoe")
@@ -98,5 +98,19 @@ public class ShoesWebController {
         Shoe newShoe = shoeService.modify(shoe, id);
         model.addAttribute("shoeId", newShoe);
         return "redirect:/zapatilla/"+newShoe.getId();
+    }
+
+    @GetMapping("/shoe/{id}/image")
+    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException, ShoeNotFoundException {
+
+        Optional<Shoe> op = shoeService.findById(id);
+
+        if(op.isPresent()) {
+            Shoe shoe = op.get();
+            Resource poster = imageService.getImage(shoe.getImage());
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(poster);
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film not found");
+        }
     }
 }
