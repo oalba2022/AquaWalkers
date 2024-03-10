@@ -1,10 +1,18 @@
 package com.example.aquawalkers.models;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 
 public class Shoe {
     private Long id;
+    @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
+    @NotBlank(message= "Debes introducir una marca")
     private String marca;
     private String descripcion;
     private String image;
@@ -14,7 +22,7 @@ public class Shoe {
 
     private ArrayList<Comment> comentarios;
 
-    public Shoe(Long id, String nombre, String marca, String descripcion/*, String image*/, int stock, int talla, float precio) {
+    public Shoe(Long id, @Valid String nombre, @Valid String marca, String descripcion/*, String image*/,  int stock,  int talla,  float precio) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;

@@ -3,6 +3,7 @@ package com.example.aquawalkers.service;
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class ShoeService {
         return this.shoes.values().stream().toList();
     }
 
-    public Shoe save(Shoe shoe){
+    public Shoe save(@Valid Shoe shoe){
         long id = nextId.getAndIncrement();
         shoe.setId(id);
         shoes.put(id, shoe);

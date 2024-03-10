@@ -4,6 +4,7 @@ import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.service.ShoeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -49,7 +50,7 @@ public class ShoesWebController {
     }
 
     @PostMapping("/newshoe")
-    public String newShoeProcess(Model model, Shoe shoe){
+    public String newShoeProcess(Model model,@Valid  Shoe shoe){
         Shoe newShoe = shoeService.save(shoe);
         model.addAttribute("shoeId", newShoe);
         return "redirect:/zapatilla/"+newShoe.getId();
