@@ -75,6 +75,10 @@ public class User {
     public void setComentariosEscritos(ArrayList<Comment> comentariosEscritos) {
         this.comentariosEscritos = comentariosEscritos;
     }
+
+    public void addCarrito(Shoe shoe){
+        this.carrito.add(shoe);
+    }
     @Override
     public String toString() {
         return "User{" +

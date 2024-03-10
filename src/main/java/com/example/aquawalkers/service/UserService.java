@@ -59,6 +59,9 @@ public class UserService {
         users.put(newId, user);
         return user;
     }*/
+    public void addPrecioCarrito(Shoe shoe){
+        this.inv.addCarrito(shoe);
+    }
 
     public float precio(){
         float suma = 0;
