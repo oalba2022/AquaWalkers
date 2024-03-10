@@ -22,12 +22,12 @@ public class Shoe {
 
     private ArrayList<Comment> comentarios;
 
-    public Shoe(Long id, @Valid String nombre, @Valid String marca, String descripcion/*, String image*/,  int stock,  int talla,  float precio) {
+    public Shoe(Long id, @Valid String nombre, @Valid String marca, String descripcion, String image,  int stock,  int talla,  float precio) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;
         this.descripcion = descripcion;
-        //this.image = image;
+        this.image = image;
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
