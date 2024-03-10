@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Optional;
 @Controller
 public class ShoesWebController {
@@ -35,8 +36,11 @@ public class ShoesWebController {
     @GetMapping("/zapatilla/{id}")
     public String showShoe(Model model, @PathVariable long id) throws ShoeNotFoundException {
         Optional<Shoe> zapatilla = shoeService.findById(id);
+        Shoe zapa = zapatilla.get();
+        ArrayList<Comment> comentarios = zapa.getComentarios();
         if(zapatilla.isPresent()){
-            model.addAttribute("zapatilla", zapatilla.get());
+            model.addAttribute("zapatilla", zapa);
+            model.addAttribute("comentario", comentarios);
             return "shoe";
         }/*else{
             return "allshoes";
