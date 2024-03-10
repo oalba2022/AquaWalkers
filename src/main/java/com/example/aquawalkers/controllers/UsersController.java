@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,9 +36,10 @@ public class UsersController {
     @GetMapping("/carrito")
     public String carrito (Model model){
         User invitado = this.userService.inv;
-        float precio = this.userService.precio();
-        model.addAttribute("invitado", invitado);
-        model.addAttribute("precio", precio);
+        ArrayList<Shoe> shop = this.userService.inv.getCarrito();
+        float total = this.userService.precio();
+        model.addAttribute("shop", shop);
+        model.addAttribute("total", total);
         return "carrito";
     }
 

@@ -1,6 +1,7 @@
 package com.example.aquawalkers.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private Long id;
@@ -79,6 +80,8 @@ public class User {
     public void addCarrito(Shoe shoe){
         this.carrito.add(shoe);
     }
+
+
     @Override
     public String toString() {
         return "User{" +
