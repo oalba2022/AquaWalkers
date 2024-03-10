@@ -102,6 +102,10 @@ public class Shoe {
         this.comentarios.add(c);
     }
 
+    public ArrayList<Comment> getComentarios() {
+        return comentarios;
+    }
+
     @Override
     public String toString() {
         return "Shoe{" +

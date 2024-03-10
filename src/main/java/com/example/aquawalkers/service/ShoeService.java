@@ -18,10 +18,10 @@ public class ShoeService {
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
-    public Optional<Shoe> findById(long id) throws ShoeNotFoundException {
-        if(!this.shoes.containsKey(id)) {
+    public Optional<Shoe> findById(long id) /*throws ShoeNotFoundException */{
+        /*if(!this.shoes.containsKey(id)) {
             throw new ShoeNotFoundException("No tenemos esa zapa");
-        }
+        }*/
         return Optional.of(this.shoes.get(id));
     }
 
