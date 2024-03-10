@@ -1,5 +1,6 @@
 package com.example.aquawalkers.controllers;
 
+import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.service.ShoeService;
@@ -31,14 +32,15 @@ public class ShoesWebController {
     }
 
     @GetMapping("/zapatilla/{id}")
-    public String showShoe(Model model, @PathVariable long id){
+    public String showShoe(Model model, @PathVariable long id) throws ShoeNotFoundException {
         Optional<Shoe> zapatilla = shoeService.findById(id);
         if(zapatilla.isPresent()){
             model.addAttribute("zapatilla", zapatilla.get());
             return "shoe";
-        }else{
+        }/*else{
             return "allshoes";
-        }
+        }*/
+        return "shoe";
     }
 
     @GetMapping("/newshoe")
@@ -54,13 +56,13 @@ public class ShoesWebController {
     }
 
     @GetMapping("/deleteshoe/{id}")
-    public String deleteShoe(Model model, @PathVariable long id){
+    public String deleteShoe(Model model, @PathVariable long id) throws  ShoeNotFoundException{
         Optional<Shoe> zapatilla = shoeService.findById(id);
         if(zapatilla.isPresent()){
             shoeService.delete(id);
             return "deleteshoe";
         }
-        return "allshoes";
+        return "deleteshoe";
     }
 
     /*@GetMapping("/zapatilla/{id}/escribirComentario")
@@ -68,7 +70,7 @@ public class ShoesWebController {
         return"escribirComentario";
     }*/
   @PostMapping("/zapatilla/{id}/escribirComentario")
-  public String newComment(Model model, Comment comment, @PathVariable long id){
+  public String newComment(Model model, Comment comment, @PathVariable long id) throws ShoeNotFoundException{
       Optional<Shoe> zapatilla = shoeService.findById(id);
 
        shoeService.anadirComentario(zapatilla.get(), comment);
@@ -76,14 +78,14 @@ public class ShoesWebController {
    }
 
     @GetMapping("/modifyshoe/{id}")
-    public String modifyShoe(Model model, @PathVariable long id){
+    public String modifyShoe(Model model, @PathVariable long id) throws ShoeNotFoundException{
         Optional<Shoe> zapatilla = shoeService.findById(id);
         model.addAttribute("zapatilla", zapatilla.get());
         return "modifyshoe";
     }
 
     @PostMapping("/modifyshoe/{id}")
-    public String modifyShoePost(Model model, Shoe shoe, @PathVariable long id){
+    public String modifyShoePost(Model model, Shoe shoe, @PathVariable long id) throws ShoeNotFoundException{
         Shoe newShoe = shoeService.modify(shoe, id);
         model.addAttribute("shoeId", newShoe);
         return "redirect:/zapatilla/"+newShoe.getId();

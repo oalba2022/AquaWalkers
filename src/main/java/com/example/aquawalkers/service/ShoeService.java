@@ -1,5 +1,6 @@
 package com.example.aquawalkers.service;
 
+import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import org.springframework.stereotype.Component;
@@ -16,11 +17,11 @@ public class ShoeService {
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
-    public Optional<Shoe> findById(long id) {
-        if(this.shoes.containsKey(id)) {
-            return Optional.of(this.shoes.get(id));
+    public Optional<Shoe> findById(long id) throws ShoeNotFoundException {
+        if(!this.shoes.containsKey(id)) {
+            throw new ShoeNotFoundException("No tenemos esa zapa");
         }
-        return Optional.empty();
+        return Optional.of(this.shoes.get(id));
     }
 
     public boolean exist(long id){
@@ -46,12 +47,12 @@ public class ShoeService {
         return false;
     }
 
-    public void anadirComentario(Shoe shoe, Comment comment){
+    public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
         shoe.addComment(comment);
 
     }
 
-    public Shoe modify(Shoe shoe, long id){
+    public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
         long newId = id;
         this.delete(id);
         shoe.setId(newId);
