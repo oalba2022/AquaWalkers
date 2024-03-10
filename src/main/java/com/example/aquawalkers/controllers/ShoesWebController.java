@@ -108,7 +108,7 @@ public class ShoesWebController {
         if(op.isPresent()) {
             Shoe shoe = op.get();
             Resource poster = imageService.getImage(shoe.getImage());
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(poster);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpg","image/png").body(poster);
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film not found");
         }
