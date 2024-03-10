@@ -4,8 +4,10 @@ import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,8 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 @Component
 public class ShoeService {
+
+    private ImageService imageService;
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
@@ -33,7 +37,11 @@ public class ShoeService {
         return this.shoes.values().stream().toList();
     }
 
-    public Shoe save(@Valid Shoe shoe){
+    public Shoe save(@Valid Shoe shoe, MultipartFile imageField){
+        if (imageField != null && !imageField.isEmpty()){
+            String path = imageService.createImage(imageField);
+            shoe.setImage(path);
+        }
         long id = nextId.getAndIncrement();
         shoe.setId(id);
         shoes.put(id, shoe);

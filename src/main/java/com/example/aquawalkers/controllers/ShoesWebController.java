@@ -3,6 +3,7 @@ package com.example.aquawalkers.controllers;
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
+import com.example.aquawalkers.service.ImageService;
 import com.example.aquawalkers.service.ShoeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ShoesWebController {
 
     @Autowired
     private ShoeService shoeService;
+
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("/zapatillas")
     public String showAllShoes(Model model){
@@ -54,8 +58,8 @@ public class ShoesWebController {
     }
 
     @PostMapping("/newshoe")
-    public String newShoeProcess(Model model,@Valid  Shoe shoe){
-        Shoe newShoe = shoeService.save(shoe);
+    public String newShoeProcess(Model model,@Valid  Shoe shoe,  MultipartFile imageField){
+        Shoe newShoe = shoeService.save(shoe, imageField);
         model.addAttribute("shoeId", newShoe);
         return "redirect:/zapatilla/"+newShoe.getId();
     }
