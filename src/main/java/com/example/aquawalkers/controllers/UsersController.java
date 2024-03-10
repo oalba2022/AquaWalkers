@@ -1,5 +1,6 @@
 package com.example.aquawalkers.controllers;
 
+import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.service.ShoeService;
 import com.example.aquawalkers.service.UserService;
@@ -21,6 +22,8 @@ public class UsersController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ShoeService shoeService;
     @GetMapping("/usercard")
     public String usercard (Model model){
         User invitado = this.userService.inv;
@@ -28,5 +31,21 @@ public class UsersController {
         return "usercard";
     }
 
+    @GetMapping("/carrito")
+    public String carrito (Model model){
+        User invitado = this.userService.inv;
+        float precio = this.userService.precio();
+        model.addAttribute("invitado", invitado);
+        model.addAttribute("precio", precio);
+        return "carrito";
+    }
+
+    @PostMapping("/addcarrito/{id}")
+    public String addCarrito(Model model, @PathVariable long id){
+        Optional<Shoe> zapato = shoeService.findById(id);
+        model.addAttribute("zapato", zapato.get());
+        userService.addPrecioCarrito(zapato.get());
+        return "redirect:/zapatilla/"+zapato.get().getId();
+    }
 
 }
