@@ -5,24 +5,15 @@
     <div class="marca">{{marca}}</div>
     <div class="detail">
         <div class="image">
-            <img src="/shoe/{{id}}/image" id="shoe"/> <!-- Importar imagenes diamico-->
+            <img src="/shoe/{{id}}/image" id="shoe"/>
         </div>
         <div class="shoecontent">
             <h1 class="name">{{nombre}}</h1>
-            <div class="price">{{precio}}</div>
+            <div class="price">{{precio}} &#8364</div>
             <div class="description">{{descripcion}}</div>
+            <div class="description">STOCK: {{stock}}</div>
             <br>
-            <div class="tallas">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Seleccionar talla
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
+            <div class="tallas">{{talla}}
             </div>
             <br>
 
