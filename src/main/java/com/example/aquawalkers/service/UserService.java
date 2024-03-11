@@ -5,10 +5,7 @@ import com.example.aquawalkers.models.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +67,11 @@ public class UserService {
             suma += carrito.get(i).getPrecio();
         }
         return suma;
+    }
+
+    public void comprar(){
+        ArrayList<Shoe> nuevo_carrito = new ArrayList<>();
+        this.inv.setCarrito(nuevo_carrito);
     }
 
 }

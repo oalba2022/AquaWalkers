@@ -11,6 +11,8 @@
 {{/shop}}
 <div class="total-container">
     Precio Total: {{total}}
-    <button class="boton-compra">Comprar</button>
+    <form action="/comprar" method="post">
+        <button class="boton-compra">Comprar</button>
+    </form>
 </div>
 {{>footer}}

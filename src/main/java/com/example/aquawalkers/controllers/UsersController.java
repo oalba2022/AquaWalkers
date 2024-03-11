@@ -52,4 +52,9 @@ public class UsersController {
         return "redirect:/zapatilla/"+zapato.get().getId();
     }
 
+    @PostMapping("/comprar")
+    public String comprar(Model model){
+        this.userService.comprar();
+        return "redirect:/carrito";
+    }
 }
