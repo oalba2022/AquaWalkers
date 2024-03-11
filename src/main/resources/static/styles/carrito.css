@@ -1,0 +1,49 @@
+
+div.producto {
+    border: 1px solid #3498db;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+div.producto h2 {
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+div.producto p {
+    color: #000000;
+}
+div.producto > div {
+    flex-grow: 1;
+}
+
+
+
+div.total-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    color:#000000;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+div.producto img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+.boton-compra {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+.boton-compra:hover {
+        background-color: #2980b9;
+    }

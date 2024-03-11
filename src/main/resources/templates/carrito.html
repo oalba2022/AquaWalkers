@@ -1,11 +1,16 @@
 {{>menu}}
 {{#shop}}
-<div>
-    <h2>{{nombre}}</h2><br>
-    <p>Precio:{{precio}}</p>
+<div class="producto">
+    <img src="">
+    <div>
+        <h2>{{nombre}}</h2><br>
+        <p>Precio:{{precio}}</p>
+    </div>
+
 </div>
 {{/shop}}
-<div>
+<div class="total-container">
     Precio Total: {{total}}
+    <button class="boton-compra">Comprar</button>
 </div>
 {{>footer}}
