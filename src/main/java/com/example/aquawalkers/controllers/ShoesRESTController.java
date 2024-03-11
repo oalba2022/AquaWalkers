@@ -1,6 +1,7 @@
 package com.example.aquawalkers.controllers;
 
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
+import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.service.ShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,17 @@ public class ShoesRESTController {
         return shoeService.modify(shoe, id);
     }
 
+    @PostMapping("/{id}/image")
+    public void insertImage(@PathVariable Long id, @RequestBody MultipartFile img) throws ShoeNotFoundException {
+        shoeService.insertImage(id,img);
+    }
+
+    @PostMapping("/{id}/comment")
+    public void addComment(@PathVariable Long id, @RequestBody String comentario) throws ShoeNotFoundException {
+       Comment comment = new Comment(comentario);
+       Optional<Shoe> shoe = shoeService.findById(id);
+       shoeService.anadirComentario(shoe.get(), comment);
+    }
 
 
 
