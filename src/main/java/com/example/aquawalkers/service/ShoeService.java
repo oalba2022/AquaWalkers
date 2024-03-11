@@ -75,5 +75,11 @@ public class ShoeService {
         return shoe;
     }
 
+    public void insertImage(Long id, MultipartFile img) throws ShoeNotFoundException {
+        Optional<Shoe> shoe = this.findById(id);
+        String path = imageService.createImage(img);
+        shoe.get().setImage(path);
+    }
+
 
 }
