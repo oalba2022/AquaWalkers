@@ -3,12 +3,14 @@ package com.example.aquawalkers.service;
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
+//import com.example.aquawalkers.repositories.ShoesRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,6 +22,8 @@ public class ShoeService {
 
     @Autowired
     private ImageService imageService;
+
+
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
@@ -70,5 +74,6 @@ public class ShoeService {
         shoes.put(newId, shoe);
         return shoe;
     }
+
 
 }
