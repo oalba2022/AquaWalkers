@@ -19,37 +19,37 @@ public class ShoesRESTController {
     @Autowired
     private ShoeService shoeService;
 
-   @GetMapping("/")
+   @GetMapping("/zapatillas")
     public List<Shoe> getShoes(){
         return this.shoeService.findAll();
     }
 
-    @PostMapping("/")
+    @PostMapping("/zapatilla")
     public Shoe saveShoe(@RequestBody Shoe shoe, MultipartFile img){
         return this.shoeService.save(shoe, img);
     }
 
-    @DeleteMapping(path="/{id}")
+    @DeleteMapping(path="/zapatilla/{id}")
     public void deleteShoe(@PathVariable("id") Long id){
         shoeService.delete(id);
     }
 
-    @GetMapping(path="/{id}")
+    @GetMapping(path="/zapatilla/{id}")
     public Optional<Shoe> findShoe(@PathVariable("id") Long id) throws ShoeNotFoundException {
         return shoeService.findById(id);
     }
 
-    @PutMapping(path="/{id}")
+    @PutMapping(path="/zapatilla/{id}")
     public Shoe modifyShoe(@RequestBody Shoe shoe,@PathVariable("id") Long id) throws ShoeNotFoundException {
         return shoeService.modify(shoe, id);
     }
 
-    @PostMapping("/{id}/image")
+    @PostMapping("/zapatilla/{id}/image")
     public void insertImage(@PathVariable Long id, @RequestBody MultipartFile img) throws ShoeNotFoundException {
         shoeService.insertImage(id,img);
     }
 
-    @PostMapping("/{id}/comment")
+    @PostMapping("/zapatilla/{id}/comment")
     public void addComment(@PathVariable Long id, @RequestBody String comentario) throws ShoeNotFoundException {
        Comment comment = new Comment(comentario);
        Optional<Shoe> shoe = shoeService.findById(id);
