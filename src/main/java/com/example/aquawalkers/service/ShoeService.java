@@ -23,7 +23,6 @@ public class ShoeService {
     @Autowired
     private ImageService imageService;
 
-
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
