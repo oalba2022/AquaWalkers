@@ -78,4 +78,7 @@ public class UserService {
         this.inv.setCarrito(nuevo_carrito);
     }
 
+    public User getInv() {
+        return inv;
+    }
 }

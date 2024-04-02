@@ -27,9 +27,10 @@
                         </span>
                     </button>
                 </form>
-
             </div>
-{{/zapatilla}}
+            <a href="/modifyshoe/{{id}}"><button class="button_modify"> <i class="fa-solid fa-pen"></i>  Modificar Zapatilla</button></a>
+            <a href="/deleteshoe/{{id}}"><button class="button_delete"> <i class="fa-solid fa-trash"></i>  Borrar Zapatilla</button></a>
+            {{/zapatilla}}
             <div class="comments">
                 <form action="/zapatilla/{{id}}/escribirComentario" method="post" >
                     <div class="form-group">

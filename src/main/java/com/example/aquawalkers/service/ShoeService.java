@@ -4,6 +4,7 @@ import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.repositories.ShoesRepository;
+import com.example.aquawalkers.models.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -78,6 +79,10 @@ public class ShoeService {
         Optional<Shoe> shoe = this.findById(id);
         String path = imageService.createImage(img);
         shoe.get().setImage(path);
+    }
+    public void addUser(User u,Long id)throws ShoeNotFoundException{
+        Shoe shoe=this.findById(id).get();
+        shoe.adduser(u);
     }
 
 

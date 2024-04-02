@@ -19,6 +19,7 @@ public class Shoe {
     private int stock;
     private int talla;
     private float precio;
+    private ArrayList<User> usuarios;
 
     private ArrayList<Comment> comentarios;
 
@@ -32,6 +33,7 @@ public class Shoe {
         this.talla = talla;
         this.precio = precio;
         this.comentarios = new ArrayList<Comment>();
+        this.usuarios=new ArrayList<User>();
     }
 
     public Long getId() {
@@ -105,6 +107,10 @@ public class Shoe {
     public ArrayList<Comment> getComentarios() {
         return comentarios;
     }
+    public void  adduser(User u){
+        this.usuarios.add(u);
+    }
+
 
     @Override
     public String toString() {

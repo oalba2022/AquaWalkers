@@ -8,6 +8,16 @@
 .detail .image img{
     width: 100%;
 }
+.button_delete{
+    background-color: #3498db;
+    color: #fff;
+    padding: 30px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 50px;
+}
 .detail .image{
     position: relative;
 }
