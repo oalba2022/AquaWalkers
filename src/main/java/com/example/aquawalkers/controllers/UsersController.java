@@ -49,6 +49,7 @@ public class UsersController {
         Optional<Shoe> zapato = shoeService.findById(id);
         model.addAttribute("zapato", zapato.get());
         userService.addPrecioCarrito(zapato.get());
+        shoeService.addUser(userService.getInv(), id);
         return "redirect:/zapatilla/"+zapato.get().getId();
     }
 
