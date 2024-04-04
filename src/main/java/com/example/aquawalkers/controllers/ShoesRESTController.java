@@ -7,6 +7,9 @@ import com.example.aquawalkers.service.ShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,42 +23,46 @@ public class ShoesRESTController {
     private ShoeService shoeService;
 
    @GetMapping("/zapatillas")
-    public List<Shoe> getShoes(){
-        return this.shoeService.findAll();
-    }
+   public ResponseEntity<List<Shoe>> getShoes(){
+       List<Shoe> shoes = this.shoeService.findAll();
+       return new ResponseEntity<>(shoes, HttpStatus.OK);
+   }
 
     @PostMapping("/zapatilla")
-    public Shoe saveShoe(@RequestBody Shoe shoe, MultipartFile img){
-        return this.shoeService.save(shoe, img);
+    public ResponseEntity<Shoe> saveShoe(@RequestBody Shoe shoe, MultipartFile img){
+        Shoe savedShoe = this.shoeService.save(shoe, img);
+        return new ResponseEntity<>(savedShoe, HttpStatus.CREATED);
     }
 
     @DeleteMapping(path="/zapatilla/{id}")
-    public void deleteShoe(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteShoe(@PathVariable("id") Long id){
         shoeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
     @GetMapping(path="/zapatilla/{id}")
     public Optional<Shoe> findShoe(@PathVariable("id") Long id) throws ShoeNotFoundException {
         return shoeService.findById(id);
     }
 
     @PutMapping(path="/zapatilla/{id}")
-    public Shoe modifyShoe(@RequestBody Shoe shoe,@PathVariable("id") Long id) throws ShoeNotFoundException {
-        return shoeService.modify(shoe, id);
+    public ResponseEntity<Shoe> modifyShoe(@RequestBody Shoe shoe,@PathVariable("id") Long id) throws ShoeNotFoundException {
+        Shoe modifiedShoe = shoeService.modify(shoe, id);
+        return new ResponseEntity<>(modifiedShoe, HttpStatus.OK);
     }
 
     @PostMapping("/zapatilla/{id}/image")
-    public void insertImage(@PathVariable Long id, @RequestBody MultipartFile img) throws ShoeNotFoundException {
+    public ResponseEntity<Void> insertImage(@PathVariable Long id, @RequestBody MultipartFile img) throws ShoeNotFoundException {
         shoeService.insertImage(id,img);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/zapatilla/{id}/comment")
-    public void addComment(@PathVariable Long id, @RequestBody String comentario) throws ShoeNotFoundException {
-       Comment comment = new Comment(comentario);
-       Optional<Shoe> shoe = shoeService.findById(id);
-       shoeService.anadirComentario(shoe.get(), comment);
+    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String comentario) throws ShoeNotFoundException {
+        Comment comment = new Comment(comentario);
+        Optional<Shoe> shoe = shoeService.findById(id);
+        shoeService.anadirComentario(shoe.get(), comment);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
 
 
 }
