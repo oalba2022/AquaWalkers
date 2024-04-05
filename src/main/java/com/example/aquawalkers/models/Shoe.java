@@ -1,5 +1,6 @@
 package com.example.aquawalkers.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -7,20 +8,30 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
+@Entity
 
 public class Shoe {
+    @Id
     private Long id;
     @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
     @NotBlank(message= "Debes introducir una marca")
     private String marca;
+    @Column
     private String descripcion;
+    @Column
     private String image;
+    @Column
     private int stock;
+    @Column
     private int talla;
+    @Column
     private float precio;
+    @OneToMany
+    @JoinColumn
     private ArrayList<User> usuarios;
-
+    @OneToMany
+    @JoinColumn
     private ArrayList<Comment> comentarios;
 
     public Shoe(Long id, @Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
@@ -34,6 +45,9 @@ public class Shoe {
         this.precio = precio;
         this.comentarios = new ArrayList<Comment>();
         this.usuarios=new ArrayList<User>();
+    }
+    public Shoe(){
+
     }
 
     public Long getId() {

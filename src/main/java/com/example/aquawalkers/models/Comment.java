@@ -1,8 +1,18 @@
 package com.example.aquawalkers.models;
+import jakarta.persistence.*;
 
+@Entity
 public class Comment {
+    @Id
+    private Long id;
+    @OneToOne
+    private Shoe shoe;
     //private Long idComment;
+    @Column
     private String comment;
+    public Comment(){
+
+    }
 
     public Comment(/*Long id*/ String comment) {
         //this.idComment = id;
