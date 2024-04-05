@@ -18,11 +18,9 @@ public class User {
     private String correo;
     @Column
     private String contrasena;
-    @OneToMany(mappedBy = "usuario")
-    @JoinColumn
+    @OneToMany(mappedBy = "id")
     private ArrayList<Shoe> carrito;
-    @OneToMany(mappedBy = "usuario")
-    @JoinColumn
+    @OneToMany(mappedBy = "id")
     private ArrayList<Comment> comentariosEscritos;
 
     public User(Long id, String nombre, String correo, String contrasena) {
