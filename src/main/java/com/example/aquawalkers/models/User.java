@@ -1,14 +1,28 @@
 package com.example.aquawalkers.models;
 
-import java.util.ArrayList;
-import java.util.List;
 
+
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String nombre;
+    @Column
     private String correo;
+    @Column
     private String contrasena;
+    @OneToMany(mappedBy = "usuario")
+    @JoinColumn
     private ArrayList<Shoe> carrito;
+    @OneToMany(mappedBy = "usuario")
+    @JoinColumn
     private ArrayList<Comment> comentariosEscritos;
 
     public User(Long id, String nombre, String correo, String contrasena) {
