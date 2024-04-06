@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Shoe {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
