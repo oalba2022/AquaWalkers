@@ -29,6 +29,7 @@ public class ShoesWebController {
     @Autowired
     private ImageService imageService;
 
+
     @GetMapping("/zapatillas")
     public String showAllShoes(Model model){
         model.addAttribute("zapatillas", shoeService.findAll());
@@ -39,10 +40,10 @@ public class ShoesWebController {
     public String showShoe(Model model, @PathVariable long id) throws ShoeNotFoundException {
         Optional<Shoe> zapatilla = shoeService.findById(id);
         Shoe zapa = zapatilla.get();
-        ArrayList<Comment> comentarios = zapa.getComentarios();
+        //ArrayList<Comment> comentarios = zapa.getComentarios();
         if(zapatilla.isPresent()){
             model.addAttribute("zapatilla", zapa);
-            model.addAttribute("comentario", comentarios);
+           // model.addAttribute("comentario", comentarios);
             return "shoe";
         }else{
             return "allshoes";
@@ -75,13 +76,13 @@ public class ShoesWebController {
     public String escribirComentario(Model model){
         return"escribirComentario";
     }*/
-  @PostMapping("/zapatilla/{id}/escribirComentario")
+  /*@PostMapping("/zapatilla/{id}/escribirComentario")
   public String newComment(Model model, Comment comment, @PathVariable long id) throws ShoeNotFoundException{
       Optional<Shoe> zapatilla = shoeService.findById(id);
 
        shoeService.anadirComentario(zapatilla.get(), comment);
       return "redirect:/zapatilla/"+id;
-   }
+   }*/
 
     @GetMapping("/modifyshoe/{id}")
     public String modifyShoe(Model model, @PathVariable long id) throws ShoeNotFoundException{

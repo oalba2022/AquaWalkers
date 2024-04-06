@@ -29,21 +29,21 @@ public class ShoeService {
     private ShoeRepository shoeRepository;
 
     private AtomicLong nextId = new AtomicLong(1L);
-    private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
+    // private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
     public Optional<Shoe> findById(long id) throws ShoeNotFoundException{
-        if(!this.shoes.containsKey(id)) {
+        if(!shoeRepository.existsById(id)) {
             throw new ShoeNotFoundException("No tenemos esa zapa");
         }
-        return Optional.of(this.shoes.get(id));
+        return shoeRepository.findById(id);
     }
 
     public boolean exist(long id){
-        return this.shoes.containsKey(id);
+        return shoeRepository.existsById(id);
     }
 
     public List<Shoe> findAll() {
-        return this.shoes.values().stream().toList();
+        return shoeRepository.findAll();
     }
 
     public Shoe save(@Valid Shoe shoe, MultipartFile imageField){
@@ -52,9 +52,9 @@ public class ShoeService {
             shoe.setImage(path);
         }
 
-        long id = nextId.getAndIncrement();
-        shoe.setId(id);
-        shoes.put(id, shoe);
+        //long id = nextId.getAndIncrement();
+        //shoe.setId(id);
+        //shoes.put(id, shoe);
         shoeRepository.save(shoe);
         return shoe;
     } //añdadido bbdd
@@ -62,22 +62,20 @@ public class ShoeService {
     public boolean delete(long id){
         if (this.exist(id)){
             shoeRepository.deleteById(id);
-            this.shoes.remove(id);
             return true;
         }
         return false;
     } //añadido bbdd
 
-    public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
+    /*public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
         shoe.addComment(comment);
     }
-
+*/
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
         long newId = id;
         this.delete(id);
-        shoeRepository.deleteById(id);
         shoe.setId(newId);
-        shoes.put(newId, shoe);
+        //shoes.put(newId, shoe);
         shoeRepository.save(shoe);
         return shoe;
     }
