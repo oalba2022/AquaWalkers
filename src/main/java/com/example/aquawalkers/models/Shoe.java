@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
 import java.util.ArrayList;
 @Entity
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Shoe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id = null;
     @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
     @NotBlank(message= "Debes introducir una marca")
@@ -31,12 +32,11 @@ public class Shoe {
     @OneToMany
     @JoinColumn
     private ArrayList<User> usuarios;
-    @OneToMany
+    /*@OneToMany
     @JoinColumn
-    private ArrayList<Comment> comentarios;
+    private ArrayList<Comment> comentarios;*/
 
-    public Shoe(Long id, @Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
-        this.id = id;
+    public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
         this.nombre = nombre;
         this.marca = marca;
         this.descripcion = descripcion;
@@ -44,7 +44,7 @@ public class Shoe {
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
-        this.comentarios = new ArrayList<Comment>();
+       // this.comentarios = new ArrayList<Comment>();
         this.usuarios=new ArrayList<User>();
     }
     public Shoe(){
@@ -115,13 +115,16 @@ public class Shoe {
         this.precio = precio;
     }
 
-    public void addComment(Comment c){
+   /* public void addComment(Comment c){
         this.comentarios.add(c);
     }
 
+    /*
     public ArrayList<Comment> getComentarios() {
         return comentarios;
     }
+    */
+
     public void  adduser(User u){
         this.usuarios.add(u);
     }
