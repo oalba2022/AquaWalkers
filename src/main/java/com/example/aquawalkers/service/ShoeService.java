@@ -5,6 +5,8 @@ import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.repositories.ShoesRepository;
 import com.example.aquawalkers.models.User;
+import com.example.aquawalkers.repository.ShoeRepository;
+import com.example.aquawalkers.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,8 @@ public class ShoeService {
 
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private ShoeRepository shoeRepository;
 
     private AtomicLong nextId = new AtomicLong(1L);
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
@@ -51,27 +55,30 @@ public class ShoeService {
         long id = nextId.getAndIncrement();
         shoe.setId(id);
         shoes.put(id, shoe);
+        shoeRepository.save(shoe);
         return shoe;
-    }
+    } //añdadido bbdd
 
     public boolean delete(long id){
         if (this.exist(id)){
+            shoeRepository.deleteById(id);
             this.shoes.remove(id);
             return true;
         }
         return false;
-    }
+    } //añadido bbdd
 
     public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
         shoe.addComment(comment);
-
     }
 
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
         long newId = id;
         this.delete(id);
+        shoeRepository.deleteById(id);
         shoe.setId(newId);
         shoes.put(newId, shoe);
+        shoeRepository.save(shoe);
         return shoe;
     }
 
