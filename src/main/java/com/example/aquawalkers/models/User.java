@@ -11,17 +11,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column
+    private Long id = null;
     private String nombre;
-    @Column
     private String correo;
-    @Column
     private String contrasena;
-    @OneToMany(mappedBy = "id")
+    @ManyToMany
     private ArrayList<Shoe> carrito;
-    @OneToMany(mappedBy = "id")
-    private ArrayList<Comment> comentariosEscritos;
+   /*@OneToMany(mappedBy = "id")
+    private ArrayList<Comment> comentariosEscritos;*/
 
     public User(Long id, String nombre, String correo, String contrasena) {
         this.id = id;
@@ -29,7 +26,7 @@ public class User {
         this.correo = correo;
         this.contrasena = contrasena;
         this.carrito = new ArrayList<Shoe>();
-        this.comentariosEscritos = new ArrayList<Comment>();
+        /*this.comentariosEscritos = new ArrayList<Comment>();*/
     }
 
     public User() {
@@ -38,7 +35,7 @@ public class User {
         this.correo = "invitado@aquawalkers.es";
         this.contrasena = "";
         this.carrito = new ArrayList<Shoe>();
-        this.comentariosEscritos = new ArrayList<Comment>();
+        /*this.comentariosEscritos = new ArrayList<Comment>();*/
     }
 
     public String getNombre() {
@@ -61,9 +58,9 @@ public class User {
         return carrito;
     }
 
-    public ArrayList<Comment> getComentariosEscritos() {
+    /*public ArrayList<Comment> getComentariosEscritos() {
         return comentariosEscritos;
-    }
+    }*/
 
     public void setId(Long id) {
         this.id = id;
@@ -85,9 +82,9 @@ public class User {
         this.carrito = carrito;
     }
 
-    public void setComentariosEscritos(ArrayList<Comment> comentariosEscritos) {
+   /* public void setComentariosEscritos(ArrayList<Comment> comentariosEscritos) {
         this.comentariosEscritos = comentariosEscritos;
-    }
+    }*/
 
     public void addCarrito(Shoe shoe){
         this.carrito.add(shoe);
@@ -102,7 +99,7 @@ public class User {
                 ", correo='" + correo + '\'' +
                 ", contrasena='" + contrasena + '\'' +
                 ", carrito=" + carrito +
-                ", comentariosEscritos=" + comentariosEscritos +
+                /*", comentariosEscritos=" + comentariosEscritos*/ +
                 '}';
     }
 }

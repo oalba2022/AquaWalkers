@@ -43,7 +43,8 @@ public class ShoesWebController {
         //ArrayList<Comment> comentarios = zapa.getComentarios();
         if(zapatilla.isPresent()){
             model.addAttribute("zapatilla", zapa);
-           // model.addAttribute("comentario", comentarios);
+            //model.addAttribute("comentario", comentarios);
+
             return "shoe";
         }else{
             return "allshoes";
@@ -56,9 +57,9 @@ public class ShoesWebController {
     }
 
     @PostMapping("/newshoe")
-    public String newShoeProcess(Model model,@Valid  Shoe shoe,  MultipartFile imageField){
+    public String newShoeProcess(Model model,@Valid Shoe shoe,  MultipartFile imageField){
         Shoe newShoe = shoeService.save(shoe, imageField);
-        model.addAttribute("shoeId", newShoe);
+        model.addAttribute("shoeId", newShoe.getId());
         return "redirect:/zapatilla/"+newShoe.getId();
     }
 

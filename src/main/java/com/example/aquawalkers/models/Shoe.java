@@ -19,21 +19,19 @@ public class Shoe {
     private String nombre;
     @NotBlank(message= "Debes introducir una marca")
     private String marca;
-    @Column
+
     private String descripcion;
-    @Column
+
     private String image;
-    @Column
+
     private int stock;
-    @Column
+
     private int talla;
-    @Column
+
     private float precio;
-    @OneToMany
-    @JoinColumn
+    @ManyToMany(mappedBy = "carrito")
     private ArrayList<User> usuarios;
     @OneToMany
-    @JoinColumn
     private ArrayList<Comment> comentarios;
 
     public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
