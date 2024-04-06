@@ -32,9 +32,9 @@ public class Shoe {
     @OneToMany
     @JoinColumn
     private ArrayList<User> usuarios;
-    /*@OneToMany
+    @OneToMany
     @JoinColumn
-    private ArrayList<Comment> comentarios;*/
+    private ArrayList<Comment> comentarios;
 
     public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
         this.nombre = nombre;
@@ -44,7 +44,7 @@ public class Shoe {
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
-       // this.comentarios = new ArrayList<Comment>();
+       this.comentarios = new ArrayList<Comment>();
         this.usuarios=new ArrayList<User>();
     }
     public Shoe(){
@@ -115,15 +115,15 @@ public class Shoe {
         this.precio = precio;
     }
 
-   /* public void addComment(Comment c){
+    public void addComment(Comment c){
         this.comentarios.add(c);
     }
 
-    /*
+
     public ArrayList<Comment> getComentarios() {
         return comentarios;
     }
-    */
+
 
     public void  adduser(User u){
         this.usuarios.add(u);

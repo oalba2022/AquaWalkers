@@ -2,12 +2,12 @@ package com.example.aquawalkers.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name= "comentario")
+@Table(name= "comentarios")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @OneToOne
+    private Long id = null;
+    @ManyToOne
     private Shoe shoe;
     //private Long idComment;
     @Column
