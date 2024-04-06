@@ -28,8 +28,8 @@ public class ShoeService {
     @Autowired
     private ShoeRepository shoeRepository;
 
-    private AtomicLong nextId = new AtomicLong(1L);
-    private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
+    //private AtomicLong nextId = new AtomicLong(1L);
+    // private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
     public Optional<Shoe> findById(long id) throws ShoeNotFoundException{
         if(!this.exist(id)) {
@@ -40,10 +40,11 @@ public class ShoeService {
 
     public boolean exist(long id){
         return this.shoeRepository.existsById(id);
+
     }
 
     public List<Shoe> findAll() {
-        return this.shoes.values().stream().toList();
+        return shoeRepository.findAll();
     }
 
     public Shoe save(@Valid Shoe shoe, MultipartFile imageField){
@@ -51,7 +52,6 @@ public class ShoeService {
             String path = imageService.createImage(imageField);
             shoe.setImage(path);
         }
-
         shoeRepository.save(shoe);
         return shoe;
     } //añdadido bbdd
@@ -71,9 +71,8 @@ public class ShoeService {
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
         long newId = id;
         this.delete(id);
-        shoeRepository.deleteById(id);
         shoe.setId(newId);
-        shoes.put(newId, shoe);
+        //shoes.put(newId, shoe);
         shoeRepository.save(shoe);
         return shoe;
     }

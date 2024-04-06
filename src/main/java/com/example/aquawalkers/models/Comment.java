@@ -2,7 +2,7 @@ package com.example.aquawalkers.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name= "comentario")
+@Table(name= "comentarios")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
