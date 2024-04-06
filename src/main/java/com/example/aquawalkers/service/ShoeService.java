@@ -28,7 +28,7 @@ public class ShoeService {
     @Autowired
     private ShoeRepository shoeRepository;
 
-    private AtomicLong nextId = new AtomicLong(1L);
+    //private AtomicLong nextId = new AtomicLong(1L);
     // private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
     public Optional<Shoe> findById(long id) throws ShoeNotFoundException{
@@ -67,10 +67,10 @@ public class ShoeService {
         return false;
     } //añadido bbdd
 
-    /*public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
+    public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
         shoe.addComment(comment);
     }
-*/
+
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
         long newId = id;
         this.delete(id);
