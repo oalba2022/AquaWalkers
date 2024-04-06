@@ -1,5 +1,6 @@
 package com.example.aquawalkers.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 @Entity
 
