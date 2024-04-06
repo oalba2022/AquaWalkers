@@ -12,7 +12,6 @@ import lombok.Getter;
 import java.sql.Blob;
 import java.util.ArrayList;
 @Entity
-
 public class Shoe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,9 +30,9 @@ public class Shoe {
     private int talla;
 
     private float precio;
-    @ManyToMany(mappedBy = "carrito")
+    @ManyToMany(mappedBy = "carrito", cascade = CascadeType.ALL)
     private ArrayList<User> usuarios;
-    @OneToMany
+    @OneToMany(mappedBy = "shoe", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<Comment> comentarios;
 
     public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
@@ -44,12 +43,10 @@ public class Shoe {
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
-       this.comentarios = new ArrayList<Comment>();
-        this.usuarios=new ArrayList<User>();
+        this.comentarios = new ArrayList<>();
+        this.usuarios=new ArrayList<>();
     }
-    public Shoe(){
-
-    }
+    public Shoe(){}
 
     public Long getId() {
         return id;
