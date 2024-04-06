@@ -32,14 +32,14 @@ public class ShoeService {
     private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
 
     public Optional<Shoe> findById(long id) throws ShoeNotFoundException{
-        if(!this.shoes.containsKey(id)) {
+        if(!this.exist(id)) {
             throw new ShoeNotFoundException("No tenemos esa zapa");
         }
-        return Optional.of(this.shoes.get(id));
+        return shoeRepository.findById(id);
     }
 
     public boolean exist(long id){
-        return this.shoes.containsKey(id);
+        return this.shoeRepository.existsById(id);
     }
 
     public List<Shoe> findAll() {
@@ -52,9 +52,6 @@ public class ShoeService {
             shoe.setImage(path);
         }
 
-        long id = nextId.getAndIncrement();
-        shoe.setId(id);
-        shoes.put(id, shoe);
         shoeRepository.save(shoe);
         return shoe;
     } //añdadido bbdd
@@ -62,7 +59,6 @@ public class ShoeService {
     public boolean delete(long id){
         if (this.exist(id)){
             shoeRepository.deleteById(id);
-            this.shoes.remove(id);
             return true;
         }
         return false;

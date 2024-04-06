@@ -6,44 +6,41 @@ import jakarta.persistence.*;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @OneToOne
+    private Long id = null;
+    @ManyToOne
     private Shoe shoe;
-    //private Long idComment;
-    @Column
     private String comment;
-
-    @OneToOne
-    private User user;
+    /*@ManyToOne
+    private User user;*/
     public Comment(){
-
     }
 
-    public Comment(/*Long id*/ String comment) {
-        //this.idComment = id;
+    public Comment(String comment) {
 
         this.comment = comment;
     }
 
-    /*public void setIdComment(Long idComment) {
-        this.idComment = idComment;
-    }
-*/
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public Long getId() {
+        return id;
     }
 
-    /*public Long getIdComment() {
-        return idComment;
-    }*/
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Shoe getShoe() {
+        return shoe;
+    }
+
+    public void setShoe(Shoe shoe) {
+        this.shoe = shoe;
+    }
 
     public String getComment() {
         return comment;
     }
 
-    @Override
-    public String toString() {
-        return " " + comment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

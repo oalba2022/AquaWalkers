@@ -13,30 +13,27 @@ import java.util.ArrayList;
 public class Shoe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id = null;
     @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
     @NotBlank(message= "Debes introducir una marca")
     private String marca;
-    @Column
+
     private String descripcion;
-    @Column
+
     private String image;
-    @Column
+
     private int stock;
-    @Column
+
     private int talla;
-    @Column
+
     private float precio;
-    @OneToMany
-    @JoinColumn
+    @ManyToMany(mappedBy = "carrito")
     private ArrayList<User> usuarios;
     @OneToMany
-    @JoinColumn
     private ArrayList<Comment> comentarios;
 
-    public Shoe(Long id, @Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
-        this.id = id;
+    public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
         this.nombre = nombre;
         this.marca = marca;
         this.descripcion = descripcion;
