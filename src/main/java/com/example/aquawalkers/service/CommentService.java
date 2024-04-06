@@ -30,10 +30,7 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public Optional<Comment> findById(long id) throws ShoeNotFoundException{
-        if(!this.exist(id)) {
-            throw new ShoeNotFoundException("No tenemos esa zapa");
-        }
+    public Optional<Comment> findById(long id) {
         return commentRepository.findById(id);
     }
 

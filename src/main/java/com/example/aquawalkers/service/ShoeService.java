@@ -5,6 +5,7 @@ import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.repositories.ShoesRepository;
 import com.example.aquawalkers.models.User;
+import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -28,9 +29,8 @@ public class ShoeService {
     private ImageService imageService;
     @Autowired
     private ShoeRepository shoeRepository;
-
-    //private AtomicLong nextId = new AtomicLong(1L);
-    // private ConcurrentHashMap<Long, Shoe> shoes = new ConcurrentHashMap<>();
+    @Autowired
+    private CommentRepository commentRepository;
 
     public Optional<Shoe> findById(long id) throws ShoeNotFoundException{
         if(!this.exist(id)) {
@@ -66,7 +66,11 @@ public class ShoeService {
     } //añadido bbdd
 
     public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
-        shoe.addComment(comment);
+        commentRepository.save(comment);
+        shoe.getComentarios().add(comment);
+        shoeRepository.save(shoe);
+
+       // shoe.addComment(comment);
     }
 
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{

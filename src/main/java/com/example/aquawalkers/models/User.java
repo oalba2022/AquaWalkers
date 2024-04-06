@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 
 @Entity
+@Table(name="usuarios")
 public class User {
 
     @Id
@@ -20,8 +21,8 @@ public class User {
    /*@OneToMany(mappedBy = "id")
     private ArrayList<Comment> comentariosEscritos;*/
 
-    public User(Long id, String nombre, String correo, String contrasena) {
-        this.id = id;
+    public User(String nombre, String correo, String contrasena) {
+        super();
         this.nombre = nombre;
         this.correo = correo;
         this.contrasena = contrasena;
