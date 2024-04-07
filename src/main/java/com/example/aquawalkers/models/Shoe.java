@@ -11,6 +11,8 @@ import lombok.Getter;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Shoe {
     @Id
@@ -31,9 +33,9 @@ public class Shoe {
 
     private float precio;
     @ManyToMany(mappedBy = "carrito", cascade = CascadeType.ALL)
-    private ArrayList<User> usuarios;
+    private List<User> usuarios;
     @OneToMany(mappedBy = "shoe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<Comment> comentarios;
+    private List<Comment> comentarios;
 
     public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
         this.nombre = nombre;
@@ -117,7 +119,7 @@ public class Shoe {
     }
 
 
-    public ArrayList<Comment> getComentarios() {
+    public List<Comment> getComentarios() {
         return comentarios;
     }
 

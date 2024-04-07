@@ -43,10 +43,10 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment save(@Valid Comment comment){
+    public Comment save(Comment comment){
         commentRepository.save(comment);
         return comment;
-    } //añdadido bbdd
+    }
 
     public boolean delete(long id){
         if (this.exist(id)){
@@ -54,7 +54,7 @@ public class CommentService {
             return true;
         }
         return false;
-    } //añadido bbdd
+    }
 
 
 

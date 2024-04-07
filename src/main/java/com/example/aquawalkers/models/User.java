@@ -5,6 +5,7 @@ package com.example.aquawalkers.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="usuarios")
@@ -17,7 +18,7 @@ public class User {
     private String correo;
     private String contrasena;
     @ManyToMany
-    private ArrayList<Shoe> carrito;
+    private List<Shoe> carrito;
    /*@OneToMany(mappedBy = "id")
     private ArrayList<Comment> comentariosEscritos;*/
 
@@ -55,7 +56,7 @@ public class User {
         return contrasena;
     }
 
-    public ArrayList<Shoe> getCarrito() {
+    public List<Shoe> getCarrito() {
         return carrito;
     }
 
