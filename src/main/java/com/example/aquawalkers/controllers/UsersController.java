@@ -37,7 +37,7 @@ public class UsersController {
     @GetMapping("/carrito")
     public String carrito (Model model){
         User invitado = this.userService.inv;
-        ArrayList<Shoe> shop = this.userService.inv.getCarrito();
+        List<Shoe> shop = this.userService.inv.getCarrito();
         float total = this.userService.precio();
         model.addAttribute("shop", shop);
         model.addAttribute("total", total);

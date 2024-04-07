@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 @Controller
 public class ShoesWebController {
@@ -40,7 +41,7 @@ public class ShoesWebController {
     public String showShoe(Model model, @PathVariable long id) throws ShoeNotFoundException {
         Optional<Shoe> zapatilla = shoeService.findById(id);
         Shoe zapa = zapatilla.get();
-        ArrayList<Comment> comentarios = zapa.getComentarios();
+        List<Comment> comentarios = zapa.getComentarios();
         if(zapatilla.isPresent()){
             model.addAttribute("zapatilla", zapa);
             model.addAttribute("comentario", comentarios);

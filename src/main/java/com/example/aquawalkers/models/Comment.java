@@ -8,7 +8,6 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
     @ManyToOne
-
     private Shoe shoe;
     private String comment;
     /*@ManyToOne
