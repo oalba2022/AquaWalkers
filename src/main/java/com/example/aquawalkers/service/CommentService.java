@@ -50,7 +50,7 @@ public class CommentService {
 
     public boolean delete(long id){
         if (this.exist(id)){
-            commentRepository.deleteById(id);
+                commentRepository.deleteById(id);
             return true;
         }
         return false;

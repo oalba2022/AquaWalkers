@@ -15,7 +15,6 @@ public class Comment {
     public Comment(){}
 
     public Comment(String comment) {
-        super();
         this.comment = comment;
     }
 

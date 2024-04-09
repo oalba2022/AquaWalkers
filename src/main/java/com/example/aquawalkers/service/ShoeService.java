@@ -65,12 +65,10 @@ public class ShoeService {
         return false;
     } //añadido bbdd
 
-    public void anadirComentario(Shoe shoe, Comment comment) throws ShoeNotFoundException{
+    public void anadirComentario(Shoe shoe, Comment comment){
         commentService.save(comment);
         shoe.getComentarios().add(comment);
         shoeRepository.save(shoe);
-
-       // shoe.addComment(comment);
     }
 
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{

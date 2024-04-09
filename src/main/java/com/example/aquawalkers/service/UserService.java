@@ -76,7 +76,7 @@ public class UserService {
         for(int i = 0; i < carrito.size(); i++){
             carrito.get(i).setStock(carrito.get(i).getStock()-1);
         }
-        ArrayList<Shoe> nuevo_carrito = new ArrayList<>();
+        List<Shoe> nuevo_carrito = new ArrayList<>();
         this.inv.setCarrito(nuevo_carrito);
     }
 
