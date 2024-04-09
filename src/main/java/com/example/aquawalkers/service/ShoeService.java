@@ -73,11 +73,15 @@ public class ShoeService {
 
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
         long newId = id;
-        this.delete(id);
-        shoe.setId(newId);
-        //shoes.put(newId, shoe);
-        shoeRepository.save(shoe);
-        return shoe;
+        Shoe zapa = shoeRepository.findById(id).get();
+        zapa.setNombre(shoe.getNombre());
+        zapa.setMarca(shoe.getMarca());
+        zapa.setDescripcion(shoe.getDescripcion());
+        zapa.setStock(shoe.getStock());
+        zapa.setTalla(shoe.getTalla());
+        zapa.setPrecio(shoe.getPrecio());
+        shoeRepository.save(zapa);
+        return zapa;
     }
 
     public void insertImage(Long id, MultipartFile img) throws ShoeNotFoundException {
