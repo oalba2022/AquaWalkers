@@ -72,7 +72,6 @@ public class ShoeService {
     }
 
     public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
-        long newId = id;
         Shoe zapa = shoeRepository.findById(id).get();
         zapa.setNombre(shoe.getNombre());
         zapa.setMarca(shoe.getMarca());
