@@ -80,7 +80,7 @@ public class User {
         this.contrasena = contrasena;
     }
 
-    public void setCarrito(ArrayList<Shoe> carrito) {
+    public void setCarrito(List<Shoe> carrito) {
         this.carrito = carrito;
     }
 
