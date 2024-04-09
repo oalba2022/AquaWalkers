@@ -5,6 +5,7 @@ import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.service.ShoeService;
 import com.example.aquawalkers.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -27,13 +28,19 @@ public class UsersController {
     private UserService userService;
     @Autowired
     private ShoeService shoeService;
-    @GetMapping("/usercard")
-    public String usercard (Model model){
-        User invitado = this.userService.inv;
-        model.addAttribute("invitado", invitado);
+    @GetMapping("/usercard/{id}")
+    public String usercard (Model model, @PathVariable Long id){
+        Optional<User> user = this.userService.findById(id);
+        User u = user.get();
+        model.addAttribute("user", u);
         return "usercard";
     }
-
+    @PostMapping("/index")
+    public String newUser (Model model, @Valid User user){
+        User newUser = userService.save(user);
+        model.addAttribute("userId", newUser.getId());
+        return "redirect:/inicio";
+    }
     @GetMapping("/carrito")
     public String carrito (Model model){
         User invitado = this.userService.inv;
@@ -49,7 +56,7 @@ public class UsersController {
         Optional<Shoe> zapato = shoeService.findById(id);
         model.addAttribute("zapato", zapato.get());
         userService.addPrecioCarrito(zapato.get());
-        shoeService.addUser(userService.getInv(), id);
+       // shoeService.addUser(userService.getInv(), id);
         return "redirect:/zapatilla/"+zapato.get().getId();
     }
 

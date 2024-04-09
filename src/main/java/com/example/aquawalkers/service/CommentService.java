@@ -43,8 +43,9 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment save(Comment comment){
+    public Comment save(Comment comment, Shoe shoe){
         commentRepository.save(comment);
+        comment.setShoe(shoe);
         return comment;
     }
 
