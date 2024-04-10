@@ -24,8 +24,8 @@ public class ShoesRESTController {
     private ShoeService shoeService ;
 
    @GetMapping("/zapatillas")
-   public ResponseEntity<List<Shoe>> getShoes(){
-       List<Shoe> shoes = this.shoeService.findAll();
+   public ResponseEntity<List<Shoe>> getShoes(Integer from, Integer to,String marca, Float precio){
+       List<Shoe> shoes = this.shoeService.findAll(from,to,marca,precio);
        return new ResponseEntity<>(shoes, HttpStatus.OK);
    }
 

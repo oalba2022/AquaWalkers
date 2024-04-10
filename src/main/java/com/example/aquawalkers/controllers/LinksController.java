@@ -19,8 +19,8 @@ public class LinksController {
 
     @GetMapping("/inicio")
 
-    public String inicio(Model model) throws ShoeNotFoundException {
-        if(this.shoeService.findAll().size() >= 3){
+    public String inicio(Model model,Integer from, Integer to,String marca, Float precio) throws ShoeNotFoundException {
+        if(this.shoeService.findAll( from, to, marca, precio).size() >= 3){
             Shoe zapa1 = this.shoeService.findById(1L).get();
             model.addAttribute("zapa1",zapa1);
             Shoe zapa2 = this.shoeService.findById(2L).get();
@@ -42,8 +42,8 @@ public class LinksController {
     }
 
     @GetMapping("/")
-    public String greeting(Model model) throws ShoeNotFoundException {
-        if(this.shoeService.findAll().size() >= 3){
+    public String greeting(Model model,Integer from, Integer to,String marca, Float precio) throws ShoeNotFoundException {
+        if(this.shoeService.findAll(from,to,marca,precio).size() >= 3){
             Shoe zapa1 = this.shoeService.findById(1L).get();
             model.addAttribute("zapa1",zapa1);
             Shoe zapa2 = this.shoeService.findById(2L).get();

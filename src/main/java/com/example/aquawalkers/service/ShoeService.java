@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import jakarta.persistence.EntityManager;
 
 @Service
 @Component
@@ -32,6 +33,8 @@ public class ShoeService {
     private ShoeRepository shoeRepository;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -48,8 +51,29 @@ public class ShoeService {
 
     }
 
-    public List<Shoe> findAll() {
+    /*public List<Shoe> findAll() {
         return shoeRepository.findAll();
+    }*/
+    private boolean isNotEmptyFieldFloat(Float f){return f != null && f>0;}
+    private boolean isNotEmptyField(String field) {
+        return field != null && !field.isEmpty();
+    }
+    public List<Shoe> findAll(Integer from, Integer to, String marca,Float precio) {
+        String query = "SELECT * FROM shoe";
+        if( (from != null && to != null) || isNotEmptyFieldFloat(precio)) {
+            query+=" WHERE";
+        }
+        if(from != null && to != null) {
+            query+=" precio BETWEEN "+from+" AND "+to;
+        }
+        if( from != null && to != null && isNotEmptyField(marca)) {
+            query+=" AND";
+        }
+        if(isNotEmptyField(marca)) {
+            query+=" lang='"+marca+"'";
+        }
+
+        return (List<Shoe>) entityManager.createNativeQuery(query, Shoe.class).getResultList();
     }
 
     public Shoe save(@Valid Shoe shoe, Image imageField){
@@ -70,7 +94,7 @@ public class ShoeService {
     } //añadido bbdd
 
     public void anadirComentario(Shoe shoe, String s){
-        Comment comment = new Comment(s);
+        Comment comment =new Comment(s);
         commentService.save(comment, shoe);
         shoe.addComment(comment);
         shoeRepository.save(shoe);
