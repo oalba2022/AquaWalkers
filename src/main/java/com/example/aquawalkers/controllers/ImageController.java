@@ -41,7 +41,7 @@ public class ImageController {
         List<Image> imageList = imageService.viewAll();
         mv.addObject("imageList", imageList);
         return mv;
-    } /*
+    } */
 
     // add image - get
     @GetMapping("/add")
@@ -62,5 +62,4 @@ public class ImageController {
         return "redirect:/";
     }
 
-    */
 }
