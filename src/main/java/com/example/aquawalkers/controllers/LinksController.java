@@ -31,6 +31,10 @@ public class LinksController {
         return "greeting-page";
     }
 
+    @GetMapping("/index")
+    public String index(Model model){
+        return "index";
+    }
 
     @GetMapping("/zapatilla")
     public String zapatilla(Model model){

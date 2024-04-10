@@ -33,6 +33,9 @@ public class ShoeService {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     public Optional<Shoe> findById(long id) throws ShoeNotFoundException{
         if(!this.exist(id)) {
             throw new ShoeNotFoundException("No tenemos esa zapa");
@@ -66,9 +69,10 @@ public class ShoeService {
         return false;
     } //añadido bbdd
 
-    public void anadirComentario(Shoe shoe, Comment comment){
-        commentService.save(comment);
-        shoe.getComentarios().add(comment);
+    public void anadirComentario(Shoe shoe, String s){
+        Comment comment = new Comment(s);
+        commentService.save(comment, shoe);
+        shoe.addComment(comment);
         shoeRepository.save(shoe);
     }
 

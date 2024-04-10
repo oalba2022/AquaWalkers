@@ -30,6 +30,7 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
+
     public Optional<Comment> findById(long id) {
         return commentRepository.findById(id);
     }
@@ -43,8 +44,9 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment save(Comment comment){
+    public Comment save(Comment comment, Shoe shoe){
         commentRepository.save(comment);
+        comment.setShoe(shoe);
         return comment;
     }
 

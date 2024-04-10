@@ -6,6 +6,9 @@ import com.example.aquawalkers.models.Image;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.service.ImageService;
 import com.example.aquawalkers.service.ImageService2;
+import com.example.aquawalkers.repository.CommentRepository;
+import com.example.aquawalkers.repository.ShoeRepository;
+import com.example.aquawalkers.service.CommentService;
 import com.example.aquawalkers.service.ShoeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,15 @@ public class ShoesWebController {
 
     @Autowired
     private ImageService2 imageService2;
+
+    @Autowired
+    private ShoeRepository shoeRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private CommentService commentService;
 
 
     @GetMapping("/zapatillas")
@@ -89,9 +101,12 @@ public class ShoesWebController {
         return"escribirComentario";
     }
     @PostMapping("/zapatilla/{id}/escribirComentario")
-    public String newComment(Model model, Comment comment, @PathVariable long id) throws ShoeNotFoundException{
-        Optional<Shoe> zapatilla = shoeService.findById(id);
-        shoeService.anadirComentario(zapatilla.get(), comment);
+    public String newComment(Model model, String s, @PathVariable long id) throws ShoeNotFoundException{
+        Optional<Shoe> zapatilla = shoeRepository.findById(id);
+        Comment comment = new Comment(s);
+        //commentService.save(comment,zapatilla.get());
+        shoeService.anadirComentario(zapatilla.get(), s);
+        model.addAttribute(comment);
         return "redirect:/zapatilla/"+id;
    }
 
