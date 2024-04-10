@@ -2,6 +2,7 @@ package com.example.aquawalkers.service;
 
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
+import com.example.aquawalkers.models.Image;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.repositories.ShoesRepository;
 import com.example.aquawalkers.models.User;
@@ -26,7 +27,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ShoeService {
 
     @Autowired
-    private ImageService imageService;
+    private ImageService2 imageService;
     @Autowired
     private ShoeRepository shoeRepository;
     @Autowired
@@ -52,9 +53,9 @@ public class ShoeService {
     }
 
     public Shoe save(@Valid Shoe shoe, MultipartFile imageField){
-        if (imageField != null && !imageField.isEmpty()){
-            String path = imageService.createImage(imageField);
-            shoe.setImage(path);
+        if (imageField != null){
+            MultipartFile img = imageService.create(imageField);
+            shoe.setImage(img);
         }
         shoeRepository.save(shoe);
         return shoe;
@@ -87,10 +88,10 @@ public class ShoeService {
         return zapa;
     }
 
-    public void insertImage(Long id, MultipartFile img) throws ShoeNotFoundException {
+    public void insertImage(Long id, Image img) throws ShoeNotFoundException {
         Optional<Shoe> shoe = this.findById(id);
-        String path = imageService.createImage(img);
-        shoe.get().setImage(path);
+        Image image = imageService.create(img);
+        shoe.get().setImage(image);
     }
     public void addUser(User u,Long id)throws ShoeNotFoundException{
         Shoe shoe=this.findById(id).get();
