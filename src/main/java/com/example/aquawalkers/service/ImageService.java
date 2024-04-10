@@ -1,4 +1,4 @@
-package com.example.aquawalkers.service;
+/*package com.example.aquawalkers.service;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -60,3 +60,4 @@ public class ImageService {
     }
 
 }
+*/

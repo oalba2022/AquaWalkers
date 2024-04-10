@@ -25,7 +25,8 @@ public class Shoe {
 
     private String descripcion;
 
-    private String image;
+    @OneToOne
+    private Image image;
 
     private int stock;
 
@@ -41,7 +42,7 @@ public class Shoe {
         this.nombre = nombre;
         this.marca = marca;
         this.descripcion = descripcion;
-        this.image = new String();
+        this.image = new Image();
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
@@ -82,11 +83,11 @@ public class Shoe {
         this.descripcion = descripcion;
     }
 
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Image image) {
         this.image = image;
     }
 
