@@ -52,9 +52,9 @@ public class ShoeService {
         return shoeRepository.findAll();
     }
 
-    public Shoe save(@Valid Shoe shoe, MultipartFile imageField){
+    public Shoe save(@Valid Shoe shoe, Image imageField){
         if (imageField != null){
-            MultipartFile img = imageService.create(imageField);
+            Image img = imageService.create(imageField);
             shoe.setImage(img);
         }
         shoeRepository.save(shoe);

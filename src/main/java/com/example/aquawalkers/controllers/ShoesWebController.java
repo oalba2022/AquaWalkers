@@ -74,16 +74,10 @@ public class ShoesWebController {
     }
 
     @PostMapping("/newshoe")
-    public String newShoeProcess(Model model,@Valid Shoe shoe,  @RequestParam("image") MultipartFile file) throws SQLException, IOException {
+    public String newShoeProcess(Model model,@Valid Shoe shoe,  @RequestParam("image") Image file) throws SQLException, IOException {
         Shoe newShoe = shoeService.save(shoe, file);
         model.addAttribute("shoeId", newShoe.getId());
-            byte[] bytes = file.getBytes();
-            Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
-            Image image = new Image();
-            image.setImage(blob);
-            imageService2.create(image);
         return "redirect:/zapatilla/" + newShoe.getId();
-
     }
 
     @GetMapping("/deleteshoe/{id}")
@@ -124,7 +118,7 @@ public class ShoesWebController {
         return "redirect:/zapatilla/"+newShoe.getId();
     }
 
-    @GetMapping("/shoe/{id}/image")
+    /*@GetMapping("/shoe/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException, ShoeNotFoundException {
 
         Optional<Shoe> op = shoeService.findById(id);
@@ -136,6 +130,6 @@ public class ShoesWebController {
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film not found");
         }
-    }
+    }*/
 
 }
