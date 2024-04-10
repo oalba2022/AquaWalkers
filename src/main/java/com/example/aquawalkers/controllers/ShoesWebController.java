@@ -11,23 +11,17 @@ import com.example.aquawalkers.service.ShoeService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 @Controller
 public class ShoesWebController {
 
@@ -57,7 +51,7 @@ public class ShoesWebController {
         List<Comment> comentarios = zapa.getComentarios();
         if(shoeService.exist(id)){
             model.addAttribute("zapatilla", zapa);
-            model.addAttribute("comentario", comentarios);
+            //model.addAttribute("comentarios", zapa.getComentarios());
 
             return "shoe";
         }else{
@@ -95,10 +89,11 @@ public class ShoesWebController {
         return"escribirComentario";
     }
     @PostMapping("/zapatilla/{id}/escribirComentario")
-    public String newComment(Model model, String s, @PathVariable long id) throws ShoeNotFoundException{
-        Optional<Shoe> zapatilla = shoeRepository.findById(id);
-        Comment comment = new Comment(s);
-        shoeService.anadirComentario(zapatilla.get(), s);
+    public String newComment(Model model, String comment, @PathVariable long id) throws ShoeNotFoundException{
+        Shoe zapatilla = shoeService.findById(id);
+        Comment comentario = new Comment();
+        comentario.setText(comment);
+        shoeService.anadirComentario(zapatilla, comentario);
         model.addAttribute(comment);
         return "redirect:/zapatilla/"+id;
    }

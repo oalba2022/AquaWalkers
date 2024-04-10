@@ -86,8 +86,7 @@ public class ShoeService {
         return false;
     } //añadido bbdd
 
-    public void anadirComentario(Shoe shoe, String s){
-        Comment comment =new Comment(s);
+    public void anadirComentario(Shoe shoe, Comment comment){
         commentService.save(comment, shoe);
         shoe.addComment(comment);
         shoeRepository.save(shoe);

@@ -44,10 +44,9 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment save(Comment comment, Shoe shoe){
+    public void save(Comment comment, Shoe shoe){
         commentRepository.save(comment);
         comment.setShoe(shoe);
-        return comment;
     }
 
     public boolean delete(long id){
