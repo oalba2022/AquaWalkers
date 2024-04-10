@@ -2,33 +2,32 @@ package com.example.aquawalkers.service;
 
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
-import com.example.aquawalkers.models.Image;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.repositories.ShoesRepository;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.ShoeRepository;
-import com.example.aquawalkers.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Blob;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+
 import jakarta.persistence.EntityManager;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 @Service
 @Component
 public class ShoeService {
 
-    @Autowired
-    private ImageService2 imageService;
     @Autowired
     private ShoeRepository shoeRepository;
     @Autowired
@@ -39,11 +38,8 @@ public class ShoeService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public Optional<Shoe> findById(long id) throws ShoeNotFoundException{
-        if(!this.exist(id)) {
-            throw new ShoeNotFoundException("No tenemos esa zapa");
-        }
-        return shoeRepository.findById(id);
+    public Shoe findById(long id) throws ShoeNotFoundException{
+        return shoeRepository.findById(id).orElse(null);
     }
 
     public boolean exist(long id){
@@ -76,11 +72,8 @@ public class ShoeService {
         return (List<Shoe>) entityManager.createNativeQuery(query, Shoe.class).getResultList();
     }
 
-    public Shoe save(@Valid Shoe shoe, Image imageField){
-        if (imageField != null){
-            Image img = imageService.create(imageField);
-            shoe.setImage(img);
-        }
+    public Shoe save(@Valid Shoe shoe, MultipartFile imageField) throws SQLException, ShoeNotFoundException, IOException {
+        insertImage(shoe,imageField);
         shoeRepository.save(shoe);
         return shoe;
     } //añdadido bbdd
@@ -112,13 +105,15 @@ public class ShoeService {
         return zapa;
     }
 
-    public void insertImage(Long id, Image img) throws ShoeNotFoundException {
-        Optional<Shoe> shoe = this.findById(id);
-        Image image = imageService.create(img);
-        shoe.get().setImage(image);
+    public MultipartFile insertImage(Shoe shoe, MultipartFile image) throws ShoeNotFoundException, SQLException, IOException {
+        byte[] imageData = image.getBytes();
+        Blob imageBlob = new SerialBlob(imageData);
+        shoe.setImage(imageBlob);
+        shoe.setDate(LocalDate.now());
+        return image;
     }
     public void addUser(User u,Long id)throws ShoeNotFoundException{
-        Shoe shoe=this.findById(id).get();
+        Shoe shoe=this.findById(id);
         shoe.adduser(u);
     }
 

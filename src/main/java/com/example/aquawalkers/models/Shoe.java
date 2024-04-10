@@ -1,6 +1,7 @@
 package com.example.aquawalkers.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mysql.cj.conf.PropertyDefinitions;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -10,7 +11,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.sql.Blob;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,8 +28,9 @@ public class Shoe {
 
     private String descripcion;
 
-    @OneToOne
-    private Image image;
+    @Getter
+    @Lob
+    private Blob image;
 
     private int stock;
 
@@ -38,11 +42,11 @@ public class Shoe {
     @OneToMany(mappedBy = "shoe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comentarios;
 
-    public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio) {
+    public Shoe(@Valid String nombre, @Valid String marca, String descripcion, int stock,  int talla,  float precio, Blob image) {
         this.nombre = nombre;
         this.marca = marca;
         this.descripcion = descripcion;
-        this.image = new Image();
+        this.image = image;
         this.stock = stock;
         this.talla = talla;
         this.precio = precio;
@@ -83,11 +87,7 @@ public class Shoe {
         this.descripcion = descripcion;
     }
 
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
+    public void setImage(Blob image) {
         this.image = image;
     }
 
@@ -129,7 +129,6 @@ public class Shoe {
         this.usuarios.add(u);
     }
 
-
     @Override
     public String toString() {
         return "Shoe{" +
@@ -142,5 +141,9 @@ public class Shoe {
                 ", talla=" + talla +
                 ", precio=" + precio +
                 '}';
+    }
+
+    public LocalDate setDate(LocalDate now) {
+        return now;
     }
 }

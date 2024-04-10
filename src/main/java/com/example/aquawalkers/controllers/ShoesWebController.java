@@ -2,14 +2,13 @@ package com.example.aquawalkers.controllers;
 
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
-import com.example.aquawalkers.models.Image;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.service.ImageService;
-import com.example.aquawalkers.service.ImageService2;
 import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.service.CommentService;
 import com.example.aquawalkers.service.ShoeService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -33,9 +33,6 @@ public class ShoesWebController {
 
     @Autowired
     private ShoeService shoeService;
-
-    @Autowired
-    private ImageService2 imageService2;
 
     @Autowired
     private ShoeRepository shoeRepository;
@@ -55,10 +52,10 @@ public class ShoesWebController {
 
     @GetMapping("/zapatilla/{id}")
     public String showShoe(Model model, @PathVariable long id) throws ShoeNotFoundException {
-        Optional<Shoe> zapatilla = shoeService.findById(id);
-        Shoe zapa = zapatilla.get();
+        Shoe zapatilla = shoeService.findById(id);
+        Shoe zapa = zapatilla;
         List<Comment> comentarios = zapa.getComentarios();
-        if(zapatilla.isPresent()){
+        if(shoeService.exist(id)){
             model.addAttribute("zapatilla", zapa);
             model.addAttribute("comentario", comentarios);
 
@@ -74,7 +71,10 @@ public class ShoesWebController {
     }
 
     @PostMapping("/newshoe")
-    public String newShoeProcess(Model model,@Valid Shoe shoe,  @RequestParam("image") Image file) throws SQLException, IOException {
+    public String newShoeProcess(Model model,@Valid Shoe shoe, MultipartFile file) throws SQLException, IOException, ShoeNotFoundException {
+       if (file.isEmpty()){
+           System.out.println("holaholaholahola");
+       }
         Shoe newShoe = shoeService.save(shoe, file);
         model.addAttribute("shoeId", newShoe.getId());
         return "redirect:/zapatilla/" + newShoe.getId();
@@ -82,8 +82,8 @@ public class ShoesWebController {
 
     @GetMapping("/deleteshoe/{id}")
     public String deleteShoe(Model model, @PathVariable long id) throws  ShoeNotFoundException{
-        Optional<Shoe> zapatilla = shoeService.findById(id);
-        if(zapatilla.isPresent()){
+       Shoe zapatilla = shoeService.findById(id);
+        if(shoeService.exist(id)){
             shoeService.delete(id);
             return "deleteshoe";
         }
@@ -98,7 +98,6 @@ public class ShoesWebController {
     public String newComment(Model model, String s, @PathVariable long id) throws ShoeNotFoundException{
         Optional<Shoe> zapatilla = shoeRepository.findById(id);
         Comment comment = new Comment(s);
-        //commentService.save(comment,zapatilla.get());
         shoeService.anadirComentario(zapatilla.get(), s);
         model.addAttribute(comment);
         return "redirect:/zapatilla/"+id;
@@ -106,8 +105,8 @@ public class ShoesWebController {
 
     @GetMapping("/modifyshoe/{id}")
     public String modifyShoe(Model model, @PathVariable long id) throws ShoeNotFoundException{
-        Optional<Shoe> zapatilla = shoeService.findById(id);
-        model.addAttribute("zapatilla", zapatilla.get());
+        Shoe zapatilla = shoeService.findById(id);
+        model.addAttribute("zapatilla", zapatilla);
         return "modifyshoe";
     }
 
@@ -118,18 +117,26 @@ public class ShoesWebController {
         return "redirect:/zapatilla/"+newShoe.getId();
     }
 
-    /*@GetMapping("/shoe/{id}/image")
-    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException, ShoeNotFoundException {
+    @GetMapping("/zapatilla/{id}/image")
+    public void downloadImage(@PathVariable long id, HttpServletResponse response) throws ShoeNotFoundException {
+            Shoe shoe = shoeService.findById(id);
+            if (shoe == null || shoe.getImage() == null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
 
-        Optional<Shoe> op = shoeService.findById(id);
+            Blob imageBlob = shoe.getImage();
+            try {
+                response.setContentType("image/jpeg");
+                response.setContentLength((int) imageBlob.length());
 
-        if(op.isPresent()) {
-            Shoe shoe = op.get();
-            Image image = imageService2.viewById(id);
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpg","image/png").body(image);
-        }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film not found");
-        }
-    }*/
+                StreamUtils.copy(imageBlob.getBinaryStream(), response.getOutputStream());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+    }
 
 }

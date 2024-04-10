@@ -1,4 +1,4 @@
-package com.example.aquawalkers.service;
+/*package com.example.aquawalkers.service;
 
 
 import com.example.aquawalkers.models.Image;
@@ -24,4 +24,4 @@ public class ImageService2{
     public Image viewById(long id) {
         return imageRepository.findById(id).get();
     }
-}
+}*/

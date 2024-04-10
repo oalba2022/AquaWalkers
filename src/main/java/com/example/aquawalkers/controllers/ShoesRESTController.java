@@ -2,7 +2,6 @@ package com.example.aquawalkers.controllers;
 
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
-import com.example.aquawalkers.models.Image;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.service.ShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class ShoesRESTController {
    }
 
     @PostMapping("/zapatilla")
-    public ResponseEntity<Shoe> saveShoe(@RequestBody Shoe shoe, Image img){
+    public ResponseEntity<Shoe> saveShoe(@RequestBody Shoe shoe, MultipartFile img) throws SQLException, ShoeNotFoundException, IOException {
         Shoe savedShoe = this.shoeService.save(shoe, img);
         return new ResponseEntity<>(savedShoe, HttpStatus.CREATED);
     }
@@ -41,7 +42,7 @@ public class ShoesRESTController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @GetMapping(path="/zapatilla/{id}")
-    public Optional<Shoe> findShoe(@PathVariable("id") Long id) throws ShoeNotFoundException {
+    public Shoe findShoe(@PathVariable("id") Long id) throws ShoeNotFoundException {
         return shoeService.findById(id);
     }
 
@@ -52,8 +53,8 @@ public class ShoesRESTController {
     }
 
     @PostMapping("/zapatilla/{id}/image")
-    public ResponseEntity<Void> insertImage(@PathVariable Long id, @RequestBody Image img) throws ShoeNotFoundException {
-        shoeService.insertImage(id,img);
+    public ResponseEntity<Void> insertImage(@PathVariable Shoe shoe, @RequestBody MultipartFile img) throws ShoeNotFoundException, SQLException, IOException {
+        shoeService.insertImage(shoe,img);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

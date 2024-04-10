@@ -1,4 +1,4 @@
-package com.example.aquawalkers.models;
+/*package com.example.aquawalkers.models;
 
 import jakarta.persistence.*;
 
@@ -30,3 +30,4 @@ public class Image {
         this.image = image;
     }
 }
+*/

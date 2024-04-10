@@ -53,11 +53,11 @@ public class UsersController {
 
     @PostMapping("/addcarrito/{id}")
     public String addCarrito(Model model, @PathVariable long id) throws ShoeNotFoundException {
-        Optional<Shoe> zapato = shoeService.findById(id);
-        model.addAttribute("zapato", zapato.get());
-        userService.addPrecioCarrito(zapato.get());
+        Shoe zapato = shoeService.findById(id);
+        model.addAttribute("zapato", zapato);
+        userService.addPrecioCarrito(zapato);
        // shoeService.addUser(userService.getInv(), id);
-        return "redirect:/zapatilla/"+zapato.get().getId();
+        return "redirect:/zapatilla/"+zapato.getId();
     }
 
     @PostMapping("/comprar")

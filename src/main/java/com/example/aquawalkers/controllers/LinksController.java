@@ -21,11 +21,11 @@ public class LinksController {
 
     public String inicio(Model model,Integer from, Integer to,String marca, Float precio) throws ShoeNotFoundException {
         if(this.shoeService.findAll( from, to, marca, precio).size() >= 3){
-            Shoe zapa1 = this.shoeService.findById(1L).get();
+            Shoe zapa1 = this.shoeService.findById(1L);
             model.addAttribute("zapa1",zapa1);
-            Shoe zapa2 = this.shoeService.findById(2L).get();
+            Shoe zapa2 = this.shoeService.findById(2L);
             model.addAttribute("zapa2",zapa2);
-            Shoe zapa3 = this.shoeService.findById(3L).get();
+            Shoe zapa3 = this.shoeService.findById(3L);
             model.addAttribute("zapa3",zapa3);
         }
         return "greeting-page";
@@ -44,11 +44,11 @@ public class LinksController {
     @GetMapping("/")
     public String greeting(Model model,Integer from, Integer to,String marca, Float precio) throws ShoeNotFoundException {
         if(this.shoeService.findAll(from,to,marca,precio).size() >= 3){
-            Shoe zapa1 = this.shoeService.findById(1L).get();
+            Shoe zapa1 = this.shoeService.findById(1L);
             model.addAttribute("zapa1",zapa1);
-            Shoe zapa2 = this.shoeService.findById(2L).get();
+            Shoe zapa2 = this.shoeService.findById(2L);
             model.addAttribute("zapa2",zapa2);
-            Shoe zapa3 = this.shoeService.findById(3L).get();
+            Shoe zapa3 = this.shoeService.findById(3L);
             model.addAttribute("zapa3",zapa3);
         }
             return "greeting-page";
