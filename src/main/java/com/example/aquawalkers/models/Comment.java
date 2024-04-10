@@ -8,14 +8,18 @@ public class Comment {
     private Long id = null;
     @ManyToOne
     private Shoe shoe;
-    private String comment;
+    private String text;
     /*@ManyToOne
     private User user;*/
     public Comment(){}
 
-    public Comment(String comment) {
+    /*public Comment(String comment) {
         this.comment = comment;
+    }*/
+    public String getText(){
+        return this.text;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -25,7 +29,7 @@ public class Comment {
         this.shoe = shoe;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setText(String comment) {
+        this.text = comment;
     }
 }
