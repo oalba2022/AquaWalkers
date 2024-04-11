@@ -78,11 +78,9 @@ public class LinksController {
     @GetMapping("/error")
     public String handleError(HttpServletRequest request){
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
-        if(status != null && Integer.valueOf(status.toString()) == HttpStatus.NOT_FOUND.value()){
+        if((status != null) && (Integer.valueOf(status.toString()) == HttpStatus.NOT_FOUND.value())){
             return "404";
         }
-
         return "error";
     }
 

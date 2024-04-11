@@ -30,84 +30,47 @@ public class ShoesRESTController {
     @Autowired
     private ShoeRepository shoeRepository;
 
-   @GetMapping("/zapatillas")
-   public  ResponseEntity <List<Shoe>> getShoes() throws JsonProcessingException {
-       List <Shoe> shoes=shoeService.findAll1();
-       return ResponseEntity.ok(shoes);
-   }
-   /*
-   @GetMapping("/zapatillas")
-   public ResponseEntity<List<Shoe>> getShoes(@RequestParam(required = false) Integer from,
-                                              @RequestParam(required = false) Integer to,
-                                              @RequestParam(required = false) String marca,
-                                              @RequestParam(required = false) Float precio) {
-       try {
-           List<Shoe> shoes = shoeService.findAll(from, to, marca, precio);
-           return ResponseEntity.ok(shoes);
-       } catch (Exception e) {
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-       }
-   }*/
+    @GetMapping("/zapatillas") //funciona
+    public  ResponseEntity <List<Shoe>> getShoes() throws JsonProcessingException {
+        List <Shoe> shoes=shoeService.findAll1();
+        return ResponseEntity.ok(shoes);
+    }
 
-    @PostMapping("/zapatilla")
-    public ResponseEntity<Shoe> saveShoe(@RequestBody Shoe shoe, MultipartFile img) throws SQLException, ShoeNotFoundException, IOException {
-        Shoe savedShoe = this.shoeService.save(shoe, img);
+    @PostMapping("/zapatilla") //funciona
+    public ResponseEntity<Shoe> saveShoe(@RequestBody Shoe shoe) throws SQLException, IOException {
+        Shoe savedShoe = this.shoeService.save1(shoe);
         return new ResponseEntity<>(savedShoe, HttpStatus.CREATED);
     }
-    /*
-    @PostMapping("/zapatilla")
-    public ResponseEntity<Shoe> addShoe(@Valid Shoe shoe, @RequestParam("image") MultipartFile image) {
-        try {
-            Shoe savedShoe = shoeService.save(shoe,image);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedShoe);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }*/
 
-    @DeleteMapping(path="/zapatilla/{id}")
+    @DeleteMapping(path="/zapatilla/{id}") //funciona
     public ResponseEntity<Void> deleteShoe(@PathVariable("id") Long id){
         shoeService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @GetMapping(path="/zapatilla/{id}")
-
-    public Shoe findShoe(@PathVariable("id") Long id)  {
+    @GetMapping(path="/zapatilla/{id}") //funciona
+    public Shoe findShoe(@PathVariable("id") Long id) {
         Shoe shoe = shoeService.findById(id);
         shoe.setImage(null);
         return shoe;
     }
 
-    @PutMapping(path="/zapatilla/{id}")
-    public ResponseEntity<Shoe> modifyShoe(@RequestBody Shoe shoe,@PathVariable Long id) {
-
-    public Shoe findShoe(@PathVariable("id") Long id) {
-        return shoeService.findById(id);
-    }
-
-    @PutMapping(path="/zapatilla/{id}")
-    public ResponseEntity<Shoe> modifyShoe(@RequestBody Shoe shoe,@PathVariable("id") Long id) {
-
+    @PutMapping(path="/zapatilla/{id}") //funciona
+    public ResponseEntity<Shoe> modifyShoe(@RequestBody Shoe shoe,@PathVariable Long id)throws SQLException, IOException {
         Shoe modifiedShoe = shoeService.modify(shoe, id);
         return new ResponseEntity<>(modifiedShoe, HttpStatus.OK);
     }
 
-    @PostMapping("/zapatilla/{id}/image")
-
-    public ResponseEntity<Void> insertImage(@PathVariable Long id, @RequestBody MultipartFile img)  {
+    @PostMapping("/zapatilla/{id}/image") //funciona
+    public ResponseEntity<Void> insertImage(@PathVariable Long id, @RequestBody MultipartFile img) throws SQLException, IOException {
         Shoe shoe = shoeService.findById(id);
         shoeService.save(shoe,img);
-
-    public ResponseEntity<Void> insertImage(@PathVariable Shoe shoe, @RequestBody MultipartFile img) {
-        shoeService.insertImage(shoe,img);
-
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-   @PostMapping("/zapatilla/{id}/comment")
-    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String string) {
-       Comment comment = new Comment();
-       comment.setText(string);
+    @PostMapping("/zapatilla/{id}/comment") //funciona
+    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String string){
+        Comment comment = new Comment();
+        comment.setText(string);
         Shoe shoe = shoeService.findById(id);
         shoeService.anadirComentario(shoe, comment);
         return new ResponseEntity<>(HttpStatus.CREATED);

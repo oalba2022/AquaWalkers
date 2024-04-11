@@ -43,9 +43,6 @@ public class ShoeService {
     /*@Autowired
     private ShoeExceptionHandler shoeExceptionHandler;*/
     public Shoe findById(long id){
-        if(!shoeRepository.existsById(id)){
-
-        }
         return shoeRepository.findById(id).orElse(null);
     }
 
@@ -83,7 +80,7 @@ public class ShoeService {
 
  
 
-    public Shoe save(@Valid Shoe shoe, MultipartFile imageField) {
+    public Shoe save(@Valid Shoe shoe, MultipartFile imageField) throws SQLException, IOException {
 
         insertImage(shoe,imageField);
         shoeRepository.save(shoe);
@@ -131,6 +128,10 @@ public class ShoeService {
     }
     public List<Shoe> findAll1() {
         return shoeRepository.findAll();
+    }
+    public Shoe save1(@Valid Shoe shoe) throws SQLException, IOException {
+        shoeRepository.save(shoe);
+        return shoe;
     }
 
 
