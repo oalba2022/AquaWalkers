@@ -52,7 +52,10 @@
 <h1>Comentarios</h1>
 {{#zapatilla.comentarios}}
     <div id="comentario">
-        {{text}}
+      <p> {{id}} : {{text}}</p>
+        <form action="/deletecomment/{{id}}" method="get" >
+            <button class="button_delete" type="submit"> <i class="fa-solid fa-pen"></i> borrar un comentario</button>
+        </form>
     </div>
 {{/zapatilla.comentarios}}
 </div>

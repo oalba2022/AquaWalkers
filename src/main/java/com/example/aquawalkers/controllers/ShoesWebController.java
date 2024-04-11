@@ -97,6 +97,12 @@ public class ShoesWebController {
         model.addAttribute(comment);
         return "redirect:/zapatilla/"+id;
    }
+    @GetMapping("/deletecomment/{id}")
+    public String deleteComment(Model model, @PathVariable long id) throws ShoeNotFoundException {
+        commentService.delete(id);
+        return "redirect:/zapatillas";
+    }
+
 
     @GetMapping("/modifyshoe/{id}")
     public String modifyShoe(Model model, @PathVariable long id) throws ShoeNotFoundException{

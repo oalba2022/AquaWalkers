@@ -10,7 +10,35 @@
     {{/zapatillas}}
 
     <a href="/newshoe"><button class="button_create"><i class="fa-solid fa-plus"></i>  Crear Zapatilla</button></a>
+   <form method="get" action="/zapatillas">
+       <label>Precio desde:</label>
+       <input id="pi_input" type="range" min="0" max="1000" step="1" name="from" />
+       <br>
+       <p><output id="value"></output>&euro;<br></p>
+       <label>Precio hasta:</label>
+       <input id ="pi_input1" type="range" min="0" max="1000" step="1" name="to" />
+       <br>
+       <p><output id="value1"></output>&euro;</p>
+       <br>
+       <label>Marca:</label>
+       <input type="text" name="marca" />
+       <input type="submit" value="filtrar" />
+   </form>
 
 </main>
 
+<script>
+    const value = document.querySelector("#value");
+    const input = document.querySelector("#pi_input");
+    value.textContent = input.value;
+    input.addEventListener("input", (event) => {
+        value.textContent = event.target.value;
+    });
+    const value1 = document.querySelector("#value1");
+    const input1 = document.querySelector("#pi_input1");
+    value1.textContent = input1.value;
+    input1.addEventListener("input", (event) => {
+        value1.textContent = event.target.value;
+    });
+</script>
 {{>footer}}
