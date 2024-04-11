@@ -3,7 +3,9 @@ package com.example.aquawalkers.controllers;
 import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
+import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.service.ShoeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,18 +25,44 @@ public class ShoesRESTController {
 
     @Autowired
     private ShoeService shoeService ;
+    @Autowired
+    private ShoeRepository shoeRepository;
 
+   /*@GetMapping("/zapatillas")
+   public ResponseEntity <List<Shoe>> getShoes(Integer from, Integer to, String marca,Float precio){
+       List<Shoe> shoes =shoeService.findAll(from,to,marca,precio);
+       return ResponseEntity.ok(shoes);
+   }
+   */
    @GetMapping("/zapatillas")
-   public ResponseEntity<List<Shoe>> getShoes(Integer from, Integer to,String marca, Float precio){
-       List<Shoe> shoes = this.shoeService.findAll(from,to,marca,precio);
-       return new ResponseEntity<>(shoes, HttpStatus.OK);
+   public ResponseEntity<List<Shoe>> getShoes(@RequestParam(required = false) Integer from,
+                                              @RequestParam(required = false) Integer to,
+                                              @RequestParam(required = false) String marca,
+                                              @RequestParam(required = false) Float precio) {
+       try {
+           List<Shoe> shoes = shoeService.findAll(from, to, marca, precio);
+           return ResponseEntity.ok(shoes);
+       } catch (Exception e) {
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+       }
    }
 
-    @PostMapping("/zapatilla")
+    /*@PostMapping("/zapatilla")
     public ResponseEntity<Shoe> saveShoe(@RequestBody Shoe shoe, MultipartFile img) throws SQLException, ShoeNotFoundException, IOException {
         Shoe savedShoe = this.shoeService.save(shoe, img);
         return new ResponseEntity<>(savedShoe, HttpStatus.CREATED);
     }
+    */
+    @PostMapping("/zapatilla")
+    public ResponseEntity<Shoe> addShoe(@Valid Shoe shoe, @RequestParam("image") MultipartFile image) {
+        try {
+            Shoe savedShoe = shoeService.save(shoe,image);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedShoe);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
     @DeleteMapping(path="/zapatilla/{id}")
     public ResponseEntity<Void> deleteShoe(@PathVariable("id") Long id){

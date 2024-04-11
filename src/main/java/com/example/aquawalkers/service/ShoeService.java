@@ -9,6 +9,7 @@ import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.ShoeRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,6 +115,9 @@ public class ShoeService {
     public void addUser(User u,Long id)throws ShoeNotFoundException{
         Shoe shoe=this.findById(id);
         shoe.adduser(u);
+    }
+    public List<Shoe> findAll1(){
+        return shoeRepository.findAll();
     }
 
 
