@@ -1,6 +1,6 @@
 package com.example.aquawalkers.controllers;
 
-import com.example.aquawalkers.exceptions.ShoeNotFoundException;
+//import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.repository.ShoeRepository;
@@ -70,24 +70,24 @@ public class ShoesRESTController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @GetMapping(path="/zapatilla/{id}")
-    public Shoe findShoe(@PathVariable("id") Long id) throws ShoeNotFoundException {
+    public Shoe findShoe(@PathVariable("id") Long id) {
         return shoeService.findById(id);
     }
 
     @PutMapping(path="/zapatilla/{id}")
-    public ResponseEntity<Shoe> modifyShoe(@RequestBody Shoe shoe,@PathVariable("id") Long id) throws ShoeNotFoundException {
+    public ResponseEntity<Shoe> modifyShoe(@RequestBody Shoe shoe,@PathVariable("id") Long id) {
         Shoe modifiedShoe = shoeService.modify(shoe, id);
         return new ResponseEntity<>(modifiedShoe, HttpStatus.OK);
     }
 
     @PostMapping("/zapatilla/{id}/image")
-    public ResponseEntity<Void> insertImage(@PathVariable Shoe shoe, @RequestBody MultipartFile img) throws ShoeNotFoundException, SQLException, IOException {
+    public ResponseEntity<Void> insertImage(@PathVariable Shoe shoe, @RequestBody MultipartFile img) throws SQLException, IOException {
         shoeService.insertImage(shoe,img);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
    @PostMapping("/zapatilla/{id}/comment")
-    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String string) throws ShoeNotFoundException {
+    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String string) {
        Comment comment = new Comment();
        comment.setText(string);
         Shoe shoe = shoeService.findById(id);

@@ -1,6 +1,6 @@
 package com.example.aquawalkers.service;
 
-import com.example.aquawalkers.exceptions.ShoeNotFoundException;
+//import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
@@ -51,7 +51,7 @@ public class UserService {
 
 
 
-    public User modify(User user, long id) throws ShoeNotFoundException {
+    public User modify(User user, long id) {
         long newId = id;
         this.delete(id);
         user.setId(newId);

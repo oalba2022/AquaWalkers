@@ -1,4 +1,4 @@
-package com.example.aquawalkers.exceptions;
+/*package com.example.aquawalkers.exceptions;
 
 import com.example.aquawalkers.exceptions.dto.ExceptionMessage;
 

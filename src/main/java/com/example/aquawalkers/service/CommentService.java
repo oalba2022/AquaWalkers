@@ -1,7 +1,7 @@
 package com.example.aquawalkers.service;
 
 
-import com.example.aquawalkers.exceptions.ShoeNotFoundException;
+//import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.repositories.ShoesRepository;
@@ -59,7 +59,7 @@ public class CommentService {
 
 
 
-    public Comment modify(Comment comment, long id) throws ShoeNotFoundException{
+    public Comment modify(Comment comment, long id){
         long newId = id;
         this.delete(id);
         comment.setId(newId);

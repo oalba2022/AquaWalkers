@@ -1,49 +1,18 @@
-package com.example.aquawalkers.exceptions;
+/*package com.example.aquawalkers.exceptions;
 
 import com.example.aquawalkers.exceptions.dto.ExceptionMessage;
-import org.springframework.http.HttpHeaders;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @ControllerAdvice
-public class ShoeExceptionHandler extends ResponseEntityExceptionHandler {
+public class ShoeExceptionHandler implements ErrorController {
 
-        @ExceptionHandler(ShoeNotFoundException.class)
-
-        @ResponseStatus(HttpStatus.NOT_FOUND)
-        @ResponseBody
-        public String shoeNotFoundException(ShoeNotFoundException exception){
-                ExceptionMessage message = new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
-                return "error/404";
-
+        @RequestMapping("/error")
+        public String handleError(){
+                return "error";
         }
 
-        @ResponseBody
-        @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-        public String internalError(ShoeNotFoundException ex){
-            ExceptionMessage message = new ExceptionMessage(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-            return "error/error";
-        }
-        /*
-        @Override
-        protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-                Map<String,Object> errors = new HashMap<>();
-                ex.getBindingResult().getFieldErrors().forEach(error ->{
-                        errors.put(error.getField(),error.getDefaultMessage());
-                });
-
-               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-        }
-        */
 }
+*/
