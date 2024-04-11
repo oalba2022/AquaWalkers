@@ -79,7 +79,12 @@ public class ShoeService {
         return (List<Shoe>) entityManager.createNativeQuery(query, Shoe.class).getResultList();
     }
 
-    public Shoe save(@Valid Shoe shoe, MultipartFile imageField) throws SQLException, IOException {
+
+
+ 
+
+    public Shoe save(@Valid Shoe shoe, MultipartFile imageField) {
+
         insertImage(shoe,imageField);
         shoeRepository.save(shoe);
         return shoe;
@@ -99,8 +104,10 @@ public class ShoeService {
         shoeRepository.save(shoe);
     }
 
+
     public Shoe modify(Shoe shoe, long id){
         Shoe zapa = shoeRepository.findById(id).get();
+
         zapa.setNombre(shoe.getNombre());
         zapa.setMarca(shoe.getMarca());
         zapa.setDescripcion(shoe.getDescripcion());
@@ -122,7 +129,7 @@ public class ShoeService {
         Shoe shoe=this.findById(id);
         shoe.adduser(u);
     }
-    public List<Shoe> findAll1(){
+    public List<Shoe> findAll1() {
         return shoeRepository.findAll();
     }
 

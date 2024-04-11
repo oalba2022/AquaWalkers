@@ -30,6 +30,7 @@ public class Shoe {
 
     @Getter
     @Lob
+    @JsonIgnore
     private Blob image;
 
     private int stock;
