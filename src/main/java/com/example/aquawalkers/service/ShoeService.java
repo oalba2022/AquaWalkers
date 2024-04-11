@@ -73,6 +73,7 @@ public class ShoeService {
         return (List<Shoe>) entityManager.createNativeQuery(query, Shoe.class).getResultList();
     }
 
+
     public Shoe save(@Valid Shoe shoe, MultipartFile imageField) throws SQLException, ShoeNotFoundException, IOException {
         insertImage(shoe,imageField);
         shoeRepository.save(shoe);
@@ -93,8 +94,8 @@ public class ShoeService {
         shoeRepository.save(shoe);
     }
 
-    public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException{
-        Shoe zapa = shoeRepository.findById(id).get();
+    public Shoe modify(Shoe shoe, long id) throws ShoeNotFoundException {
+        Shoe zapa = findById(id);
         zapa.setNombre(shoe.getNombre());
         zapa.setMarca(shoe.getMarca());
         zapa.setDescripcion(shoe.getDescripcion());
@@ -116,7 +117,7 @@ public class ShoeService {
         Shoe shoe=this.findById(id);
         shoe.adduser(u);
     }
-    public List<Shoe> findAll1(){
+    public List<Shoe> findAll1() {
         return shoeRepository.findAll();
     }
 
