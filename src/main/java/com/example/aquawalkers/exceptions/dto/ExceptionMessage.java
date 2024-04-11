@@ -1,4 +1,4 @@
-package com.example.aquawalkers.exceptions.dto;
+/*package com.example.aquawalkers.exceptions.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,3 +12,4 @@ public class ExceptionMessage {
     private HttpStatus status;
     private String message;
 }
+*/
