@@ -1,6 +1,6 @@
 package com.example.aquawalkers.controllers;
 
-import com.example.aquawalkers.exceptions.ShoeNotFoundException;
+//import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.service.ShoeService;
@@ -52,7 +52,7 @@ public class UsersController {
     }
 
     @PostMapping("/addcarrito/{id}")
-    public String addCarrito(Model model, @PathVariable long id) throws ShoeNotFoundException {
+    public String addCarrito(Model model, @PathVariable long id) {
         Shoe zapato = shoeService.findById(id);
         model.addAttribute("zapato", zapato);
         userService.addPrecioCarrito(zapato);
