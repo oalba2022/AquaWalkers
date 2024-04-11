@@ -15,8 +15,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Value;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -39,9 +44,13 @@ public class ShoeService {
     private EntityManager entityManager;
 
     @Autowired
+    private FileService fileService;
+
+    @Autowired
     private CommentRepository commentRepository;
     /*@Autowired
     private ShoeExceptionHandler shoeExceptionHandler;*/
+    private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "files");
     public Shoe findById(long id){
         return shoeRepository.findById(id).orElse(null);
     }
@@ -133,6 +142,14 @@ public class ShoeService {
         shoeRepository.save(shoe);
         return shoe;
     }
+    public String sanitize(String string){
+        String clean = Jsoup.clean(string, Safelist.basicWithImages());
+        return clean;
+    }
+   public void uploadData(MultipartFile file) throws IOException {
+        fileService.saveFile(String.valueOf(FILES_FOLDER), file, file.getOriginalFilename());
+    }
+
 
 
 }

@@ -8,10 +8,12 @@ import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.service.CommentService;
+import com.example.aquawalkers.service.FileService;
 import com.example.aquawalkers.service.ShoeService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ssl.SslProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
@@ -38,6 +40,9 @@ public class ShoesWebController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private FileService fileService;
 
 
 
@@ -92,9 +97,10 @@ public class ShoesWebController {
     public String newComment(Model model, String comment, @PathVariable long id) {
         Shoe zapatilla = shoeService.findById(id);
         Comment comentario = new Comment();
-        comentario.setText(comment);
+        String sanitized = shoeService.sanitize(comment);
+        comentario.setText(sanitized);
         shoeService.anadirComentario(zapatilla, comentario);
-        model.addAttribute(comment);
+        model.addAttribute(sanitized);
         return "redirect:/zapatilla/"+id;
    }
     @GetMapping("/deletecomment/{id}")
@@ -138,6 +144,12 @@ public class ShoesWebController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+    }
+
+    @PostMapping("/uploadfile")
+    public String uploadfile(MultipartFile filename) throws IOException {
+        shoeService.uploadData(filename);
+        return "greeting-page";
     }
 
 }
