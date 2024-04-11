@@ -34,13 +34,18 @@
             <div class="comments">
                 <form action="/zapatilla/{{id}}/escribirComentario" method="post" >
                     <div class="form-group">
-                        <label>
+                        <label for="description-textarea"></label>
+                        <textarea style="display: none;" id="description-textarea" name="comment"></textarea>
+                        <div id="editor"></div>
+                        <button type="submit">Submit Form</button>
+                        <!--<label>
                             Cuéntanos qué te parece esta zapatilla: <input type="text" name="comment"/>
-                        </label>
+                        </label> -->
                     </div>
                 </form>
                 <div >
                 </div>
+
             </div>
 
         </div>
@@ -52,7 +57,7 @@
 <h1>Comentarios</h1>
 {{#zapatilla.comentarios}}
     <div id="comentario">
-      <p> {{id}} : {{text}}</p>
+      <p> {{id}} : {{{text}}}</p>
         <form action="/deletecomment/{{id}}" method="get" >
             <button class="button_delete" type="submit"> <i class="fa-solid fa-pen"></i> borrar un comentario</button>
         </form>
@@ -61,3 +66,13 @@
 </div>
 <br>
 {{>footer}}
+
+<<script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.js"></script>
+<script>
+    const quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+    quill.on('text-change', function () {
+        document.getElementById('description-textarea').value = quill.root.innerHTML;
+    });
+</script>
