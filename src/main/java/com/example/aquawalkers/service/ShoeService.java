@@ -67,7 +67,7 @@ public class ShoeService {
             query+=" AND";
         }
         if(isNotEmptyField(marca)) {
-            query+=" lang='"+marca+"'";
+            query+=" marca='"+marca+"'";
         }
 
         return (List<Shoe>) entityManager.createNativeQuery(query, Shoe.class).getResultList();

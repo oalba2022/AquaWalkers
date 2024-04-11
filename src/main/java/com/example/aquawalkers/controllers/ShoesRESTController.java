@@ -86,13 +86,14 @@ public class ShoesRESTController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-  /*  @PostMapping("/zapatilla/{id}/comment")
-    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String comentario) throws ShoeNotFoundException {
-        Comment comment = new Comment(comentario);
-        Optional<Shoe> shoe = shoeService.findById(id);
-        shoeService.anadirComentario(shoe.get(), comment);
+   @PostMapping("/zapatilla/{id}/comment")
+    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String string) throws ShoeNotFoundException {
+       Comment comment = new Comment();
+       comment.setText(string);
+        Shoe shoe = shoeService.findById(id);
+        shoeService.anadirComentario(shoe, comment);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-*/
+
 
 }
