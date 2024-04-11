@@ -130,6 +130,18 @@ public class Shoe {
         this.usuarios.add(u);
     }
 
+    public List<User> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<User> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public void setComentarios(List<Comment> comentarios) {
+        this.comentarios = comentarios;
+    }
+
     @Override
     public String toString() {
         return "Shoe{" +
