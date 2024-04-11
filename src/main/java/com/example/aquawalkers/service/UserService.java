@@ -64,7 +64,8 @@ public class UserService {
 
     public float precio(){
         float suma = 0;
-        List<Shoe> carrito = this.inv.getCarrito();
+        User inv = findById(1L).get();
+        List<Shoe> carrito = inv.getCarrito();
         for(int i = 0; i < carrito.size(); i++){
             suma += carrito.get(i).getPrecio();
         }
@@ -72,12 +73,14 @@ public class UserService {
     }
 
     public void comprar(){
-        List<Shoe> carrito = this.inv.getCarrito();
+        /*List<Shoe> carrito = this.inv.getCarrito();
         for(int i = 0; i < carrito.size(); i++){
             carrito.get(i).setStock(carrito.get(i).getStock()-1);
-        }
+        }*/
+        User inv = findById(1L).get();
         List<Shoe> nuevo_carrito = new ArrayList<>();
-        this.inv.setCarrito(nuevo_carrito);
+        inv.setCarrito(nuevo_carrito);
+        userRepository.save(inv);
     }
 
     public User getInv() {

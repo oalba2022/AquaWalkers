@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +45,8 @@ public class UsersController {
     }
     @GetMapping("/carrito")
     public String carrito (Model model){
-        User invitado = this.userService.inv;
-        List<Shoe> shop = this.userService.inv.getCarrito();
+        User invitado = this.userService.findById(1L).get();
+        List<Shoe> shop = invitado.getCarrito();
         float total = this.userService.precio();
         model.addAttribute("shop", shop);
         model.addAttribute("total", total);
@@ -52,10 +54,10 @@ public class UsersController {
     }
 
     @PostMapping("/addcarrito/{id}")
-    public String addCarrito(Model model, @PathVariable long id) {
+    public String addCarrito(Model model, @PathVariable long id) throws SQLException, IOException {
         Shoe zapato = shoeService.findById(id);
         model.addAttribute("zapato", zapato);
-        userService.addPrecioCarrito(zapato);
+        shoeService.addUser(id);
        // shoeService.addUser(userService.getInv(), id);
         return "redirect:/zapatilla/"+zapato.getId();
     }

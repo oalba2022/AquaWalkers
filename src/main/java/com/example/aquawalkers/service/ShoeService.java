@@ -32,6 +32,8 @@ import javax.sql.rowset.serial.SerialBlob;
 public class ShoeService {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private ShoeRepository shoeRepository;
     @Autowired
     private CommentService commentService;
@@ -122,9 +124,12 @@ public class ShoeService {
         shoe.setDate(LocalDate.now());
         return image;
     }
-    public void addUser(User u,Long id){
+    public void addUser(Long id) throws SQLException, IOException {
         Shoe shoe=this.findById(id);
-        shoe.adduser(u);
+        User inv = userService.findById(1L).get();
+        shoe.getUsuarios().add(inv);
+        inv.addCarrito(shoe);
+        this.save1(shoe);
     }
     public List<Shoe> findAll1() {
         return shoeRepository.findAll();
