@@ -30,11 +30,11 @@ public class UsersController {
     private UserService userService;
     @Autowired
     private ShoeService shoeService;
-    @GetMapping("/usercard/{id}")
-    public String usercard (Model model, @PathVariable Long id){
-        Optional<User> user = this.userService.findById(id);
-        User u = user.get();
-        model.addAttribute("user", u);
+    /*@GetMapping("/usercard//*{id}")*/
+    @GetMapping("/usercard")
+    public String usercard (Model model/*, @PathVariable Long id*/){
+        User user = this.userService.findById(1L).get();
+        model.addAttribute("user", user);
         return "usercard";
     }
     @PostMapping("/index")
