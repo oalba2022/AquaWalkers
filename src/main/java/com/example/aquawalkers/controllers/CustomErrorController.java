@@ -1,4 +1,4 @@
-package com.example.aquawalkers.controllers;
+/*package com.example.aquawalkers.controllers;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,3 +22,4 @@ public class CustomErrorController implements ErrorController {
         return "error";
     }
 }
+*/

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ShoesWebController {
@@ -49,8 +50,7 @@ public class ShoesWebController {
 
     @GetMapping("/zapatilla/{id}")
     public String showShoe(Model model, @PathVariable long id) {
-        Shoe zapatilla = null;
-        Shoe zapa = zapatilla;
+        Shoe zapa = shoeService.findById(id);
         List<Comment> comentarios = zapa.getComentarios();
         if(shoeService.exist(id)){
             model.addAttribute("zapatilla", zapa);
@@ -69,9 +69,6 @@ public class ShoesWebController {
 
     @PostMapping("/newshoe")
     public String newShoeProcess(Model model,@Valid Shoe shoe, MultipartFile file) throws SQLException, IOException {
-       if (file.isEmpty()){
-           System.out.println("holaholaholahola");
-       }
         Shoe newShoe = shoeService.save(shoe, file);
         model.addAttribute("shoeId", newShoe.getId());
         return "redirect:/zapatilla/" + newShoe.getId();
