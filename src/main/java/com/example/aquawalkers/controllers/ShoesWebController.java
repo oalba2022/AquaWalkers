@@ -33,12 +33,6 @@ public class ShoesWebController {
     private ShoeService shoeService;
 
     @Autowired
-    private ShoeRepository shoeRepository;
-
-    @Autowired
-    private CommentRepository commentRepository;
-
-    @Autowired
     private CommentService commentService;
 
     @Autowired
@@ -48,8 +42,8 @@ public class ShoesWebController {
 
 
     @GetMapping("/zapatillas")
-    public String showAllShoes(Model model,Integer from, Integer to,String marca, Float precio){
-        model.addAttribute("zapatillas", shoeService.findAll(from,to,marca,precio));
+    public String showAllShoes(Model model,Integer from, Integer to,String marca){
+        model.addAttribute("zapatillas", shoeService.findAll(from,to,marca));
         return "allshoes";
     }
 
@@ -96,11 +90,9 @@ public class ShoesWebController {
     @PostMapping("/zapatilla/{id}/escribirComentario")
     public String newComment(Model model, String comment, @PathVariable long id) {
         Shoe zapatilla = shoeService.findById(id);
-        Comment comentario = new Comment();
-        String sanitized = shoeService.sanitize(comment);
-        comentario.setText(sanitized);
+        Comment comentario = new Comment(comment);
         shoeService.anadirComentario(zapatilla, comentario);
-        model.addAttribute(sanitized);
+        model.addAttribute(comentario.getText());
         return "redirect:/zapatilla/"+id;
    }
     @GetMapping("/deletecomment/{id}")

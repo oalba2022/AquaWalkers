@@ -13,9 +13,9 @@ public class Comment {
     private User user;*/
     public Comment(){}
 
-    /*public Comment(String comment) {
-        this.comment = comment;
-    }*/
+    public Comment(String comment) {
+        this.text = comment;
+    }
     public String getText(){
         return this.text;
     }
