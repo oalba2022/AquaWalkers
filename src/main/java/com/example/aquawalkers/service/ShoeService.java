@@ -73,8 +73,10 @@ public class ShoeService {
     public List<Shoe> findAll(Integer from, Integer to, String marca) {
         String sentence = new String();
         TypedQuery<Shoe> query = null;
-
-        if((from != null && to != null) && marca.isEmpty()) {
+        if(from == null && to == null && marca == null){
+            sentence = "SELECT s FROM Shoe s";
+            query = entityManager.createQuery(sentence, Shoe.class);
+        } else if((from != null && to != null) && marca.isEmpty()) {
             sentence ="SELECT s FROM Shoe s WHERE s.precio BETWEEN :from AND :to";
             query = entityManager.createQuery(sentence, Shoe.class);
             query.setParameter("from", from);
@@ -99,7 +101,7 @@ public class ShoeService {
         insertImage(shoe,imageField);
         shoeRepository.save(shoe);
         return shoe;
-    } //añdadido bbdd
+    }
 
     public boolean delete(long id){
         if (this.exist(id)){
@@ -107,7 +109,7 @@ public class ShoeService {
             return true;
         }
         return false;
-    } //añadido bbdd
+    }
 
     public void anadirComentario(Shoe shoe, Comment comment){
         comment.setText(this.sanitize(comment.getText()));
