@@ -42,8 +42,8 @@ public class ShoesWebController {
 
 
     @GetMapping("/zapatillas")
-    public String showAllShoes(Model model,Integer from, Integer to,String marca, Float precio){
-        model.addAttribute("zapatillas", shoeService.findAll(from,to,marca,precio));
+    public String showAllShoes(Model model,Integer from, Integer to,String marca){
+        model.addAttribute("zapatillas", shoeService.findAll(from,to,marca));
         return "allshoes";
     }
 

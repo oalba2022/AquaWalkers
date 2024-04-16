@@ -8,6 +8,7 @@ import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.ShoeRepository;
+import jakarta.persistence.TypedQuery;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -69,22 +70,24 @@ public class ShoeService {
     private boolean isNotEmptyField(String field) {
         return field != null && !field.isEmpty();
     }
-    public List<Shoe> findAll(Integer from, Integer to, String marca,Float precio) {
-        String query = "SELECT * FROM shoe";
-        if( (from != null && to != null) || isNotEmptyFieldFloat(precio)) {
-            query+=" WHERE";
-        }
-        if(from != null && to != null) {
-            query+=" precio BETWEEN "+from+" AND "+to;
-        }
-        if( from != null && to != null && isNotEmptyField(marca)) {
-            query+=" AND";
-        }
-        if(isNotEmptyField(marca)) {
-            query+=" marca='"+marca+"'";
-        }
+    public List<Shoe> findAll(Integer from, Integer to, String marca) {
+        String sentence = new String();
+        TypedQuery<Shoe> query = null;
 
-        return (List<Shoe>) entityManager.createNativeQuery(query, Shoe.class).getResultList();
+        if((from != null && to != null) && marca.isEmpty()) {
+            sentence ="SELECT s FROM Shoe s WHERE s.precio BETWEEN :from AND :to";
+            query = entityManager.createQuery(sentence, Shoe.class);
+            query.setParameter("from", from);
+            query.setParameter("to", to);
+
+        } else if((from != null && to != null) && !marca.isEmpty()) {
+            sentence ="SELECT s FROM Shoe s WHERE (s.precio BETWEEN :from AND :to) AND s.marca LIKE CONCAT('%', :marca, '%')";
+            query = entityManager.createQuery(sentence, Shoe.class);
+            query.setParameter("from", from);
+            query.setParameter("to", to);
+            query.setParameter("marca", marca);
+        }
+        return query.getResultList();
     }
 
 
