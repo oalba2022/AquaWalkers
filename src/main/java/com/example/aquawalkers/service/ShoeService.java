@@ -107,6 +107,7 @@ public class ShoeService {
     } //añadido bbdd
 
     public void anadirComentario(Shoe shoe, Comment comment){
+        comment.setText(this.sanitize(comment.getText()));
         commentService.save(comment, shoe);
         shoe.addComment(comment);
         shoeRepository.save(shoe);
