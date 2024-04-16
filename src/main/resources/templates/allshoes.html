@@ -9,20 +9,19 @@
     </a>
     {{/zapatillas}}
 
-    <a href="/newshoe"><button class="button_create"><i class="fa-solid fa-plus"></i>  Crear Zapatilla</button></a>
+    <a href="/newshoe"><button class="button_create"><i class="fa-solid fa-plus"></i> Crear Zapatilla</button></a>
    <form method="get" action="/zapatillas">
-       <label>Precio desde:</label>
-       <input id="pi_input" type="range" min="0" max="1000" step="1" name="from" />
+       <p><label>Precio desde:</label>
+       <input id="pi_input" type="range" min="0" max="1000" step="1" name="from" value="0"/></p>
+       <output id="value"></output>&euro;
        <br>
-       <p><output id="value"></output>&euro;<br></p>
-       <label>Precio hasta:</label>
-       <input id ="pi_input1" type="range" min="0" max="1000" step="1" name="to" />
-       <br>
-       <p><output id="value1"></output>&euro;</p>
+       <p><label>Precio hasta:</label>
+       <input id ="pi_input1" type="range" min="0" max="1000" step="1" name="to" value="1000"/></p>
+       <output id="value1"></output>&euro;
        <br>
        <label>Marca:</label>
-       <input type="text" name="marca" />
-       <input type="submit" value="filtrar" />
+       <input type="text" name="marca"/>
+       <input type="submit" value="filtrar"/>
    </form>
 
 </main>
