@@ -3,6 +3,8 @@ package es.codeurjc.daw.library.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.aquawalkers.models.User;
+import com.example.aquawalkers.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,8 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import es.codeurjc.daw.library.model.User;
-import es.codeurjc.daw.library.repository.UserRepository;
+
 
 @Service
 public class RepositoryUserDetailsService implements UserDetailsService {
