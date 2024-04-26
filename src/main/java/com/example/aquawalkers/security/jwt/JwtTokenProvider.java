@@ -1,4 +1,4 @@
-package es.codeurjc.daw.library.security.jwt;
+package com.example.aquawalkers.security.jwt;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

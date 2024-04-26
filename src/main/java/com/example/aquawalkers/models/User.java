@@ -15,8 +15,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
     private String nombre;
-    private String correo;
-    private String contrasena;
+    private String email;
+    private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
     @ManyToMany
     private List<Shoe> carrito;
    /*@OneToMany(mappedBy = "id")
@@ -25,8 +28,8 @@ public class User {
     public User(String nombre, String correo, String contrasena) {
         super();
         this.nombre = nombre;
-        this.correo = correo;
-        this.contrasena = contrasena;
+        this.email = correo;
+        this.password = contrasena;
         this.carrito = new ArrayList<Shoe>();
         /*this.comentariosEscritos = new ArrayList<Comment>();*/
     }
@@ -34,8 +37,8 @@ public class User {
     public User() {
         this.id = 1L;
         this.nombre = "Invitado";
-        this.correo = "invitado@aquawalkers.es";
-        this.contrasena = "";
+        this.email = "invitado@aquawalkers.es";
+        this.password = "";
         this.carrito = new ArrayList<Shoe>();
         /*this.comentariosEscritos = new ArrayList<Comment>();*/
     }
@@ -49,12 +52,12 @@ public class User {
         return id;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getPassword() {
+        return password;
     }
 
     public List<Shoe> getCarrito() {
@@ -73,12 +76,12 @@ public class User {
         this.nombre = nombre;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String correo) {
+        this.email = correo;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setPassword(String contrasena) {
+        this.password = contrasena;
     }
 
     public void setCarrito(List<Shoe> carrito) {
@@ -93,14 +96,21 @@ public class User {
         this.carrito.add(shoe);
     }
 
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", contrasena='" + contrasena + '\'' +
+                ", correo='" + email + '\'' +
+                ", contrasena='" + password + '\'' +
                 ", carrito=" + carrito +
                 /*", comentariosEscritos=" + comentariosEscritos*/ +
                 '}';

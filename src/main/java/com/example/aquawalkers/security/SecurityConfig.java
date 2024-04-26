@@ -1,4 +1,4 @@
-package es.codeurjc.daw.library.security;
+package com.example.aquawalkers.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import es.codeurjc.daw.library.security.jwt.UnauthorizedHandlerJwt;
-import es.codeurjc.daw.library.security.jwt.JwtRequestFilter;
+import com.example.aquawalkers.security.jwt.UnauthorizedHandlerJwt;
+import com.example.aquawalkers.security.jwt.JwtRequestFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -65,9 +65,13 @@ public class SecurityConfig {
 		http
 			.authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS
-                    .requestMatchers(HttpMethod.POST,"/api/books/").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT,"/api/books/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.DELETE,"/api/books/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST,"/api/zapatilla").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.GET,"/api/zapatillas").hasRole("USER")
+					.requestMatchers(HttpMethod.GET, "/api/zapatilla/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.PUT,"/api/zapatilla/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,"/api/zapatilla/**").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.POST, "/zapatilla/**/image").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.POST, "\"/zapatilla/**/comment\"").hasRole("USER")
 					// PUBLIC ENDPOINTS
 					.anyRequest().permitAll()
 			);
@@ -101,12 +105,13 @@ public class SecurityConfig {
 					// PUBLIC PAGES
 					.requestMatchers("/").permitAll()
 					.requestMatchers("/error").permitAll()
-                    .requestMatchers("/books/*").permitAll()
+                    .requestMatchers("/allshoes/*").permitAll()
 					// PRIVATE PAGES
-					.requestMatchers("/newbook").hasAnyRole("USER")
-                    .requestMatchers("/editbook/*").hasAnyRole("USER")
-                    .requestMatchers("/editbook").hasAnyRole("USER")
-					.requestMatchers("/removebook/*").hasAnyRole("ADMIN")
+					.requestMatchers("/newshoe").hasAnyRole("ADMIN")
+                    .requestMatchers("/modifyshoe/*").hasAnyRole("ADMIN")
+					.requestMatchers("/deleteshoe/*").hasAnyRole("ADMIN")
+					.requestMatchers("zapatilla/*/escribirComentario").hasRole("USER")
+					.requestMatchers("/deletecomment/*").hasRole("USER")
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")

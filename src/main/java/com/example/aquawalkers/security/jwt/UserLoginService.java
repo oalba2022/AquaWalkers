@@ -1,4 +1,4 @@
-package es.codeurjc.daw.library.security.jwt;
+package com.example.aquawalkers.security.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

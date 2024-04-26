@@ -1,4 +1,4 @@
-package es.codeurjc.daw.library.security.jwt;
+package com.example.aquawalkers.security.jwt;
 
 import java.io.IOException;
 
