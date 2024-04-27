@@ -11,14 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 //import com.example.aquawalkers.controllers.CustomErrorController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 @Controller
@@ -46,7 +38,7 @@ public class LinksController {
 
     @GetMapping("/index")
     public String index(Model model){
-        return "index";
+        return "register";
     }
 
     @GetMapping("/zapatilla")
