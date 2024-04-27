@@ -4,9 +4,11 @@ import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.repository.ShoeRepository;
+import com.example.aquawalkers.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +23,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 
 
 @Component
@@ -31,18 +34,26 @@ public class DatabaseInitializer {
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostConstruct
     public void init() throws IOException, SQLException {
 
-        File img1 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\tn1.png");
+        userRepository.save(new User ("user","user@aquawlakers.es",passwordEncoder.encode("password"), "USER"));
+        userRepository.save(new User("admin", "admin@aquawalkers.es" , passwordEncoder.encode("adminpass"), "ADMIN"));
+
+        File img1 = new File("C:\\Users\\Alex\\IdeaProjects\\AquaWalkers\\images\\crocs2.png");
         FileInputStream input1 = new FileInputStream(img1);
         MultipartFile multipartFile1 = new MockMultipartFile("fileItem", img1.getName(), "image/png", IOUtils.toByteArray(input1));
 
-        File img2 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\vans.png");
+        File img2 = new File("C:\\Users\\Alex\\IdeaProjects\\AquaWalkers\\images\\crocs2.png");
         FileInputStream input2 = new FileInputStream(img2);
         MultipartFile multipartFile2 = new MockMultipartFile("fileItem", img2.getName(), "image/png", IOUtils.toByteArray(input2));
 
-        File img3 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs3.png");
+        File img3 = new File("C:\\Users\\Alex\\IdeaProjects\\AquaWalkers\\images\\crocs2.png");
         FileInputStream input3 = new FileInputStream(img3);
         MultipartFile multipartFile3 = new MockMultipartFile("fileItem", img3.getName(), "image/png", IOUtils.toByteArray(input3));
 

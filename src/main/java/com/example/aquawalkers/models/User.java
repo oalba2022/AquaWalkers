@@ -2,9 +2,11 @@ package com.example.aquawalkers.models;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -14,8 +16,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
-    private String nombre;
+    private String name;
     private String email;
+    @JsonIgnore
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -25,26 +28,37 @@ public class User {
    /*@OneToMany(mappedBy = "id")
     private ArrayList<Comment> comentariosEscritos;*/
 
-    public User(String nombre, String correo, String contrasena) {
+    public User(){}
+    public User(String nombre, String correo, String contrasena, List<String> roles) {
         super();
-        this.nombre = nombre;
+        this.name = nombre;
         this.email = correo;
         this.password = contrasena;
+        this.roles = roles;
+        this.carrito = new ArrayList<Shoe>();
+        /*this.comentariosEscritos = new ArrayList<Comment>();*/
+    }
+    public User(String nombre, String correo, String contrasena, String rol) {
+        super();
+        this.name = nombre;
+        this.email = correo;
+        this.password = contrasena;
+        this.roles = Collections.singletonList(rol);
         this.carrito = new ArrayList<Shoe>();
         /*this.comentariosEscritos = new ArrayList<Comment>();*/
     }
 
-    public User() {
+    /*public User() {
         this.id = 1L;
         this.nombre = "Invitado";
         this.email = "invitado@aquawalkers.es";
         this.password = "";
         this.carrito = new ArrayList<Shoe>();
         /*this.comentariosEscritos = new ArrayList<Comment>();*/
-    }
+   // }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
 
@@ -72,8 +86,8 @@ public class User {
         this.id = id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String nombre) {
+        this.name = nombre;
     }
 
     public void setEmail(String correo) {
@@ -108,7 +122,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
+                ", nombre='" + name + '\'' +
                 ", correo='" + email + '\'' +
                 ", contrasena='" + password + '\'' +
                 ", carrito=" + carrito +

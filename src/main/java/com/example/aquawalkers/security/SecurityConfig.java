@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,7 +28,7 @@ public class SecurityConfig {
 	private JwtRequestFilter jwtRequestFilter;
 
 	@Autowired
-    public RepositoryUserDetailsService userDetailService;
+    public UserDetailsService userDetailService;
 
 	@Autowired
   	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
@@ -59,7 +60,7 @@ public class SecurityConfig {
 		http.authenticationProvider(authenticationProvider());
 		
 		http
-			.securityMatcher("/api/**")
+			.securityMatcher("/api")
 			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 		
 		http
@@ -71,7 +72,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PUT,"/api/zapatilla/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/zapatilla/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.POST, "/zapatilla/**/image").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.POST, "\"/zapatilla/**/comment\"").hasRole("USER")
+					.requestMatchers(HttpMethod.POST, "/zapatilla/**/comment").hasRole("USER")
 					// PUBLIC ENDPOINTS
 					.anyRequest().permitAll()
 			);
@@ -89,13 +90,27 @@ public class SecurityConfig {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		// Add JWT Token filter
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+			http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+			return http.build();
+	}
+	@Bean
+	@Order(2)
+	public SecurityFilterChain apiUsersFilterChain(HttpSecurity http) throws Exception {
+		http
+				.securityMatcher("/api/users")
+				.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+		http
+				.authorizeHttpRequests(authorize -> authorize
+						// PRIVATE ENDPOINTS
+						.requestMatchers(HttpMethod.POST, "/api/users/register").hasRole("USER")
+						.anyRequest().permitAll()
+				);
 
 		return http.build();
 	}
-
 	@Bean
-    @Order(2)
+    @Order(3)
 	public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
 		
 		http.authenticationProvider(authenticationProvider());
@@ -112,6 +127,7 @@ public class SecurityConfig {
 					.requestMatchers("/deleteshoe/*").hasAnyRole("ADMIN")
 					.requestMatchers("zapatilla/*/escribirComentario").hasRole("USER")
 					.requestMatchers("/deletecomment/*").hasRole("USER")
+					.requestMatchers("/zapatilla/*")
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
