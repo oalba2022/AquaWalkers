@@ -42,8 +42,9 @@ public class DatabaseInitializer {
     @PostConstruct
     public void init() throws IOException, SQLException {
 
-        userRepository.save(new User ("user","user@aquawlakers.es",passwordEncoder.encode("password"), "USER"));
-        userRepository.save(new User("admin", "admin@aquawalkers.es" , passwordEncoder.encode("adminpass"), "ADMIN"));
+        userService.save(new User("admin", "admin@aquawalkers.es" , passwordEncoder.encode("adminpass"), "ADMIN"));
+        userService.save(new User ("user","user@aquawlakers.es",passwordEncoder.encode("password"), "USER"));
+
 
         File img1 = new File("C:\\Users\\Sergio\\Desktop\\AquaWalkers\\images\\image_1bd216a0-8601-4d77-9a4b-337edd716d49_tnNegras.jpg");
         FileInputStream input1 = new FileInputStream(img1);
@@ -76,6 +77,7 @@ public class DatabaseInitializer {
         Comment comment3 = new Comment();
         comment3.setText("Ande vas truan con las crocs esas");
         shoe2.addComment(comment3);
+
 
 
     }
