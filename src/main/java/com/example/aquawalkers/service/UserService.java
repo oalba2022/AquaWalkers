@@ -82,7 +82,10 @@ public class UserService {
         inv.setCarrito(nuevo_carrito);
         userRepository.save(inv);
     }
-
+    public boolean validateUser(String username, String password) {
+        Optional<User> user = userRepository.findByName(username);
+        return user.isPresent() && user.get().getPassword().equals(password);
+    }
     public User getInv() {
         return inv;
     }
