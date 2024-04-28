@@ -121,6 +121,7 @@ public class SecurityConfig {
 					.requestMatchers("/").permitAll()
 					.requestMatchers("/error").permitAll()
                     .requestMatchers("/allshoes/*").permitAll()
+					.requestMatchers("/styles/**", "/images/**").permitAll()
 					// PRIVATE PAGES
 					.requestMatchers("/newshoe").hasAnyRole("ADMIN")
                     .requestMatchers("/modifyshoe/*").hasAnyRole("ADMIN")
