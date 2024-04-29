@@ -42,18 +42,19 @@ public class DatabaseInitializer {
     @PostConstruct
     public void init() throws IOException, SQLException {
 
-        userService.save(new User ("user","user@aquawlakers.es",passwordEncoder.encode("password"), "USER"));
         userService.save(new User("admin", "admin@aquawalkers.es" , passwordEncoder.encode("adminpass"), "ADMIN"));
+        userService.save(new User ("user","user@aquawlakers.es",passwordEncoder.encode("password"), "USER"));
 
-        File img1 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs3.png");
+
+        File img1 = new File("C:\\Users\\Sergio\\Desktop\\AquaWalkers\\images\\image_1bd216a0-8601-4d77-9a4b-337edd716d49_tnNegras.jpg");
         FileInputStream input1 = new FileInputStream(img1);
         MultipartFile multipartFile1 = new MockMultipartFile("fileItem", img1.getName(), "image/png", IOUtils.toByteArray(input1));
 
-        File img2 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs3.png");
+        File img2 = new File("C:\\Users\\Sergio\\Desktop\\AquaWalkers\\images\\image_9f879c38-9451-436b-9d94-189cf5bc83ba_tnNegras.jpg");
         FileInputStream input2 = new FileInputStream(img2);
         MultipartFile multipartFile2 = new MockMultipartFile("fileItem", img2.getName(), "image/png", IOUtils.toByteArray(input2));
 
-        File img3 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs3.png");
+        File img3 = new File("C:\\Users\\Sergio\\Desktop\\AquaWalkers\\images\\image_cde146ab-1cfe-4698-9cc4-3c9229541da3_tnNegras.jpg");
         FileInputStream input3 = new FileInputStream(img3);
         MultipartFile multipartFile3 = new MockMultipartFile("fileItem", img3.getName(), "image/png", IOUtils.toByteArray(input3));
 
@@ -76,6 +77,7 @@ public class DatabaseInitializer {
         Comment comment3 = new Comment();
         comment3.setText("Ande vas truan con las crocs esas");
         shoe2.addComment(comment3);
+
 
 
     }
