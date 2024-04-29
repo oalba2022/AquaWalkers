@@ -133,7 +133,7 @@ public class SecurityConfig {
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/loginerror")
-					.defaultSuccessUrl("/")
+					.defaultSuccessUrl("/zapatillas")
 					.permitAll()
 			)
 			.logout(logout -> logout
