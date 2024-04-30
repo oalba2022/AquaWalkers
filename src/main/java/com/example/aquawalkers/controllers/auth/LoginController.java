@@ -1,46 +1,36 @@
 package com.example.aquawalkers.controllers.auth;
 
+import com.example.aquawalkers.models.User;
+import com.example.aquawalkers.security.RepositoryUserDetailsService;
+import com.example.aquawalkers.security.jwt.AuthResponse;
+import com.example.aquawalkers.security.jwt.JwtTokenProvider;
+import org.apache.el.parser.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.aquawalkers.security.jwt.AuthResponse;
-import com.example.aquawalkers.security.jwt.AuthResponse.Status;
 import com.example.aquawalkers.security.jwt.LoginRequest;
 import com.example.aquawalkers.security.jwt.UserLoginService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
-@RestController
-@RequestMapping("/api/auth")
+@Controller
 public class LoginController {
 
     @Autowired
-    private UserLoginService userService;
+    private UserLoginService userLoginService;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private RepositoryUserDetailsService repositoryUserDetailsService;
+        @RequestMapping("/login")
+        public String login() {
+            return "login";
+        }
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(
-            @CookieValue(name = "accessToken", required = false) String accessToken,
-            @CookieValue(name = "refreshToken", required = false) String refreshToken,
-            @RequestBody LoginRequest loginRequest) {
-
-        return userService.login(loginRequest, accessToken, refreshToken);
-    }
-
-    @PostMapping("/refresh")
-    public ResponseEntity<AuthResponse> refreshToken(
-            @CookieValue(name = "refreshToken", required = false) String refreshToken) {
-
-        return userService.refresh(refreshToken);
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<AuthResponse> logOut(HttpServletRequest request, HttpServletResponse response) {
-
-        return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userService.logout(request, response)));
-    }
+        @RequestMapping("/loginerror")
+        public String loginerror() {
+            return "loginerror";
+        }
 }

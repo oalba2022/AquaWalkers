@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,10 +27,9 @@ public class SecurityConfig {
 	private JwtRequestFilter jwtRequestFilter;
 
 	@Autowired
-    public UserDetailsService userDetailService;
-
-	@Autowired
   	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
+	@Autowired
+	private RepositoryUserDetailsService userDetailService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -46,10 +44,8 @@ public class SecurityConfig {
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-
 		authProvider.setUserDetailsService(userDetailService);
 		authProvider.setPasswordEncoder(passwordEncoder());
-
 		return authProvider;
 	}
 
@@ -60,7 +56,7 @@ public class SecurityConfig {
 		http.authenticationProvider(authenticationProvider());
 		
 		http
-			.securityMatcher("/api")
+			.securityMatcher("/api/**")
 			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 		
 		http
@@ -74,6 +70,8 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.POST, "/zapatilla/**/image").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.POST, "/zapatilla/**/comment").hasRole("USER")
 					// PUBLIC ENDPOINTS
+					.requestMatchers("/api/auth/login").permitAll()
+					.requestMatchers("/api/auth/refresh").permitAll()
 					.anyRequest().permitAll()
 			);
 		
@@ -95,22 +93,7 @@ public class SecurityConfig {
 			return http.build();
 	}
 	@Bean
-	@Order(2)
-	public SecurityFilterChain apiUsersFilterChain(HttpSecurity http) throws Exception {
-		http
-				.securityMatcher("/api/users")
-				.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
-		http
-				.authorizeHttpRequests(authorize -> authorize
-						// PRIVATE ENDPOINTS
-						.requestMatchers(HttpMethod.POST, "/api/users/register").hasRole("USER")
-						.anyRequest().permitAll()
-				);
-
-		return http.build();
-	}
-	@Bean
-    @Order(3)
+    @Order(2)
 	public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
 		
 		http.authenticationProvider(authenticationProvider());
@@ -122,18 +105,23 @@ public class SecurityConfig {
 					.requestMatchers("/error").permitAll()
                     .requestMatchers("/allshoes/*").permitAll()
 					.requestMatchers("/styles/**", "/images/**").permitAll()
+					.requestMatchers("/loginerror").permitAll()
+					.requestMatchers("/zapatilla/**").permitAll()
+					.requestMatchers("/zapatillas").permitAll()
+					.requestMatchers("/inicio").permitAll()
+					.requestMatchers("/login").permitAll()
 					// PRIVATE PAGES
 					.requestMatchers("/newshoe").hasAnyRole("ADMIN")
                     .requestMatchers("/modifyshoe/*").hasAnyRole("ADMIN")
 					.requestMatchers("/deleteshoe/*").hasAnyRole("ADMIN")
 					.requestMatchers("zapatilla/*/escribirComentario").hasRole("USER")
 					.requestMatchers("/deletecomment/*").hasRole("USER")
-					.requestMatchers("/zapatilla/*")
+					.requestMatchers("/zapatilla/*").hasAnyRole("USER", "ADMIN")
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/loginerror")
-					.defaultSuccessUrl("/zapatillas")
+					.defaultSuccessUrl("/inicio")
 					.permitAll()
 			)
 			.logout(logout -> logout
