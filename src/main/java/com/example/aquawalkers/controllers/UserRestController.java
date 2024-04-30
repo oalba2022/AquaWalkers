@@ -19,8 +19,6 @@ public class UserRestController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserService userService;
 
     @GetMapping("/me")
     public ResponseEntity<User> me(HttpServletRequest request) {
@@ -32,12 +30,5 @@ public class UserRestController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-
-    @PostMapping("/register")
-    public ResponseEntity<User> newUser(@RequestBody User user){
-        User newUser = this.userService.save(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 }

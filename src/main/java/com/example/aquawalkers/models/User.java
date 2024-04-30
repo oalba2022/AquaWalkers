@@ -13,16 +13,15 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name="usuarios")
+@Table(name="USERS")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id = null;
+    private Long id;
     private String name;
-    private String email;
     @JsonIgnore
-    private String password;
+    private String encodedPassword;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
@@ -32,47 +31,36 @@ public class User {
     private ArrayList<Comment> comentariosEscritos;*/
 
     public User(){}
-    public User(String nombre, String correo, String contrasena, List<String> roles) {
+    public User(String name, String encodedPassword, String roles) {
         super();
-        this.name = nombre;
-        this.email = correo;
-        this.password = contrasena;
-        this.roles = roles;
+        this.name = name;
+        this.encodedPassword = encodedPassword;
+        this.roles = List.of(roles);
         this.carrito = new ArrayList<Shoe>();
         /*this.comentariosEscritos = new ArrayList<Comment>();*/
     }
-    public User(String nombre, String correo, String contrasena, String rol) {
-        super();
-        this.name = nombre;
-        this.email = correo;
-        this.password = contrasena;
-        this.roles = Collections.singletonList(rol);
-        this.carrito = new ArrayList<Shoe>();
-        /*this.comentariosEscritos = new ArrayList<Comment>();*/
-    }
-
-    /*public User() {
-        this.id = 1L;
-        this.nombre = "Invitado";
-        this.email = "invitado@aquawalkers.es";
-        this.password = "";
-        this.carrito = new ArrayList<Shoe>();
-        /*this.comentariosEscritos = new ArrayList<Comment>();*/
-   // }
-
     public String getName() {
         return name;
     }
-    public String getPassword(){
-        return this.password;
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getEncodedPassword(){
+        return encodedPassword;
+    }
+    public void setPassword(String encodedPassword) {
+        this.encodedPassword = encodedPassword;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public List<Shoe> getCarrito() {
@@ -87,18 +75,6 @@ public class User {
         this.id = id;
     }
 
-    public void setName(String nombre) {
-        this.name = nombre;
-    }
-
-    public void setEmail(String correo) {
-        this.email = correo;
-    }
-
-    public void setPassword(String contrasena) {
-        this.password = contrasena;
-    }
-
     public void setCarrito(List<Shoe> carrito) {
         this.carrito = carrito;
     }
@@ -110,24 +86,14 @@ public class User {
     public void addCarrito(Shoe shoe){
         this.carrito.add(shoe);
     }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    @Override
+   /* @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", nombre='" + name + '\'' +
-                ", correo='" + email + '\'' +
                 ", contrasena='" + password + '\'' +
                 ", carrito=" + carrito +
-                /*", comentariosEscritos=" + comentariosEscritos*/ +
-                '}';
-    }
+                /*", comentariosEscritos=" + comentariosEscritos*/ //+
+                //'}';
+    //}
 }

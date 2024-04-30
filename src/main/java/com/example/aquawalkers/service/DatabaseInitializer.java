@@ -42,8 +42,8 @@ public class DatabaseInitializer {
     @PostConstruct
     public void init() throws IOException, SQLException {
 
-        userService.save(new User("admin", "admin@aquawalkers.es" , passwordEncoder.encode("adminpass"), "ADMIN"));
-        userService.save(new User ("user","user@aquawlakers.es",passwordEncoder.encode("password"), "USER"));
+        userService.save(new User("admin", passwordEncoder.encode("adminpass"), "ADMIN"));
+        userService.save(new User ("user", passwordEncoder.encode("password"), "USER"));
 
 
         File img1 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs2.png");
