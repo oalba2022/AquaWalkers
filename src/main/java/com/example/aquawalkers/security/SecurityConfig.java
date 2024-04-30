@@ -76,8 +76,6 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.POST, "/api/auth/logout").hasAnyRole("USER","ADMIN")
 
 					// PUBLIC ENDPOINTS
-					/*.requestMatchers("/api/auth/login").permitAll()
-					.requestMatchers("/api/auth/refresh").permitAll()*/
 					.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 					.requestMatchers(HttpMethod.GET,"/api/auth/refresh").permitAll()
 
@@ -134,7 +132,7 @@ public class SecurityConfig {
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/loginerror")
-					.defaultSuccessUrl("/zapatillas")
+					.defaultSuccessUrl("/zapatillas",true)
 					.permitAll()
 			)
 			.logout(logout -> logout
@@ -142,6 +140,7 @@ public class SecurityConfig {
 					.logoutSuccessUrl("/")
 					.permitAll()
 			);
+		http.csrf(csrf -> csrf.disable());
 
 		return http.build();
 	}
