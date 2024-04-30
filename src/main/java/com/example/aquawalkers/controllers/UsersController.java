@@ -3,8 +3,10 @@ package com.example.aquawalkers.controllers;
 //import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
+import com.example.aquawalkers.repository.UserRepository;
 import com.example.aquawalkers.service.ShoeService;
 import com.example.aquawalkers.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -30,6 +32,8 @@ public class UsersController {
     private UserService userService;
     @Autowired
     private ShoeService shoeService;
+    @Autowired
+    private UserRepository userRepository;
     /*@GetMapping("/usercard//*{id}")*/
     @GetMapping("/usercard")
     public String usercard (Model model/*, @PathVariable Long id*/){
@@ -37,6 +41,15 @@ public class UsersController {
         model.addAttribute("user", user);
         return "usercard";
     }
+    @GetMapping("/private")
+    public String privatePage(Model model, HttpServletRequest request) {
+        String name = request.getUserPrincipal().getName();
+        User user = userRepository.findByName(name).orElseThrow();
+        model.addAttribute("username", user.getName());
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
+        return "private";
+    }
+
     @PostMapping("/index")
     public String newUser (Model model, @Valid User user){
         User newUser = userService.save(user);

@@ -1,39 +1,46 @@
 package com.example.aquawalkers.controllers.auth;
 
-import com.example.aquawalkers.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpStatus;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.Map;
-
+import com.example.aquawalkers.security.jwt.AuthResponse;
+import com.example.aquawalkers.security.jwt.LoginRequest;
+import com.example.aquawalkers.security.jwt.UserLoginService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/api/auth")
 public class LoginRestController {
 
-    private final UserService userService;
+    @Autowired
+    private UserLoginService userLoginService;
 
-    public LoginRestController(UserService userService) {
-        this.userService = userService;
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(
+            @CookieValue(name = "accessToken", required = false) String accessToken,
+            @CookieValue(name = "refreshToken", required = false) String refreshToken,
+            @RequestBody LoginRequest loginRequest) {
+
+        return userLoginService.login(loginRequest, accessToken, refreshToken);
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials,
-                                   HttpSession session, HttpServletResponse response) throws IOException {
-        String name = credentials.get("name");
-        String password = credentials.get("password");
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponse> refreshToken(
+            @CookieValue(name = "refreshToken", required = false) String refreshToken) {
 
-        if (userService.validateUser(name, password)) {
-            session.setAttribute("USER", name);
-            return ResponseEntity.ok("Correct credentials");
-        } else {
-            response.getWriter().write("{message: \"Bad credentials\"}");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        return userLoginService.refresh(refreshToken);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<AuthResponse> logOut(HttpServletRequest request, HttpServletResponse response) {
+
+        return ResponseEntity.ok(new AuthResponse(AuthResponse.Status.SUCCESS, userLoginService.logout(request, response)));
+    }
 }

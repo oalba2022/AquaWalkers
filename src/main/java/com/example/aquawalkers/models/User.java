@@ -4,8 +4,11 @@ package com.example.aquawalkers.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,7 +63,9 @@ public class User {
     public String getName() {
         return name;
     }
-
+    public String getPassword(){
+        return this.password;
+    }
 
     public Long getId() {
         return id;
@@ -68,10 +73,6 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public List<Shoe> getCarrito() {

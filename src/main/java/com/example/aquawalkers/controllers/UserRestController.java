@@ -34,6 +34,7 @@ public class UserRestController {
         }
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<User> newUser(@RequestBody User user){
         User newUser = this.userService.save(user);
