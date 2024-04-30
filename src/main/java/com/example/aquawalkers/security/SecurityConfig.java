@@ -28,6 +28,7 @@ public class SecurityConfig {
 
 	@Autowired
   	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
+
 	@Autowired
 	private RepositoryUserDetailsService userDetailService;
 
@@ -44,8 +45,10 @@ public class SecurityConfig {
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
 		authProvider.setUserDetailsService(userDetailService);
 		authProvider.setPasswordEncoder(passwordEncoder());
+
 		return authProvider;
 	}
 
@@ -63,15 +66,21 @@ public class SecurityConfig {
 			.authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS
                     .requestMatchers(HttpMethod.POST,"/api/zapatilla").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.GET,"/api/zapatillas").hasRole("USER")
-					.requestMatchers(HttpMethod.GET, "/api/zapatilla/**").hasRole("USER")
+					.requestMatchers(HttpMethod.GET,"/api/zapatillas").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.GET, "/api/zapatilla/**").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/zapatilla/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/zapatilla/**").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.POST, "/zapatilla/**/image").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.POST, "/zapatilla/**/comment").hasRole("USER")
+					.requestMatchers(HttpMethod.POST, "/api/zapatilla/**/image").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.POST, "/api/zapatilla/**/comment").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.POST, "/api/auth/logout").hasAnyRole("USER","ADMIN")
+
 					// PUBLIC ENDPOINTS
-					.requestMatchers("/api/auth/login").permitAll()
-					.requestMatchers("/api/auth/refresh").permitAll()
+					/*.requestMatchers("/api/auth/login").permitAll()
+					.requestMatchers("/api/auth/refresh").permitAll()*/
+					.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+					.requestMatchers(HttpMethod.GET,"/api/auth/refresh").permitAll()
+
 					.anyRequest().permitAll()
 			);
 		
@@ -101,27 +110,31 @@ public class SecurityConfig {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
-					.requestMatchers("/").permitAll()
+					.requestMatchers("/inicio").permitAll()
+					.requestMatchers("/404").permitAll()
 					.requestMatchers("/error").permitAll()
-                    .requestMatchers("/allshoes/*").permitAll()
+                    .requestMatchers("/allshoes").permitAll()
 					.requestMatchers("/styles/**", "/images/**").permitAll()
 					.requestMatchers("/loginerror").permitAll()
 					.requestMatchers("/zapatilla/**").permitAll()
 					.requestMatchers("/zapatillas").permitAll()
-					.requestMatchers("/inicio").permitAll()
+					.requestMatchers("/").permitAll()
 					.requestMatchers("/login").permitAll()
+					.requestMatchers("/sobre-nosotros").permitAll()
+
 					// PRIVATE PAGES
 					.requestMatchers("/newshoe").hasAnyRole("ADMIN")
                     .requestMatchers("/modifyshoe/*").hasAnyRole("ADMIN")
 					.requestMatchers("/deleteshoe/*").hasAnyRole("ADMIN")
 					.requestMatchers("zapatilla/*/escribirComentario").hasRole("USER")
 					.requestMatchers("/deletecomment/*").hasRole("USER")
-					.requestMatchers("/zapatilla/*").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/zapatilla/**").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/carrito").hasAnyRole("USER", "ADMIN")
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/loginerror")
-					.defaultSuccessUrl("/inicio")
+					.defaultSuccessUrl("/zapatillas")
 					.permitAll()
 			)
 			.logout(logout -> logout

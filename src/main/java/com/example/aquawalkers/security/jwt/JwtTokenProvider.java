@@ -29,15 +29,16 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class JwtTokenProvider {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(JwtRequestFilter.class);
-	
-	@Value("3F66DD74828ABA92BB47944E7EA64")
-	private String jwtSecret;
-	
-	private static long JWT_EXPIRATION_IN_MS = 5400000;
-	private static Long REFRESH_TOKEN_EXPIRATION_MSEC = 10800000L;
 
+	private static final Logger LOG = LoggerFactory.getLogger(JwtRequestFilter.class);
+
+	@Value("Super-secure-password-ForAquawalkers!App")
+	private String jwtSecret;
+
+	private static long JWT_EXPIRATION_IN_MS = 5400000;
+	private static Long REFRESH_TOKEN_EXPIRATION_MSEC = 10800000l;
+
+	@Autowired
 	private UserDetailsService userDetailsService;
 
 	public Authentication getAuthentication(String token) {

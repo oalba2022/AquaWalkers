@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class UserService {
 
-    public User inv = new User();
     @Autowired
     private UserRepository userRepository;
     public Optional<User> findById(long id) {
@@ -58,9 +57,9 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
-    public void addPrecioCarrito(Shoe shoe){
+    /*public void addPrecioCarrito(Shoe shoe){
         this.inv.addCarrito(shoe);
-    }
+    }*/
 
     public float precio(){
         float suma = 0;
@@ -82,11 +81,11 @@ public class UserService {
         inv.setCarrito(nuevo_carrito);
         userRepository.save(inv);
     }
-    public boolean validateUser(String username, String password) {
+    /*public boolean validateUser(String username, String password) {
         Optional<User> user = userRepository.findByName(username);
-        return user.isPresent() && user.get().getPassword().equals(password);
-    }
-    public User getInv() {
+        return user.isPresent() && user.get().getEncodedPassword().equals(password);
+    }*/
+    /*public User getInv() {
         return inv;
-    }
+    }*/
 }

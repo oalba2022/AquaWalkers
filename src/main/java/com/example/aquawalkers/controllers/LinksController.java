@@ -19,9 +19,6 @@ public class LinksController {
     @Autowired
     private ShoeService shoeService;
 
-    /*@Autowired
-    private CustomErrorController customErrorController*/
-
     @GetMapping("/inicio")
 
     public String inicio(Model model,Integer from, Integer to,String marca) {
@@ -36,7 +33,7 @@ public class LinksController {
         return "greeting-page";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/register")
     public String index(Model model){
         return "register";
     }
