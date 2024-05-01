@@ -10,6 +10,7 @@ import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.service.CommentService;
 import com.example.aquawalkers.service.FileService;
 import com.example.aquawalkers.service.ShoeService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +43,20 @@ public class ShoesWebController {
 
 
     @GetMapping("/zapatillas")
-    public String showAllShoes(Model model,Integer from, Integer to,String marca){
+    public String showAllShoes(Model model, Integer from, Integer to, String marca, HttpServletRequest request){
         model.addAttribute("zapatillas", shoeService.findAll(from,to,marca));
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "allshoes";
     }
 
     @GetMapping("/zapatilla/{id}")
-    public String showShoe(Model model, @PathVariable long id) {
+    public String showShoe(Model model, @PathVariable long id, HttpServletRequest request) {
         Shoe zapa = shoeService.findById(id);
         List<Comment> comentarios = zapa.getComentarios();
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
         if(shoeService.exist(id)){
             model.addAttribute("zapatilla", zapa);
+
             //model.addAttribute("comentarios", zapa.getComentarios());
 
             return "shoe";
