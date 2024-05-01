@@ -119,6 +119,7 @@ public class SecurityConfig {
 					.requestMatchers("/").permitAll()
 					.requestMatchers("/login").permitAll()
 					.requestMatchers("/sobre-nosotros").permitAll()
+					.requestMatchers("/register").permitAll()
 
 
 					// PRIVATE PAGES
