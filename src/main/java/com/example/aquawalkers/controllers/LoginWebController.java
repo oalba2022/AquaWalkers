@@ -1,18 +1,40 @@
 package com.example.aquawalkers.controllers;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginWebController {
 
-        @RequestMapping("/login")
-        public String login() {
-            return "login";
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/loginerror")
+    public String loginerror() {
+        return "loginerror";
+    }
+
+    @RequestMapping("/logout")
+    public String logout() {
+        // Obtener la autenticación actual
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        // Si la autenticación no es nula y está autenticada, invalidarla
+        if (auth != null && auth.isAuthenticated()) {
+            // Invalidar la autenticación actual (cerrar sesión)
+            SecurityContextHolder.getContext().setAuthentication(null);
+
+            // Redirigir al usuario a una página de confirmación de deslogueo o a donde desees
+            return "redirect:/logout-success";
         }
 
-        @RequestMapping("/loginerror")
-        public String loginerror() {
-            return "loginerror";
-        }
+        // Si no se pudo cerrar sesión, redirigir a una página de error o a donde desees
+        return "redirect:/logout-error";
+    }
+
+
 }

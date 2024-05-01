@@ -120,6 +120,7 @@ public class SecurityConfig {
 					.requestMatchers("/login").permitAll()
 					.requestMatchers("/sobre-nosotros").permitAll()
 
+
 					// PRIVATE PAGES
 					.requestMatchers("/newshoe").hasAnyRole("ADMIN")
                     .requestMatchers("/modifyshoe/*").hasAnyRole("ADMIN")
