@@ -46,15 +46,15 @@ public class DatabaseInitializer {
         userService.save(new User ("user", passwordEncoder.encode("password"), "USER"));
 
 
-        File img1 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs2.png");
+        File img1 = new File("images/dunk2.png");
         FileInputStream input1 = new FileInputStream(img1);
         MultipartFile multipartFile1 = new MockMultipartFile("fileItem", img1.getName(), "image/png", IOUtils.toByteArray(input1));
 
-        File img2 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs2.png");
+        File img2 = new File("images/dunk2.png");
         FileInputStream input2 = new FileInputStream(img2);
         MultipartFile multipartFile2 = new MockMultipartFile("fileItem", img2.getName(), "image/png", IOUtils.toByteArray(input2));
 
-        File img3 = new File("C:\\Users\\MarK1\\Desktop\\CIBER\\2º\\2º CUATRIMESTRE\\Desarrollo web seguro\\SNKRS\\AquaWalkers\\images\\crocs2.png");
+        File img3 = new File("images/dunk2.png");
         FileInputStream input3 = new FileInputStream(img3);
         MultipartFile multipartFile3 = new MockMultipartFile("fileItem", img3.getName(), "image/png", IOUtils.toByteArray(input3));
 
