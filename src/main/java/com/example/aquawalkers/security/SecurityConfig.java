@@ -126,6 +126,7 @@ public class SecurityConfig {
 					.requestMatchers("/deleteshoe/*").hasAnyRole("ADMIN")
 					.requestMatchers("zapatilla/*/escribirComentario").hasRole("USER")
 					.requestMatchers("/deletecomment/*").hasRole("USER")
+					.requestMatchers("/usercard").hasAnyRole("USER","ADMIN")
 					.requestMatchers("/zapatilla/**").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/carrito").hasAnyRole("USER", "ADMIN")
 			)
