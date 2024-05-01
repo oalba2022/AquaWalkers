@@ -36,8 +36,8 @@ public class UsersController {
     private UserRepository userRepository;
     /*@GetMapping("/usercard//*{id}")*/
     @GetMapping("/usercard")
-    public String usercard (Model model/*, @PathVariable Long id*/){
-        User user = this.userService.findById(1L).get();
+    public String usercard (Model model, HttpServletRequest request){
+        User user = userService.findByName(request.getUserPrincipal().getName()).get();
         model.addAttribute("user", user);
         return "usercard";
     }
