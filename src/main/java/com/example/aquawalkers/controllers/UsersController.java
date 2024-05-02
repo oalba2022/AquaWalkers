@@ -39,6 +39,7 @@ public class UsersController {
     public String usercard (Model model, HttpServletRequest request){
         User user = userService.findByName(request.getUserPrincipal().getName()).get();
         model.addAttribute("user", user);
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "usercard";
     }
     @GetMapping("/private")
@@ -79,5 +80,12 @@ public class UsersController {
     public String comprar(Model model){
         this.userService.comprar();
         return "redirect:/carrito";
+    }
+
+    @GetMapping("/users")
+    public String allusers(Model model, HttpServletRequest request){
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
+        return "users";
     }
 }
