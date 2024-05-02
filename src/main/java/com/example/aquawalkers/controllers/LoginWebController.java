@@ -20,21 +20,21 @@ public class LoginWebController {
 
     @RequestMapping("/logout")
     public String logout() {
-        // Obtener la autenticación actual
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         // Si la autenticación no es nula y está autenticada, invalidarla
         if (auth != null && auth.isAuthenticated()) {
-            // Invalidar la autenticación actual (cerrar sesión)
+            // Invalidar la autenticación actual
             SecurityContextHolder.getContext().setAuthentication(null);
 
-            // Redirigir al usuario a una página de confirmación de deslogueo o a donde desees
+            // Redirigir al usuario a una página deslogueo
             return "redirect:/logout-success";
         }
 
-        // Si no se pudo cerrar sesión, redirigir a una página de error o a donde desees
+        // Redirigir a una página de error
         return "redirect:/logout-error";
     }
+
 
 
 }

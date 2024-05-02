@@ -34,7 +34,7 @@ public class UsersController {
     private ShoeService shoeService;
     @Autowired
     private UserRepository userRepository;
-    /*@GetMapping("/usercard//*{id}")*/
+
     @GetMapping("/usercard")
     public String usercard (Model model, HttpServletRequest request){
         User user = userService.findByName(request.getUserPrincipal().getName()).get();
@@ -79,5 +79,15 @@ public class UsersController {
     public String comprar(Model model){
         this.userService.comprar();
         return "redirect:/carrito";
+    }
+    @PostMapping("/register")
+    public String registerUser(@RequestBody User user) {
+        // Verificar si el nombre de usuario ya está en uso
+        if (userService.findByName(user.getName()).isPresent()) {
+            return "error";
+        }
+        userService.save(user);
+
+        return "redirect:/login";
     }
 }
