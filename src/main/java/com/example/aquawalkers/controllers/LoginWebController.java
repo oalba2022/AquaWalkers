@@ -27,11 +27,12 @@ public class LoginWebController {
             // Invalidar la autenticación actual
             SecurityContextHolder.getContext().setAuthentication(null);
 
-            // Redirigir al usuario a una página deslogueo
+
+
             return "redirect:/logout-success";
         }
 
-        // Redirigir a una página de error
+
         return "redirect:/logout-error";
     }
     @RequestMapping("/register")
