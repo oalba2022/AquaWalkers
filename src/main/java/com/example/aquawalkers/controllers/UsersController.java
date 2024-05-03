@@ -44,6 +44,7 @@ public class UsersController {
     public String usercard (Model model, HttpServletRequest request){
         User user = userService.findByName(request.getUserPrincipal().getName()).get();
         model.addAttribute("user", user);
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "usercard";
     }
     @GetMapping("/private")
@@ -85,6 +86,7 @@ public class UsersController {
         this.userService.comprar();
         return "redirect:/carrito";
     }
+
     @PostMapping("/register")
     public String registerUser(@Valid User user,@RequestParam String password, RedirectAttributes redirectAttributes) {
         try {
@@ -109,5 +111,13 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("error", "Error al registrar el usuario: " + e.getMessage());
             return "redirect:/register";
         }
+
+
+    @GetMapping("/users")
+    public String allusers(Model model, HttpServletRequest request){
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
+        return "users";
+
     }
 }
