@@ -28,11 +28,11 @@ public class LoginWebController {
             // Invalidar la autenticación actual (cerrar sesión)
             SecurityContextHolder.getContext().setAuthentication(null);
 
-            // Redirigir al usuario a una página de confirmación de deslogueo o a donde desees
+
             return "redirect:/logout-success";
         }
 
-        // Si no se pudo cerrar sesión, redirigir a una página de error o a donde desees
+
         return "redirect:/logout-error";
     }
 
