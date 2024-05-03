@@ -88,29 +88,16 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid User user,@RequestParam String password, RedirectAttributes redirectAttributes) {
+    public String registerUser(@Valid User user, @RequestParam String password, RedirectAttributes redirectAttributes) {
         try {
-            if (userService.findByName(user.getName()).isPresent()) {
-                redirectAttributes.addFlashAttribute("error", "El nombre de usuario ya está en uso.");
-                return "redirect:/registererror";
-            }
-            String encodedPassword = passwordEncoder.encode(password);
-            user.setPassword(encodedPassword);
-
-            List<String> roles = user.getRoles();
-            if (roles == null) {
-                roles = new ArrayList<>();
-            }
-            roles.add("USER");
-            user.setRoles(roles);
-
-            userService.save(user);
+            userService.registerUser(user, password);
             redirectAttributes.addFlashAttribute("success", "Usuario registrado exitosamente.");
             return "redirect:/inicio";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error al registrar el usuario: " + e.getMessage());
             return "redirect:/register";
         }
+    }
 
 
     @GetMapping("/users")
