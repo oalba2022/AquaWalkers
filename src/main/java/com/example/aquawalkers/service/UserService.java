@@ -6,6 +6,7 @@ import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.UserRepository;
 import jakarta.validation.Valid;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserService {
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     private UserRepository userRepository;
+
+
     public Optional<User> findById(long id) {
         return userRepository.findById(id);
     }
@@ -84,6 +89,24 @@ public class UserService {
         List<Shoe> nuevo_carrito = new ArrayList<>();
         inv.setCarrito(nuevo_carrito);
         userRepository.save(inv);
+    }
+
+    public User registerUser(User user, String password) {
+        if (findByName(user.getName()).isPresent()) {
+            throw new RuntimeException("El nombre de usuario ya está en uso.");
+        }
+
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
+
+        List<String> roles = user.getRoles();
+        if (roles == null) {
+            roles = new ArrayList<>();
+        }
+        roles.add("USER");
+        user.setRoles(roles);
+
+        return save(user);
     }
     /*public boolean validateUser(String username, String password) {
         Optional<User> user = userRepository.findByName(username);
