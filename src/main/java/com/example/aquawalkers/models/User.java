@@ -26,6 +26,14 @@ public class User {
     @JsonIgnore
     private String encodedPassword;
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
     @ManyToMany

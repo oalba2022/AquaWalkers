@@ -88,13 +88,13 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid User user, RedirectAttributes redirectAttributes) {
+    public String registerUser(@Valid User user,@RequestParam String password, RedirectAttributes redirectAttributes) {
         try {
             if (userService.findByName(user.getName()).isPresent()) {
                 redirectAttributes.addFlashAttribute("error", "El nombre de usuario ya está en uso.");
                 return "redirect:/registererror";
             }
-            String encodedPassword = passwordEncoder.encode(user.getEncodedPassword());
+            String encodedPassword = passwordEncoder.encode(password);
             user.setPassword(encodedPassword);
 
             List<String> roles = user.getRoles();
