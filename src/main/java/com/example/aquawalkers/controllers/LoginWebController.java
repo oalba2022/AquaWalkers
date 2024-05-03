@@ -34,6 +34,10 @@ public class LoginWebController {
         // Redirigir a una página de error
         return "redirect:/logout-error";
     }
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
+    }
 
 
 
