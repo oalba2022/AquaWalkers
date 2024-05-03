@@ -1,6 +1,7 @@
 package com.example.aquawalkers.controllers;
 
 //import com.example.aquawalkers.exceptions.ShoeNotFoundException;
+import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.UserRepository;
@@ -13,11 +14,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +37,9 @@ public class UsersController {
     private ShoeService shoeService;
     @Autowired
     private UserRepository userRepository;
-    /*@GetMapping("/usercard//*{id}")*/
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/usercard")
     public String usercard (Model model, HttpServletRequest request){
         User user = userService.findByName(request.getUserPrincipal().getName()).get();
@@ -82,10 +87,37 @@ public class UsersController {
         return "redirect:/carrito";
     }
 
+    @PostMapping("/register")
+    public String registerUser(@Valid User user, RedirectAttributes redirectAttributes) {
+        try {
+            if (userService.findByName(user.getName()).isPresent()) {
+                redirectAttributes.addFlashAttribute("error", "El nombre de usuario ya está en uso.");
+                return "redirect:/registererror";
+            }
+            String encodedPassword = passwordEncoder.encode(user.getEncodedPassword());
+            user.setPassword(encodedPassword);
+
+            List<String> roles = user.getRoles();
+            if (roles == null) {
+                roles = new ArrayList<>();
+            }
+            roles.add("USER");
+            user.setRoles(roles);
+
+            userService.save(user);
+            redirectAttributes.addFlashAttribute("success", "Usuario registrado exitosamente.");
+            return "redirect:/inicio";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al registrar el usuario: " + e.getMessage());
+            return "redirect:/register";
+        }
+
+
     @GetMapping("/users")
     public String allusers(Model model, HttpServletRequest request){
         model.addAttribute("users", userService.findAll());
         model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "users";
+
     }
 }

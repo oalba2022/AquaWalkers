@@ -1,8 +1,9 @@
-package com.example.aquawalkers.controllers.auth;
+package com.example.aquawalkers.controllers;
 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,13 +25,26 @@ public class LoginRestController {
     @Autowired
     private UserLoginService userService;
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
             @CookieValue(name = "accessToken", required = false) String accessToken,
             @CookieValue(name = "refreshToken", required = false) String refreshToken,
             @RequestBody LoginRequest loginRequest) {
 
         return userService.login(loginRequest, accessToken, refreshToken);
+    }*/
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(
+            @CookieValue(name = "accessToken", required = false) String accessToken,
+            @CookieValue(name = "refreshToken", required = false) String refreshToken,
+            @RequestBody LoginRequest loginRequest) {
+        ResponseEntity<AuthResponse> responseEntity = userService.login(loginRequest, accessToken, refreshToken);
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            return responseEntity;
+        } else {
+            AuthResponse errorResponse = new AuthResponse(Status.FAILURE, "Error en el inicio de sesión.");
+            return ResponseEntity.status(responseEntity.getStatusCode()).body(errorResponse);
+        }
     }
 
     @PostMapping("/refresh")
