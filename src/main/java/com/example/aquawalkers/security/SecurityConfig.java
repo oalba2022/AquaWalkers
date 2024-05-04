@@ -131,6 +131,7 @@ public class SecurityConfig {
 					.requestMatchers("/usercard").hasAnyRole("USER","ADMIN")
 					.requestMatchers("/zapatilla/**").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/carrito").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/uploadfile").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/users").hasRole("ADMIN")
 			)
 			.formLogin(formLogin -> formLogin
