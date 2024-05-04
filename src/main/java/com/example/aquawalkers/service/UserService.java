@@ -80,15 +80,14 @@ public class UserService {
         return suma;
     }
 
-    public void comprar(){
-        /*List<Shoe> carrito = this.inv.getCarrito();
+    public void comprar(User user){
+        List<Shoe> carrito = user.getCarrito();
         for(int i = 0; i < carrito.size(); i++){
             carrito.get(i).setStock(carrito.get(i).getStock()-1);
-        }*/
-        User inv = findById(1L).get();
+        }
         List<Shoe> nuevo_carrito = new ArrayList<>();
-        inv.setCarrito(nuevo_carrito);
-        userRepository.save(inv);
+        user.setCarrito(nuevo_carrito);
+        userRepository.save(user);
     }
 
     public User registerUser(User user, String password) {

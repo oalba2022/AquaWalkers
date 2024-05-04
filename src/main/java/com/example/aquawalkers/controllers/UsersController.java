@@ -79,8 +79,9 @@ public class UsersController {
     }
 
     @PostMapping("/comprar")
-    public String comprar(Model model){
-        this.userService.comprar();
+    public String comprar(Model model, HttpServletRequest request){
+        User user = userService.findByName(request.getUserPrincipal().getName()).get();
+        this.userService.comprar(user);
         return "redirect:/carrito";
     }
 
