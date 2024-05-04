@@ -102,9 +102,9 @@ public class UsersController {
     public String deleteShoe(Model model, @PathVariable long id){
         if(userService.exist(id)){
             userService.delete(id);
-            return "users";
+            return "redirect:/users";
         }
-        return "users";
+        return "redirect:/users";
     }
 
     @GetMapping("/users")
