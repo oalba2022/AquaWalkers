@@ -35,10 +35,7 @@ public class UsersController {
     private UserService userService;
     @Autowired
     private ShoeService shoeService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/usercard")
     public String usercard (Model model, HttpServletRequest request){
@@ -47,14 +44,14 @@ public class UsersController {
         model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "usercard";
     }
-    @GetMapping("/private")
+   /* @GetMapping("/private")
     public String privatePage(Model model, HttpServletRequest request) {
         String name = request.getUserPrincipal().getName();
-        User user = userRepository.findByName(name).orElseThrow();
+        User user = userService.findByName(name).orElseThrow();
         model.addAttribute("username", user.getName());
         model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "private";
-    }
+    }*/
 
     @PostMapping("/index")
     public String newUser (Model model, @Valid User user){
@@ -99,11 +96,18 @@ public class UsersController {
         }
     }
 
+    @GetMapping("/deleteuser/{id}")
+    public String deleteShoe(Model model, @PathVariable long id){
+        if(userService.exist(id)){
+            userService.delete(id);
+            return "users";
+        }
+        return "users";
+    }
 
     @GetMapping("/users")
-    public String allusers(Model model, HttpServletRequest request){
+    public String allusers(Model model){
         model.addAttribute("users", userService.findAll());
         return "users";
-
     }
 }
