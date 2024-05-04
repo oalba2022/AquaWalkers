@@ -3,10 +3,13 @@ package com.example.aquawalkers.controllers;
 //import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
+import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.service.ShoeService;
+import com.example.aquawalkers.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +32,8 @@ public class ShoesRESTController {
     private ShoeService shoeService ;
     @Autowired
     private ShoeRepository shoeRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/zapatillas") //funciona
     public  ResponseEntity <List<Shoe>> getShoes() throws JsonProcessingException {
@@ -68,11 +73,12 @@ public class ShoesRESTController {
     }
 
     @PostMapping("/zapatilla/{id}/comment") //funciona
-    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String string){
+    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody String string, HttpServletRequest request){
         Comment comment = new Comment();
         comment.setText(string);
+        User user = this.userService.findByName(request.getUserPrincipal().getName()).get();
         Shoe shoe = shoeService.findById(id);
-        shoeService.anadirComentario(shoe, comment);
+        shoeService.anadirComentario(shoe, comment, user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
