@@ -26,10 +26,20 @@ public class FileService {
         Files.copy(file.getInputStream(), newFile);
     }*/
     public void saveFile(String folderName,  MultipartFile file, String fileName) throws IOException{
+        fileName = sanitizeFileName(fileName);
         Path folder = FILES_FOLDER.resolve(folderName);
         Files.createDirectories(folder);
         Path newFile = folder.resolve(fileName);
         file.transferTo(newFile);
+
+        /*Path folder = FILES_FOLDER.resolve(folderName);
+        Files.createDirectories(folder);
+        Path newFile = folder.resolve(fileName);
+        file.transferTo(newFile);*/
+    }
+
+    private String sanitizeFileName(String fileName) {
+        return fileName.replaceAll("[^a-zA-Z0-9._-]", "_");
     }
 
     public void deleteFile(String folderName, String fileName) throws IOException {
