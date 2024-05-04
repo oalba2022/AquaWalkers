@@ -31,11 +31,6 @@ public class FileService {
         Files.createDirectories(folder);
         Path newFile = folder.resolve(fileName);
         file.transferTo(newFile);
-
-        /*Path folder = FILES_FOLDER.resolve(folderName);
-        Files.createDirectories(folder);
-        Path newFile = folder.resolve(fileName);
-        file.transferTo(newFile);*/
     }
 
     private String sanitizeFileName(String fileName) {
