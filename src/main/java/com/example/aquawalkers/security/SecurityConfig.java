@@ -58,50 +58,45 @@ public class SecurityConfig {
 	@Bean
 	@Order(1)
 	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-		
+
 		http.authenticationProvider(authenticationProvider());
 		http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 		http
-			.securityMatcher("/api/**")
-			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
-		
+				.securityMatcher("/api/**")
+				.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+
 		http
 
-			.authorizeHttpRequests(authorize -> authorize
-                    // PRIVATE ENDPOINTS
-                    .requestMatchers(HttpMethod.POST,"/api/zapatilla").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.GET,"/api/zapatillas").hasAnyRole("USER","ADMIN")
-					.requestMatchers(HttpMethod.GET, "/api/zapatilla/**").hasAnyRole("USER","ADMIN")
-                    .requestMatchers(HttpMethod.PUT,"/api/zapatilla/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE,"/api/zapatilla/**").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.POST, "/api/zapatilla/**/image").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.POST, "/api/zapatilla/**/comment").hasAnyRole("USER","ADMIN")
-					.requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("USER","ADMIN")
-					.requestMatchers(HttpMethod.POST, "/api/auth/logout").hasAnyRole("USER","ADMIN")
+				.authorizeHttpRequests(authorize -> authorize
+						// PRIVATE ENDPOINTS
+						.requestMatchers(HttpMethod.POST,"/api/zapatilla").hasAnyRole("USER","ADMIN") //funciona
+						.requestMatchers(HttpMethod.GET,"/api/zapatillas").hasAnyRole("USER","ADMIN") //funciona
+						.requestMatchers(HttpMethod.GET, "/api/zapatilla/*").hasAnyRole("USER","ADMIN") //funciona
+						.requestMatchers(HttpMethod.PUT,"/api/zapatilla/*").hasRole("ADMIN") //funciona
+						.requestMatchers(HttpMethod.DELETE,"/api/zapatilla/*").hasRole("ADMIN") //funciona
+						.requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("USER","ADMIN") //funciona
+						.requestMatchers(HttpMethod.POST, "/api/zapatilla/*/comment").hasAnyRole("USER","ADMIN") //comentarios, funciona pero añade infinitos. en web y base de datos sale solo uno
+						.requestMatchers(HttpMethod.POST,"/api/zapatilla/*/image").hasRole("ADMIN") //funciona
+						//PUBLIC ENDPOINTS
+						.anyRequest().permitAll()
+				);
 
-					// PUBLIC ENDPOINTS
-					.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-					.requestMatchers(HttpMethod.GET,"/api/auth/refresh").permitAll()
+		// Disable Form login Authentication
+		http.formLogin(formLogin -> formLogin.disable());
 
-					.anyRequest().permitAll()
-			);
-		
-        // Disable Form login Authentication
-        http.formLogin(formLogin -> formLogin.disable());
+		// Disable CSRF protection (it is difficult to implement in REST APIs)
+		http.csrf(csrf -> csrf.disable());
 
-        // Disable CSRF protection (it is difficult to implement in REST APIs)
-       // http.csrf(csrf -> csrf.disable());
+		// Disable Basic Authentication
+		http.httpBasic(httpBasic -> httpBasic.disable());
 
-        // Disable Basic Authentication
-        http.httpBasic(httpBasic -> httpBasic.disable());
-
-        // Stateless session
-        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		// Stateless session
+		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		// Add JWT Token filter
-			http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-			return http.build();
+		return http.build();
 	}
 	@Bean
     @Order(2)
