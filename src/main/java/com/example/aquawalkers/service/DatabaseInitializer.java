@@ -32,10 +32,10 @@ public class DatabaseInitializer {
     private ShoeService shoeService;
     @Autowired
     private UserService userService;
-    @Autowired
+    /*@Autowired
     private CommentService commentService;
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository;*/
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -57,9 +57,6 @@ public class DatabaseInitializer {
         File img3 = new File("images/dunk2.png");
         FileInputStream input3 = new FileInputStream(img3);
         MultipartFile multipartFile3 = new MockMultipartFile("fileItem", img3.getName(), "image/png", IOUtils.toByteArray(input3));
-
-        User user1= new User();
-        userService.save(user1);
 
         Shoe shoe1 = new Shoe("TN","Nike","Muy baratas",50,28,120,null);
         shoeService.save(shoe1,multipartFile1);

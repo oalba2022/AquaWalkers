@@ -16,6 +16,7 @@
 
             <div class="buttons">
                 <form action="/addcarrito/{{id}}" method="post">
+                    <input type="hidden" name="_csrf" value="{{token}}" />
                     <button input type="submit">Añadir al carrito
                         <span>
                             <svg class="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">

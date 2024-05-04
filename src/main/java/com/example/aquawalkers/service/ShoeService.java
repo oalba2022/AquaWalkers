@@ -139,11 +139,10 @@ public class ShoeService {
         shoe.setDate(LocalDate.now());
         return image;
     }
-    public void addUser(Long id) throws SQLException, IOException {
+    public void addUser(Long id, User user) throws SQLException, IOException {
         Shoe shoe=this.findById(id);
-        User inv = userService.findById(1L).get();
-        shoe.getUsuarios().add(inv);
-        inv.addCarrito(shoe);
+        shoe.getUsuarios().add(user);
+        user.addCarrito(shoe);
         this.save1(shoe);
     }
     public List<Shoe> findAll1() {
