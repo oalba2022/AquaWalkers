@@ -18,9 +18,11 @@ public class UserRestController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
 
-    @GetMapping("/me")
+    @GetMapping("/me") //funciona
     public ResponseEntity<User> me(HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
@@ -30,5 +32,11 @@ public class UserRestController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/register") //funciona
+    public ResponseEntity<User> register(@RequestBody User user){
+        User newuser = this.userService.registerUser(user,user.getEncodedPassword());
+        return new ResponseEntity<>(newuser, HttpStatus.CREATED);
     }
 }
