@@ -143,8 +143,8 @@ public class SecurityConfig {
 					.logoutUrl("/logout")
 					.logoutSuccessUrl("/")
 					.permitAll()
-			)
-				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+			);
+				/*.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));*/
 		//http.csrf(csrf -> csrf.disable());
 
 		return http.build();

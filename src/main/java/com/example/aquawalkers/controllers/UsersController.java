@@ -103,7 +103,6 @@ public class UsersController {
     @GetMapping("/users")
     public String allusers(Model model, HttpServletRequest request){
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "users";
 
     }

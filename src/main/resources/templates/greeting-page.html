@@ -8,6 +8,7 @@
     <h2 style="text-align: center">Mandanos tus ideas</h2>
     <form action="/uploadfile" method="post" enctype="multipart/form-data" >
         <input type="file" name="filename">
+        <input type="hidden" name="_csrf" value="{{token}}" />
         <button type="submit">añade</button>
     </form>
     <h3 style="text-align: center">Destacados</h3>

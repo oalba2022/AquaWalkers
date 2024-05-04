@@ -45,7 +45,7 @@ public class ShoesWebController {
     @GetMapping("/zapatillas")
     public String showAllShoes(Model model, Integer from, Integer to, String marca, HttpServletRequest request){
         model.addAttribute("zapatillas", shoeService.findAll(from,to,marca));
-        model.addAttribute("admin", request.isUserInRole("ADMIN"));
+                model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "allshoes";
     }
 

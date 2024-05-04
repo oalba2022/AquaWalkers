@@ -13,7 +13,6 @@
         <h1 id="title">Login</h1>
         <form action="/login" method="POST">
             <div class="input-group">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <div class="input-field">
                     <i class="fa-solid fa-envelope"></i>
                     <label>
@@ -25,6 +24,7 @@
                     <label>
                         <input type="password" placeholder="Contraseña" name="password">
                     </label>
+                    <input type="hidden" name="_csrf" value="{{token}}" />
                 </div>
             </div>
             <div class="btn-field">
