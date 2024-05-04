@@ -4,6 +4,7 @@ package com.example.aquawalkers.service;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
+import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,8 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     public Optional<User> findById(long id) {
@@ -105,6 +108,10 @@ public class UserService {
         user.setRoles(roles);
 
         return save(user);
+    }
+
+    public void saveComment(Comment comment, User user){
+        commentRepository.save(comment);
     }
     /*public boolean validateUser(String username, String password) {
         Optional<User> user = userRepository.findByName(username);

@@ -111,9 +111,10 @@ public class ShoeService {
         return false;
     }
 
-    public void anadirComentario(Shoe shoe, Comment comment){
+    public void anadirComentario(Shoe shoe, Comment comment, User user){
         comment.setText(this.sanitize(comment.getText()));
-        commentService.save(comment, shoe);
+        commentService.save(comment, shoe, user);
+        user.addComment(comment);
         shoe.addComment(comment);
         shoeRepository.save(shoe);
     }

@@ -5,6 +5,7 @@ package com.example.aquawalkers.controllers;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
 //import com.example.aquawalkers.service.ImageService;
+import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.service.CommentService;
@@ -20,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.aquawalkers.service.UserService;
 
 import java.io.IOException;
 import java.sql.Blob;
@@ -39,7 +41,8 @@ public class ShoesWebController {
     @Autowired
     private FileService fileService;
 
-
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/zapatillas")
@@ -92,16 +95,18 @@ public class ShoesWebController {
         return"escribirComentario";
     }
     @PostMapping("/zapatilla/{id}/escribirComentario")
-    public String newComment(Model model, String comment, @PathVariable long id) {
+    public String newComment(Model model, String comment, @PathVariable long id, HttpServletRequest request) {
         Shoe zapatilla = shoeService.findById(id);
-        Comment comentario = new Comment(comment);
-        shoeService.anadirComentario(zapatilla, comentario);
+        User user = this.userService.findByName(request.getUserPrincipal().getName()).get();
+        Comment comentario = new Comment(comment, user);
+        shoeService.anadirComentario(zapatilla, comentario,user);
         model.addAttribute(comentario.getText());
         return "redirect:/zapatilla/"+id;
    }
     @GetMapping("/deletecomment/{id}")
-    public String deleteComment(Model model, @PathVariable long id){
-        commentService.delete(id);
+    public String deleteComment(Model model, @PathVariable long id, HttpServletRequest request){
+        User user = this.userService.findByName(request.getUserPrincipal().getName()).get();
+        commentService.delete(id, user);
         return "redirect:/zapatillas";
     }
 

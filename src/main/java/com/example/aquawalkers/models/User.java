@@ -7,10 +7,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name="USERS")
@@ -21,25 +18,15 @@ public class User {
     private Long id;
     @Column(unique=true)
     private String name;
-
     private String mail;
     @JsonIgnore
     private String encodedPassword;
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
     @ManyToMany
     private List<Shoe> carrito;
-   /*@OneToMany(mappedBy = "id")
-    private ArrayList<Comment> comentariosEscritos;*/
+    @OneToMany
+    private List<Comment> comentariosEscritos;
 
     public User(){}
     public User(String name, String encodedPassword, String roles, String mail) {
@@ -49,10 +36,17 @@ public class User {
         this.roles = List.of(roles);
         this.mail = mail;
         this.carrito = new ArrayList<Shoe>();
-        /*this.comentariosEscritos = new ArrayList<Comment>();*/
+        this.comentariosEscritos = new ArrayList<Comment>();
     }
     public String getName() {
         return name;
+    }
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
     public void setName(String name) {
         this.name = name;
@@ -79,9 +73,9 @@ public class User {
         return carrito;
     }
 
-    /*public ArrayList<Comment> getComentariosEscritos() {
+    public List<Comment> getComentariosEscritos() {
         return comentariosEscritos;
-    }*/
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -94,6 +88,13 @@ public class User {
    /* public void setComentariosEscritos(ArrayList<Comment> comentariosEscritos) {
         this.comentariosEscritos = comentariosEscritos;
     }*/
+    public void addComment(Comment comment){
+        this.comentariosEscritos.add(comment);
+    }
+
+    public void deleteComment(Comment comment){
+        this.comentariosEscritos.remove(comment);
+    }
 
     public void addCarrito(Shoe shoe){
         this.carrito.add(shoe);
