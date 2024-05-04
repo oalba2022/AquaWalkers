@@ -13,7 +13,8 @@
             <h1 id="title">Register</h1>
             <form action="/register" method="post">
             <div class="input-group">
-                    <div class="input-field" id="nameInput">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <div class="input-field" id="nameInput">
                         <i class="fa-solid fa-user"></i>
                         <label>
                             <input type="text" placeholder="Nombre" name="name">

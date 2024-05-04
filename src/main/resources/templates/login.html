@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -13,6 +13,7 @@
         <h1 id="title">Login</h1>
         <form action="/login" method="POST">
             <div class="input-group">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <div class="input-field">
                     <i class="fa-solid fa-envelope"></i>
                     <label>
