@@ -18,6 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.example.aquawalkers.security.jwt.UnauthorizedHandlerJwt;
 import com.example.aquawalkers.security.jwt.JwtRequestFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -57,12 +60,13 @@ public class SecurityConfig {
 	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 		
 		http.authenticationProvider(authenticationProvider());
-		
+		http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 		http
 			.securityMatcher("/api/**")
 			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 		
 		http
+
 			.authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS
                     .requestMatchers(HttpMethod.POST,"/api/zapatilla").hasRole("ADMIN")
@@ -86,7 +90,7 @@ public class SecurityConfig {
         http.formLogin(formLogin -> formLogin.disable());
 
         // Disable CSRF protection (it is difficult to implement in REST APIs)
-        http.csrf(csrf -> csrf.disable());
+       // http.csrf(csrf -> csrf.disable());
 
         // Disable Basic Authentication
         http.httpBasic(httpBasic -> httpBasic.disable());
@@ -102,9 +106,7 @@ public class SecurityConfig {
 	@Bean
     @Order(2)
 	public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
-		
 		http.authenticationProvider(authenticationProvider());
-		
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
@@ -120,8 +122,6 @@ public class SecurityConfig {
 					.requestMatchers("/login").permitAll()
 					.requestMatchers("/sobre-nosotros").permitAll()
 					.requestMatchers("/register").permitAll()
-
-
 					// PRIVATE PAGES
 					.requestMatchers("/newshoe").hasAnyRole("ADMIN")
                     .requestMatchers("/modifyshoe/*").hasAnyRole("ADMIN")
@@ -143,10 +143,16 @@ public class SecurityConfig {
 					.logoutUrl("/logout")
 					.logoutSuccessUrl("/")
 					.permitAll()
-			);
-		http.csrf(csrf -> csrf.disable());
+			)
+				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+		//http.csrf(csrf -> csrf.disable());
 
 		return http.build();
+	}
+	private CsrfTokenRepository csrfTokenRepository() {
+		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		repository.setSessionAttributeName("_csrf");
+		return repository;
 	}
 
 }
