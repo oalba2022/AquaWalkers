@@ -8,6 +8,7 @@ import com.example.aquawalkers.repository.UserRepository;
 import com.example.aquawalkers.service.ShoeService;
 import com.example.aquawalkers.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -60,21 +61,21 @@ public class UsersController {
         return "redirect:/inicio";
     }
     @GetMapping("/carrito")
-    public String carrito (Model model){
-        User invitado = this.userService.findById(1L).get();
-        List<Shoe> shop = invitado.getCarrito();
-        float total = this.userService.precio();
+    public String carrito (Model model, HttpServletRequest request){
+        User user = this.userService.findByName(request.getUserPrincipal().getName()).get();
+        List<Shoe> shop = user.getCarrito();
+        float total = this.userService.precio(user);
         model.addAttribute("shop", shop);
         model.addAttribute("total", total);
         return "carrito";
     }
 
     @PostMapping("/addcarrito/{id}")
-    public String addCarrito(Model model, @PathVariable long id) throws SQLException, IOException {
+    public String addCarrito(Model model, @PathVariable long id, HttpServletRequest request) throws SQLException, IOException {
         Shoe zapato = shoeService.findById(id);
+        User user = userService.findByName(request.getUserPrincipal().getName()).get();
         model.addAttribute("zapato", zapato);
-        shoeService.addUser(id);
-       // shoeService.addUser(userService.getInv(), id);
+        shoeService.addUser(id, user);
         return "redirect:/zapatilla/"+zapato.getId();
     }
 

@@ -134,6 +134,8 @@ public class SecurityConfig {
 					//.requestMatchers("/zapatilla/**").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/carrito").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/uploadfile").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/addcarrito/{id}").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/comprar").hasAnyRole("USER", "ADMIN")
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")

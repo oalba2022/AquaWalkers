@@ -70,10 +70,9 @@ public class UserService {
         this.inv.addCarrito(shoe);
     }*/
 
-    public float precio(){
+    public float precio(User user){
         float suma = 0;
-        User inv = findById(1L).get();
-        List<Shoe> carrito = inv.getCarrito();
+        List<Shoe> carrito = user.getCarrito();
         for(int i = 0; i < carrito.size(); i++){
             suma += carrito.get(i).getPrecio();
         }

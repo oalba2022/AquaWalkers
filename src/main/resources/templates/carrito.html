@@ -12,6 +12,7 @@
 <div class="total-container">
     Precio Total: {{total}} &#8364
     <form action="/comprar" method="post">
+        <input type="hidden" name="_csrf" value="{{token}}" />
         <button class="boton-compra">Comprar</button>
     </form>
 </div>

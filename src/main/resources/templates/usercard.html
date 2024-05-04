@@ -20,6 +20,7 @@
             {{mail}}
         </div>
         <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="{{token}}" />
             <button class =logout-button type="submit">Logout</button>
         </form>
         <div class="location">
