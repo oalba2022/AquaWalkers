@@ -54,17 +54,18 @@ public class CommentService {
     }
 
     public boolean delete(long id, User user){
-        if (!this.exist(id) || !user.getId().equals(commentRepository.findById(id).get().getUser().getId())){
-
-            return false;
-        }else{
+        if (commentRepository.existsById(id) && user.getId() == 1L){
+            User useraux = commentRepository.findById(id).get().getUser();
+            useraux.deleteComment(commentRepository.findById(id).get());
+            commentRepository.deleteById(id);
+            return true;
+        }else if(commentRepository.existsById(id) && user.getId().equals(commentRepository.findById(id).get().getUser().getId())){
             user.deleteComment(commentRepository.findById(id).get());
             commentRepository.deleteById(id);
             return true;
         }
+        return false;
     }
-
-
 
     public Comment modify(Comment comment, long id, HttpServletRequest request){
         User user = this.userService.findByName(request.getUserPrincipal().getName()).get();

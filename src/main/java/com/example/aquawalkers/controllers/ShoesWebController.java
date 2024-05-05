@@ -107,14 +107,7 @@ public class ShoesWebController {
     @GetMapping("/deletecomment/{id}")
     public String deleteComment(Model model, @PathVariable long id, HttpServletRequest request){
         User user = this.userService.findByName(request.getUserPrincipal().getName()).get();
-        if(user.getId() == 1) {
-            commentService.delete(id,user);
-        } else {
-            Comment commentToDelete = commentService.findById(id).get();
-            if(commentToDelete != null && commentToDelete.getUser().getId() == user.getId()) {
-                commentService.delete(id,user);
-            }
-        }
+        commentService.delete(id, user);
         return "redirect:/zapatillas";
     }
 
