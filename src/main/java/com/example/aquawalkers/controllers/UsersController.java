@@ -138,15 +138,15 @@ public class UsersController {
         model.addAttribute("users", userService.findAll());
         return "users";
     }
-    @PostMapping("/modifyUser/{id}")
-    public String modificarUsuario(@PathVariable long id, User user,Model model) {
-        User newuser=userService.modifyUser(id, user);
+    @PostMapping("/modifyuser")
+    public String modificarUsuario(User user, Model model) {
+        User newuser=userService.modifyUser(user);
         model.addAttribute("user", newuser);
         return "redirect:/inicio";
     }
-    @GetMapping("/modifyUser/{id}")
-    public String modificar(Model model, @PathVariable long id){
-        User user = userService.findById(id).get();
+    @GetMapping("/modifyuser")
+    public String modificar(Model model, HttpServletRequest request){
+        User user = userService.findByName(request.getUserPrincipal().getName()).get();
         model.addAttribute("user", user);
         return "modifyUser";
     }
