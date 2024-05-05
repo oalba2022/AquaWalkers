@@ -100,9 +100,10 @@ public class UsersController {
 
     @GetMapping("/deleteuser/{id}")
     public String deleteShoe(Model model, @PathVariable long id){
-        if(userService.exist(id)){
-            userService.delete(id);
-            return "redirect:/users";
+        if(id != 1) {
+            if(userService.exist(id)){
+                userService.delete(id);
+            }
         }
         return "redirect:/users";
     }
