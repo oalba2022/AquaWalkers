@@ -6,6 +6,7 @@ import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.CommentRepository;
 import com.example.aquawalkers.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private HttpSession httpSession;
 
 
     public Optional<User> findById(long id) {
@@ -59,9 +62,6 @@ public class UserService {
         }
         return false;
     }
-
-
-
     public User modify(User user, long id) {
         long newId = id;
         this.delete(id);
