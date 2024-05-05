@@ -1,0 +1,14 @@
+{{>menu}}
+{{#user}}
+<form action="/modifyUser/{{id}}" method="post">
+    <label>Nombre:</label>
+    <input type="text" name="name" value="{{name}}"/>
+    <label>Corréo:</label>
+    <input type="email" name="mail" value="{{mail}}"/>
+    <label>Contraseña:</label>
+    <input type="text" name="password" value="{{encodedPassword}}"/>
+
+    <input type="hidden" name="_csrf" value="{{token}}" />
+    <input type="submit" value="Modificar" />
+</form>
+{{/user}}
