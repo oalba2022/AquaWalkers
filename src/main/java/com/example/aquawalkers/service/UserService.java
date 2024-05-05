@@ -63,7 +63,17 @@ public class UserService {
         return false;
     }
 
-    public User modifyUser(long id, User user) {
+    public User modifyUser(User user){
+        User user1 = findByName(user.getName()).get();
+
+        user1.setName(user.getName());
+        user1.setPassword(user.getEncodedPassword());
+        user1.setMail(user.getMail());
+        userRepository.save(user1);
+        return user1;
+    }
+
+    /*public User modifyUser(long id, User user) {
         User usuario = userRepository.findById(id).get();
         if ( userRepository.findByName(user.getName()).isEmpty()) {
             usuario.setName(user.getName());
@@ -73,7 +83,7 @@ public class UserService {
 
         }
         return save(usuario);
-    }
+    }*/
     /*public User modify(User user, long id) {
         long newId = id;
         this.delete(id);
