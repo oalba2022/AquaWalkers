@@ -103,10 +103,18 @@ public class ShoesWebController {
         model.addAttribute(comentario.getText());
         return "redirect:/zapatilla/"+id;
    }
+
     @GetMapping("/deletecomment/{id}")
     public String deleteComment(Model model, @PathVariable long id, HttpServletRequest request){
         User user = this.userService.findByName(request.getUserPrincipal().getName()).get();
-        commentService.delete(id, user);
+        if(user.getId() == 1) {
+            commentService.delete(id,user);
+        } else {
+            Comment commentToDelete = commentService.findById(id).get();
+            if(commentToDelete != null && commentToDelete.getUser().getId() == user.getId()) {
+                commentService.delete(id,user);
+            }
+        }
         return "redirect:/zapatillas";
     }
 
