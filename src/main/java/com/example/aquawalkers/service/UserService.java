@@ -62,7 +62,19 @@ public class UserService {
         }
         return false;
     }
-    public User modify(User user, long id) {
+
+    public User modifyUser(long id, User user) {
+        User usuario = userRepository.findById(id).get();
+        if ( userRepository.findByName(user.getName()).isEmpty()) {
+            usuario.setName(user.getName());
+            usuario.setMail(user.getMail());
+            String encodep = passwordEncoder.encode(user.getEncodedPassword());
+            usuario.setPassword(encodep);
+
+        }
+        return save(usuario);
+    }
+    /*public User modify(User user, long id) {
         long newId = id;
         this.delete(id);
         user.setId(newId);

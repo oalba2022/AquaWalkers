@@ -44,6 +44,8 @@ public class UsersController {
     private HttpSession httpSession;
     @Autowired
     private UserLoginService userLoginService;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @GetMapping("/usercard")
@@ -135,6 +137,18 @@ public class UsersController {
     public String allusers(Model model){
         model.addAttribute("users", userService.findAll());
         return "users";
+    }
+    @PostMapping("/modifyUser/{id}")
+    public String modificarUsuario(@PathVariable long id, User user,Model model) {
+        User newuser=userService.modifyUser(id, user);
+        model.addAttribute("user", newuser);
+        return "redirect:/inicio";
+    }
+    @GetMapping("/modifyUser/{id}")
+    public String modificar(Model model, @PathVariable long id){
+        User user = userService.findById(id).get();
+        model.addAttribute("user", user);
+        return "modifyUser";
     }
 
 

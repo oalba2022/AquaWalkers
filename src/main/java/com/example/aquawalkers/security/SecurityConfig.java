@@ -132,6 +132,8 @@ public class SecurityConfig {
 					.requestMatchers("/addcarrito/{id}").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/comprar").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/deleteme/*").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/modifyUser/*").hasAnyRole("USER", "ADMIN")
+
 
 			)
 			.formLogin(formLogin -> formLogin
