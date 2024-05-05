@@ -19,6 +19,7 @@
         <div class="nickname">
             {{mail}}
         </div>
+        <div class="botones-container">
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="{{token}}" />
             <button class =logout-button type="submit">Logout</button>
@@ -26,7 +27,7 @@
 
         <input type="hidden" name="_csrf" value="{{token}}" />
         <a href="/deleteme/{{id}}"><button class="button_deleteme">Borrar Usuario</button></a>
-
+        </div>
         <div class="location">
             <i class="material-icons">place</i>Spain
         </div>
