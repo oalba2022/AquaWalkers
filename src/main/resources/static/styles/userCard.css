@@ -76,8 +76,11 @@
 .bottom{
     margin-top:10px;
 }
-
-.logout-button {
+.botones-container {
+    display: flex;
+    align-items: center;
+}
+.logout-button, .button_deleteme {
     background-color:  #78C8FF;
     color: white;
     border: none;
@@ -89,9 +92,9 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-
+    margin-right: 10px;
 }
 
-.logout-button:hover {
+.button_deleteme:hover, .logout-button:hover {
     background-color: #8FD1FF;
 }
