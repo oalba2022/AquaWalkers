@@ -5,16 +5,20 @@ import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.UserRepository;
+import com.example.aquawalkers.security.jwt.UserLoginService;
 import com.example.aquawalkers.service.ShoeService;
 import com.example.aquawalkers.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +40,10 @@ public class UsersController {
     private UserService userService;
     @Autowired
     private ShoeService shoeService;
+    @Autowired
+    private HttpSession httpSession;
+    @Autowired
+    private UserLoginService userLoginService;
 
 
     @GetMapping("/usercard")
@@ -107,10 +115,27 @@ public class UsersController {
         }
         return "redirect:/users";
     }
+    @GetMapping("/deleteme/{id}")
+    public String deleteme(Model model, @PathVariable long id){
+        if(userService.exist(id)){
+            /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null && auth.isAuthenticated()) {
+
+                SecurityContextHolder.getContext().setAuthentication(null);
+            }*/
+            userService.delete(id);
+        }
+
+        return "redirect:/login";
+    }
+
+
 
     @GetMapping("/users")
     public String allusers(Model model){
         model.addAttribute("users", userService.findAll());
         return "users";
     }
+
+
 }
