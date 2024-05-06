@@ -17,14 +17,6 @@ public class FileService {
     @Value ("src/main/resources/static/files")
     private String uploadDir;
 
-    /*public void saveFile(String folderName, MultipartFile file, String filename) throws IOException {
-        Path folder = Paths.get(uploadDir, folderName);
-        if(!Files.exists(folder)){
-            Files.createDirectories(folder);
-        }
-        Path newFile = folder.resolve(filename);
-        Files.copy(file.getInputStream(), newFile);
-    }*/
     public void saveFile(String folderName,  MultipartFile file, String fileName) throws IOException{
         fileName = sanitizeFileName(fileName);
         Path folder = FILES_FOLDER.resolve(folderName);
@@ -42,6 +34,4 @@ public class FileService {
         Path filePath = folder.resolve(fileName);
         Files.deleteIfExists(filePath);
     }
-
-
 }

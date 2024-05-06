@@ -69,15 +69,15 @@ public class SecurityConfig {
 
 				.authorizeHttpRequests(authorize -> authorize
 						// PRIVATE ENDPOINTS
-						.requestMatchers(HttpMethod.POST,"/api/zapatilla").hasAnyRole("USER","ADMIN") //funciona
-						.requestMatchers(HttpMethod.GET,"/api/zapatillas").hasAnyRole("USER","ADMIN") //funciona
-						.requestMatchers(HttpMethod.GET, "/api/zapatilla/*").hasAnyRole("USER","ADMIN") //funciona
-						.requestMatchers(HttpMethod.PUT,"/api/zapatilla/*").hasRole("ADMIN") //funciona
-						.requestMatchers(HttpMethod.DELETE,"/api/zapatilla/*").hasRole("ADMIN") //funciona
-						.requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("USER","ADMIN") //funciona
-						.requestMatchers(HttpMethod.POST, "/api/zapatilla/*/comment").hasAnyRole("USER","ADMIN") //comentarios, funciona pero añade infinitos. en web y base de datos sale solo uno
-						.requestMatchers(HttpMethod.POST,"/api/zapatilla/*/image").hasRole("ADMIN") //funciona
-						.requestMatchers(HttpMethod.DELETE,"/api/users/deleteuser/*").hasRole("ADMIN") //funciona
+						.requestMatchers(HttpMethod.POST,"/api/zapatilla").hasAnyRole("USER","ADMIN")
+						.requestMatchers(HttpMethod.GET,"/api/zapatillas").hasAnyRole("USER","ADMIN")
+						.requestMatchers(HttpMethod.GET, "/api/zapatilla/*").hasAnyRole("USER","ADMIN")
+						.requestMatchers(HttpMethod.PUT,"/api/zapatilla/*").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,"/api/zapatilla/*").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("USER","ADMIN")
+						.requestMatchers(HttpMethod.POST, "/api/zapatilla/*/comment").hasAnyRole("USER","ADMIN")
+						.requestMatchers(HttpMethod.POST,"/api/zapatilla/*/image").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,"/api/users/deleteuser/*").hasRole("ADMIN")
 						//PUBLIC ENDPOINTS
 						.anyRequest().permitAll()
 				);

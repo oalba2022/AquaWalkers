@@ -51,6 +51,4 @@ public class DatabaseInitializer {
         Shoe shoe3 = new Shoe("Crocks fran de la jungla","Crocs","Tela de javad entro",50,40,1,null);
         shoeService.save(shoe3,multipartFile3);
     }
-
-
 }

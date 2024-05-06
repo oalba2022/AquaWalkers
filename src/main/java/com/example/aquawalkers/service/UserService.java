@@ -29,9 +29,6 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private CommentRepository commentRepository;
-    @Autowired
-    private HttpSession httpSession;
-
 
     public Optional<User> findById(long id) {
         return userRepository.findById(id);
@@ -43,7 +40,6 @@ public class UserService {
 
     public boolean exist(long id){
         return this.userRepository.existsById(id);
-
     }
 
     public List<User> findAll() {
@@ -53,7 +49,7 @@ public class UserService {
     public User save(@Valid User user){
         userRepository.save(user);
         return user;
-    } //añdadido bbdd
+    }
 
     public boolean delete(long id){
         if (this.exist(id)){
@@ -77,28 +73,6 @@ public class UserService {
         userRepository.save(user1);
         return user1;
     }
-
-    /*public User modifyUser(long id, User user) {
-        User usuario = userRepository.findById(id).get();
-        if ( userRepository.findByName(user.getName()).isEmpty()) {
-            usuario.setName(user.getName());
-            usuario.setMail(user.getMail());
-            String encodep = passwordEncoder.encode(user.getEncodedPassword());
-            usuario.setPassword(encodep);
-
-        }
-        return save(usuario);
-    }*/
-    /*public User modify(User user, long id) {
-        long newId = id;
-        this.delete(id);
-        user.setId(newId);
-        userRepository.save(user);
-        return user;
-    }
-    /*public void addPrecioCarrito(Shoe shoe){
-        this.inv.addCarrito(shoe);
-    }*/
 
     public float precio(User user){
         float suma = 0;
@@ -140,11 +114,4 @@ public class UserService {
     public void saveComment(Comment comment, User user){
         commentRepository.save(comment);
     }
-    /*public boolean validateUser(String username, String password) {
-        Optional<User> user = userRepository.findByName(username);
-        return user.isPresent() && user.get().getEncodedPassword().equals(password);
-    }*/
-    /*public User getInv() {
-        return inv;
-    }*/
 }

@@ -89,14 +89,13 @@ public class UsersController {
         }
         return "redirect:/users";
     }
+
     @GetMapping("/deleteme")
     public String deleteme(Model model, HttpServletRequest request) throws ServletException {
             userService.deleteme(request.getUserPrincipal().getName());
             request.logout();
         return "redirect:/login";
     }
-
-
 
     @GetMapping("/users")
     public String allusers(Model model){
@@ -110,6 +109,7 @@ public class UsersController {
         model.addAttribute("user", newuser);
         return "redirect:/inicio";
     }
+
     @GetMapping("/modifyuser")
     public String modificar(Model model, HttpServletRequest request){
         User user = userService.findByName(request.getUserPrincipal().getName()).get();

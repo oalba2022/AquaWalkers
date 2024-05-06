@@ -15,12 +15,10 @@ import java.util.Optional;
 @Component
 public class CommentService {
 
-
     @Autowired
     private CommentRepository commentRepository;
     @Autowired
     private UserService userService;
-
 
     public Optional<Comment> findById(long id) {
         return commentRepository.findById(id);
