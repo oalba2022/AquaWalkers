@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "f55aab91-7d4a-4c72-aed6-ac769edfa93d",
+		"name": "FASE3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33536249"
+	},
+	"item": [
+		{
+			"name": "LOGIN COMO USER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"user\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:8443/api/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN COMO ADMIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"adminpass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:8443/api/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "GET ZAPATILLAS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:8443/api/zapatillas"
+			},
+			"response": []
+		},
+		{
+			"name": "GET ZAPATILLA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:8443/api/zapatilla/3"
+			},
+			"response": []
+		},
+		{
+			"name": "SUBIR ZAPATILLA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"CROCS DEL RAYO\",\r\n    \"marca\": \"CROCS\",\r\n    \"descripcion\": \"CROCS GUAPISIMAS\",\r\n    \"precio\":200,\r\n    \"talla\": 42,\r\n    \"stock\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:8443/api/zapatilla"
+			},
+			"response": []
+		},
+		{
+			"name": "MODIFICAR ZAPATILLA",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"YA NO SON LAS CROCS\",\r\n    \"marca\": \"NO CROCS\",\r\n    \"descripcion\": \"MUY BONITAS IGUAL\",\r\n    \"precio\":200,\r\n    \"talla\": 42,\r\n    \"stock\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:8443/api/zapatilla/4"
+			},
+			"response": []
+		},
+		{
+			"name": "BORRAR ZAPATILLA",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:8443/api/zapatilla/4"
+			},
+			"response": []
+		},
+		{
+			"name": "ME",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:8443/api/users/me"
+			},
+			"response": []
+		},
+		{
+			"name": "SUBIR COMENTARIO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"string\":\"Las quiero ya!!!!!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:8443/api/zapatilla/1/comment"
+			},
+			"response": []
+		},
+		{
+			"name": "AÑADIR IMAGEN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "img",
+							"type": "file",
+							"src": "postman-cloud:///1eedfeb2-4710-47c0-a2a7-fffdb0159d93"
+						}
+					]
+				},
+				"url": "https://localhost:8443/api/zapatilla/5/image"
+			},
+			"response": []
+		},
+		{
+			"name": "LOGOUT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://localhost:8443/api/auth/logout"
+			},
+			"response": []
+		},
+		{
+			"name": "REFRESH",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://localhost:8443/api/auth/refresh"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE USER",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:8443/api/users/deleteuser/2"
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRAR USUARIO",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

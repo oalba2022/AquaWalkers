@@ -32,7 +32,7 @@ public class JwtTokenProvider {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtRequestFilter.class);
 
-	@Value("Super-secure-password-ForAquawalkers!App")
+	@Value("Super-secure-password-ForAquawalkers!App2024*")
 	private String jwtSecret;
 
 	private static long JWT_EXPIRATION_IN_MS = 5400000;

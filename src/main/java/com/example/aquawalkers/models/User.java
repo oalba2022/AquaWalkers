@@ -92,4 +92,8 @@ public class User {
     public void addCarrito(Shoe shoe){
         this.carrito.add(shoe);
     }
+
+    public void setComentariosEscritos(List<Comment> comentariosEscritos) {
+        this.comentariosEscritos = comentariosEscritos;
+    }
 }

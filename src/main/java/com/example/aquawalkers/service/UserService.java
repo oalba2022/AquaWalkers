@@ -53,6 +53,17 @@ public class UserService {
 
     public boolean delete(long id){
         if (this.exist(id)){
+            User user = userRepository.findById(id).get();
+            List<Comment> lista = new ArrayList<Comment>();
+            List<Comment> listacomment = user.getComentariosEscritos();
+
+            for(int i = 0; i < listacomment.size(); i++){
+                Comment commentid = commentRepository.findById(listacomment.get(i).getId()).get();
+                user.deleteComment(commentid);
+                commentRepository.delete(commentid);
+            }
+            user.setComentariosEscritos(lista);
+            userRepository.save(user);
             userRepository.deleteById(id);
             return true;
         }
@@ -68,7 +79,7 @@ public class UserService {
     public User modifyUser(User user, String name){
         User user1 = findByName(name).get();
         user1.setName(user.getName());
-        user1.setPassword(user.getEncodedPassword());
+        user1.setPassword(passwordEncoder.encode(user.getEncodedPassword()));
         user1.setMail(user.getMail());
         userRepository.save(user1);
         return user1;
