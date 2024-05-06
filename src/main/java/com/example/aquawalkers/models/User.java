@@ -26,6 +26,7 @@ public class User {
     @ManyToMany
     private List<Shoe> carrito;
     @OneToMany
+    @JsonIgnore
     private List<Comment> comentariosEscritos;
 
     public User(){}
