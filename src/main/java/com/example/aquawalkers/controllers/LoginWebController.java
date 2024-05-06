@@ -22,24 +22,14 @@ public class LoginWebController {
     public String logout() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        // Si la autenticación no es nula y está autenticada, invalidarla
         if (auth != null && auth.isAuthenticated()) {
-            // Invalidar la autenticación actual
             SecurityContextHolder.getContext().setAuthentication(null);
-
-
-
             return "redirect:/logout-success";
         }
-
-
         return "redirect:/logout-error";
     }
     @RequestMapping("/register")
     public String register() {
         return "register";
     }
-
-
-
 }

@@ -1,19 +1,13 @@
 package com.example.aquawalkers.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mysql.cj.conf.PropertyDefinitions;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-
 import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity

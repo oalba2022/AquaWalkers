@@ -1,6 +1,5 @@
 package com.example.aquawalkers.controllers;
 
-//import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.service.ShoeService;
 import jakarta.servlet.RequestDispatcher;
@@ -10,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-//import com.example.aquawalkers.controllers.CustomErrorController;
-
 
 @Controller
 public class LinksController {
