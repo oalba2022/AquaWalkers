@@ -19,6 +19,9 @@
         <div class="nickname">
             {{mail}}
         </div>
+        <div class="location">
+            <i class="material-icons">place</i>Spain
+        </div>
         <div class="botones-container">
              <form action="/logout" method="post">
                 <input type="hidden" name="_csrf" value="{{token}}" />
@@ -27,15 +30,12 @@
             <a href="/deleteme/{{id}}"><button class="button_deleteme">Borrar Usuario</button></a>
             <a href="/modifyuser"><button class="button_modify">Modificar Perfil</button></a>
         </div>
-        <div class="location">
-            <i class="material-icons">place</i>Spain
-        </div>
     </div>
     </div>
 {{/user}}
 
 {{#admin}}
-<a class="nav-link active" href="/users">Usuarios</a>
+<a class="nav-link active" href="/users"><button class="button_modify">Usuarios</button></a>
 {{/admin}}
 <br>
 <br>
