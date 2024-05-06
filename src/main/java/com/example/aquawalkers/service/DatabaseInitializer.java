@@ -3,27 +3,17 @@ package com.example.aquawalkers.service;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.models.Comment;
-import com.example.aquawalkers.repository.ShoeRepository;
-import com.example.aquawalkers.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.sql.SQLException;
-
 import org.apache.commons.io.IOUtils;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collections;
 
 
 @Component
@@ -32,10 +22,6 @@ public class DatabaseInitializer {
     private ShoeService shoeService;
     @Autowired
     private UserService userService;
-    /*@Autowired
-    private CommentService commentService;
-    @Autowired
-    private UserRepository userRepository;*/
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -46,15 +32,15 @@ public class DatabaseInitializer {
         userService.save(new User ("user", passwordEncoder.encode("password"), "USER", "user@user.com"));
 
 
-        File img1 = new File("images/dunk2.png");
+        File img1 = new File("images/tn.png");
         FileInputStream input1 = new FileInputStream(img1);
         MultipartFile multipartFile1 = new MockMultipartFile("fileItem", img1.getName(), "image/png", IOUtils.toByteArray(input1));
 
-        File img2 = new File("images/dunk2.png");
+        File img2 = new File("images/samba.png");
         FileInputStream input2 = new FileInputStream(img2);
         MultipartFile multipartFile2 = new MockMultipartFile("fileItem", img2.getName(), "image/png", IOUtils.toByteArray(input2));
 
-        File img3 = new File("images/dunk2.png");
+        File img3 = new File("images/crocs3.png");
         FileInputStream input3 = new FileInputStream(img3);
         MultipartFile multipartFile3 = new MockMultipartFile("fileItem", img3.getName(), "image/png", IOUtils.toByteArray(input3));
 
@@ -64,19 +50,6 @@ public class DatabaseInitializer {
         shoeService.save(shoe2,multipartFile2);
         Shoe shoe3 = new Shoe("Crocks fran de la jungla","Crocs","Tela de javad entro",50,40,1,null);
         shoeService.save(shoe3,multipartFile3);
-
-        Comment comment1 = new Comment();
-        comment1.setText("Hola, cuanto valen");
-        shoe1.addComment(comment1);
-        Comment comment2 = new Comment();
-        comment2.setText("No me gustan ");
-        shoe2.addComment(comment2);
-        Comment comment3 = new Comment();
-        comment3.setText("Ande vas truan con las crocs esas");
-        shoe2.addComment(comment3);
-
-
-
     }
 
 

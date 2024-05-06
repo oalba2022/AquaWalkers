@@ -1,37 +1,23 @@
 package com.example.aquawalkers.controllers;
 
-//import com.example.aquawalkers.exceptions.ShoeNotFoundException;
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.example.aquawalkers.models.Shoe;
 import com.example.aquawalkers.models.User;
 import com.example.aquawalkers.repository.UserRepository;
 import com.example.aquawalkers.security.jwt.UserLoginService;
 import com.example.aquawalkers.service.ShoeService;
 import com.example.aquawalkers.service.UserService;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UsersController {
@@ -40,13 +26,6 @@ public class UsersController {
     private UserService userService;
     @Autowired
     private ShoeService shoeService;
-    @Autowired
-    private HttpSession httpSession;
-    @Autowired
-    private UserLoginService userLoginService;
-    @Autowired
-    private UserRepository userRepository;
-
 
     @GetMapping("/usercard")
     public String usercard (Model model, HttpServletRequest request){
@@ -55,14 +34,6 @@ public class UsersController {
         model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "usercard";
     }
-   /* @GetMapping("/private")
-    public String privatePage(Model model, HttpServletRequest request) {
-        String name = request.getUserPrincipal().getName();
-        User user = userService.findByName(name).orElseThrow();
-        model.addAttribute("username", user.getName());
-        model.addAttribute("admin", request.isUserInRole("ADMIN"));
-        return "private";
-    }*/
 
     @PostMapping("/index")
     public String newUser (Model model, @Valid User user){
@@ -70,6 +41,7 @@ public class UsersController {
         model.addAttribute("userId", newUser.getId());
         return "redirect:/inicio";
     }
+
     @GetMapping("/carrito")
     public String carrito (Model model, HttpServletRequest request){
         User user = this.userService.findByName(request.getUserPrincipal().getName()).get();
@@ -117,17 +89,10 @@ public class UsersController {
         }
         return "redirect:/users";
     }
-    @GetMapping("/deleteme/{id}")
-    public String deleteme(Model model, @PathVariable long id){
-        if(userService.exist(id)){
-            /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && auth.isAuthenticated()) {
-
-                SecurityContextHolder.getContext().setAuthentication(null);
-            }*/
-            userService.delete(id);
-        }
-
+    @GetMapping("/deleteme")
+    public String deleteme(Model model, HttpServletRequest request) throws ServletException {
+            userService.deleteme(request.getUserPrincipal().getName());
+            request.logout();
         return "redirect:/login";
     }
 
@@ -139,8 +104,9 @@ public class UsersController {
         return "users";
     }
     @PostMapping("/modifyuser")
-    public String modificarUsuario(User user, Model model) {
-        User newuser=userService.modifyUser(user);
+    public String modificarUsuario(User user, Model model, HttpServletRequest request) throws ServletException {
+        User newuser=userService.modifyUser(user, request.getUserPrincipal().getName());
+        request.logout();
         model.addAttribute("user", newuser);
         return "redirect:/inicio";
     }
@@ -150,6 +116,4 @@ public class UsersController {
         model.addAttribute("user", user);
         return "modifyUser";
     }
-
-
 }

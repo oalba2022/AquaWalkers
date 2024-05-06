@@ -1,33 +1,24 @@
 package com.example.aquawalkers.controllers;
 
-//import com.example.aquawalkers.exceptions.ShoeExceptionHandler;
-//import com.example.aquawalkers.exceptions.ShoeNotFoundException;
 import com.example.aquawalkers.models.Comment;
 import com.example.aquawalkers.models.Shoe;
-//import com.example.aquawalkers.service.ImageService;
 import com.example.aquawalkers.models.User;
-import com.example.aquawalkers.repository.CommentRepository;
-import com.example.aquawalkers.repository.ShoeRepository;
 import com.example.aquawalkers.service.CommentService;
-import com.example.aquawalkers.service.FileService;
 import com.example.aquawalkers.service.ShoeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ssl.SslProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.aquawalkers.service.UserService;
-
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ShoesWebController {
@@ -39,16 +30,12 @@ public class ShoesWebController {
     private CommentService commentService;
 
     @Autowired
-    private FileService fileService;
-
-    @Autowired
     private UserService userService;
-
 
     @GetMapping("/zapatillas")
     public String showAllShoes(Model model, Integer from, Integer to, String marca, HttpServletRequest request){
         model.addAttribute("zapatillas", shoeService.findAll(from,to,marca));
-                model.addAttribute("admin", request.isUserInRole("ADMIN"));
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
         return "allshoes";
     }
 
@@ -59,9 +46,6 @@ public class ShoesWebController {
         model.addAttribute("admin", request.isUserInRole("ADMIN"));
         if(shoeService.exist(id)){
             model.addAttribute("zapatilla", zapa);
-
-            //model.addAttribute("comentarios", zapa.getComentarios());
-
             return "shoe";
         }else{
             return "allshoes";
@@ -94,6 +78,7 @@ public class ShoesWebController {
     public String escribirComentario(Model model){
         return"escribirComentario";
     }
+
     @PostMapping("/zapatilla/{id}/escribirComentario")
     public String newComment(Model model, String comment, @PathVariable long id, HttpServletRequest request) {
         Shoe zapatilla = shoeService.findById(id);
@@ -110,7 +95,6 @@ public class ShoesWebController {
         commentService.delete(id, user);
         return "redirect:/zapatillas";
     }
-
 
     @GetMapping("/modifyshoe/{id}")
     public String modifyShoe(Model model, @PathVariable long id){

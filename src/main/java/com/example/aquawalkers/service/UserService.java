@@ -63,9 +63,14 @@ public class UserService {
         return false;
     }
 
-    public User modifyUser(User user){
-        User user1 = findByName(user.getName()).get();
+    public boolean deleteme(String name){
+       User user = userRepository.findByName(name).get();
+       userRepository.delete(user);
+       return true;
+    }
 
+    public User modifyUser(User user, String name){
+        User user1 = findByName(name).get();
         user1.setName(user.getName());
         user1.setPassword(user.getEncodedPassword());
         user1.setMail(user.getMail());

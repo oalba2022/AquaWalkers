@@ -77,6 +77,7 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("USER","ADMIN") //funciona
 						.requestMatchers(HttpMethod.POST, "/api/zapatilla/*/comment").hasAnyRole("USER","ADMIN") //comentarios, funciona pero añade infinitos. en web y base de datos sale solo uno
 						.requestMatchers(HttpMethod.POST,"/api/zapatilla/*/image").hasRole("ADMIN") //funciona
+						.requestMatchers(HttpMethod.DELETE,"/api/users/deleteuser/*").hasRole("ADMIN") //funciona
 						//PUBLIC ENDPOINTS
 						.anyRequest().permitAll()
 				);
@@ -123,15 +124,14 @@ public class SecurityConfig {
 					.requestMatchers("/deleteshoe/*").hasAnyRole("ADMIN")
 					.requestMatchers("/deleteuser/*").hasAnyRole("ADMIN")
 					.requestMatchers("/users").hasRole("ADMIN")
-					.requestMatchers("/zapatilla/*/escribirComentario").hasRole("USER")
 					.requestMatchers("/deletecomment/*").hasAnyRole("USER","ADMIN")
 					.requestMatchers("/usercard").hasAnyRole("USER","ADMIN")
-					//.requestMatchers("/zapatilla/**").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/carrito").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/uploadfile").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/zapatilla/*/escribirComentario").hasAnyRole("USER","ADMIN")
 					.requestMatchers("/addcarrito/{id}").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/comprar").hasAnyRole("USER", "ADMIN")
-					.requestMatchers("/deleteme/*").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/deleteme").hasAnyRole("USER", "ADMIN")
 					.requestMatchers("/modifyuser").hasAnyRole("USER", "ADMIN")
 
 
@@ -147,15 +147,6 @@ public class SecurityConfig {
 					.logoutSuccessUrl("/")
 					.permitAll()
 			);
-				/*.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));*/
-		//http.csrf(csrf -> csrf.disable());
-
 		return http.build();
 	}
-	private CsrfTokenRepository csrfTokenRepository() {
-		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-		repository.setSessionAttributeName("_csrf");
-		return repository;
-	}
-
 }

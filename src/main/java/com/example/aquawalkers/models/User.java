@@ -1,12 +1,7 @@
 package com.example.aquawalkers.models;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.*;
 
 @Entity
@@ -86,9 +81,6 @@ public class User {
         this.carrito = carrito;
     }
 
-   /* public void setComentariosEscritos(ArrayList<Comment> comentariosEscritos) {
-        this.comentariosEscritos = comentariosEscritos;
-    }*/
     public void addComment(Comment comment){
         this.comentariosEscritos.add(comment);
     }
@@ -100,14 +92,4 @@ public class User {
     public void addCarrito(Shoe shoe){
         this.carrito.add(shoe);
     }
-   /* @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nombre='" + name + '\'' +
-                ", contrasena='" + password + '\'' +
-                ", carrito=" + carrito +
-                /*", comentariosEscritos=" + comentariosEscritos*/ //+
-                //'}';
-    //}
 }
