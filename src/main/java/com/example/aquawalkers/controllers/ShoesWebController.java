@@ -151,7 +151,7 @@ public class ShoesWebController {
     @PostMapping("/uploadfile")
     public String uploadfile(MultipartFile filename) throws IOException {
         shoeService.uploadData(filename);
-        return "greeting-page";
+        return "redirect:/inicio";
     }
 
 }
