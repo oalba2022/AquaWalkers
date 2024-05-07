@@ -79,7 +79,9 @@ public class UserService {
     public User modifyUser(User user, String name){
         User user1 = findByName(name).get();
         user1.setName(user.getName());
-        user1.setPassword(passwordEncoder.encode(user.getEncodedPassword()));
+        if(!user.getEncodedPassword().equals(user1.getEncodedPassword())){
+            user1.setPassword(passwordEncoder.encode(user.getEncodedPassword()));
+        }
         user1.setMail(user.getMail());
         userRepository.save(user1);
         return user1;
